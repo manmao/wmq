@@ -12,6 +12,9 @@
 #include "slave_init.h"
 #include "master_init.h"
 #include "init.h"
+#include "test_me.h"
+
+
 
 int    g_argc;	   //保存传入的参数  参数个数
 char   *g_argv[];  //保存传入的参数  参数内容
@@ -94,7 +97,10 @@ int main(int argc , char *argv[])
 	int i;
 	for(i=1;i<=argc;i++)
 		g_argv[i] = argv[i];
+	
 	/***************************/
+	printf("a==%d\n",a);
+	test();
 
 	mainpro = fork();
 

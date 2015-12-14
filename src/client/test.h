@@ -21,6 +21,7 @@
 
 #include "md5.h"
 
+
 void testgetvalue()
 {
 	char KeyVal[100];
@@ -142,6 +143,7 @@ void testgetip()
 	get_ip("config/master",ip,&num);
 	int i;
 	printf("%d\n",num);
+
 	for(i=0;i<num;i++)
 	{
 		printf("ip%d : %s\n",i,ip[i]);

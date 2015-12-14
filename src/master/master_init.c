@@ -6,7 +6,7 @@
 #include "common_define.h"
 #include "slave_init.h"
 #include "server_sockopt.h"
-#include "master_server_init.h"
+#include "master_init.h"
 
 
 static void handleterm(int sig)  

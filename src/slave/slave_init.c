@@ -24,7 +24,7 @@ int slave_server_init(int argnum,char *argv[])
 	{
 		errExit("FILE:%s,LINE:%d",__FILE__,__LINE__);
 	}
-
+	
 	//父进程
 	if(pd>0)
 	{
@@ -33,9 +33,10 @@ int slave_server_init(int argnum,char *argv[])
             signal(SIGTERM, handleterm);  
             pause();  
         }*/
+
 	}else if(pd==0){ //子进程
 		SERVER *slave_server;
-		init_server(&slave_server);
+		init_server(&slave_server,8080);
 		start_listen(slave_server);
 	   //printf("test end\n");
 	}	

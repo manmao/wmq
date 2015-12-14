@@ -2,19 +2,28 @@
 #包含了其他makefile都用到的模式规则
 #
 
-CC := gcc
+# cross compile...
+CROSS_COMPILE = 
 
-TARGET := wfs   ##生成的目标文件名
+CC = $(CROSS_COMPILE)gcc
+CXX = $(CROSS_COMPILE)g++
+AR = $(CROSS_COMPILE)ar
+
+ #生成的目标文件名.......
+TARGET := wfs  
+
+#顶层目录
+ROOT := $(shell pwd)
 
 #lib库
 LIB =-lpthread  -lz 
 
-
 ##需要扫描的文件
 TARGET_DIRS :=src/ src/common src/tools/lzma src/tools\
-				src/thread lib/  lib/error \
+				src/thread  \
 				src/client  src/slave \
-				#src/master
+				src/master \
+				lib/  lib/error \
 
 #.h 头文件目录
 INCLUDE_DIR := \
@@ -35,5 +44,11 @@ CFLAGS := $(INCLUDE_DIR)
 CFLAGS += -c -Wall -O2  -D_7ZIP_ST
 
 #对所有的.o文件以.c文件创建它
-%.o : %.c
-	${CC} ${CFLAGS} -c $< -o $(MAKEROOT)/obj/$@ 
+
+$(MAKEROOT)/obj/%.o :  %.c
+	@echo "Compling: " $(addsuffix .c, $(basename $(notdir $@)))
+	${CC} ${CFLAGS} -c $< -o $@ 
+	
+$(MAKEROOT)/obj/%.o :  %.cpp
+	@echo "Compling: " $(addsuffix .cpp, $(basename $(notdir $@)))
+	${CXX} ${CFLAGS} -c $< -o $@

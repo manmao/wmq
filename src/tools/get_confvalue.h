@@ -12,7 +12,7 @@ extern char * a_trim(char * szOutput, const char * szInput);
 extern int get_filestr(char *profile,char *Appname,char *KeyName,char *KeyVal);
 
 //从文件中读取ip地址
-extern int get_ip(char *path,char *ip[],int *ipnum);
+extern int get_ip(char *path,char ip[][20],int *ipnum);
 
 #ifdef __cplusplus
 }

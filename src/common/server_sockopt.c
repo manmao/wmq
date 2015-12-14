@@ -1,4 +1,4 @@
-#include <sys/epoll.h>
+﻿#include <sys/epoll.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <error.h>
@@ -279,7 +279,7 @@ static void server_listener(void *arg){
 
 /**************************
 
-	初始化服务器端口
+        初始化服务器端口
 
 ***************************/
 void  init_server(SERVER **server,int port){

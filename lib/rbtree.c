@@ -366,7 +366,7 @@ struct rb_node *rb_prev(const struct rb_node *node)
 }
 //EXPORT_SYMBOL(rb_prev);
 
-void rb_replace_node(struct rb_node *victim, struct rb_node *new,
+void rb_replace_node(struct rb_node *victim, struct rb_node *news,
 		     struct rb_root *root)
 {
 	struct rb_node *parent = rb_parent(victim);
@@ -374,18 +374,18 @@ void rb_replace_node(struct rb_node *victim, struct rb_node *new,
 	/* Set the surrounding nodes to point to the replacement */
 	if (parent) {
 		if (victim == parent->rb_left)
-			parent->rb_left = new;
+			parent->rb_left = news;
 		else
-			parent->rb_right = new;
+			parent->rb_right = news;
 	} else {
-		root->rb_node = new;
+		root->rb_node = news;
 	}
 	if (victim->rb_left)
-		rb_set_parent(victim->rb_left, new);
+		rb_set_parent(victim->rb_left, news);
 	if (victim->rb_right)
-		rb_set_parent(victim->rb_right, new);
+		rb_set_parent(victim->rb_right, news);
 
 	/* Copy the pointers/colour from the victim to the replacement */
-	*new = *victim;
+	*news = *victim;
 }
 //EXPORT_SYMBOL(rb_replace_node);
