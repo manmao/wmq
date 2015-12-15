@@ -1,7 +1,8 @@
-﻿#
+#
 #当前目录下是C文件
 #
 #
+
 include $(MAKEROOT)/env.mk 			#包括头文件，执行模式规则
 
 C_SRCS := $(wildcard *.c)

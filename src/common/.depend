@@ -1,0 +1,17 @@
+/data/PersonalCode/wfs/obj/client_sockopt.o: client_sockopt.c \
+ common_define.h wfs_util_func.h client_sockopt.h
+/data/PersonalCode/wfs/obj/handle_pkg.o: handle_pkg.c server_sockopt.h \
+ common_define.h wfs_util_func.h /data/PersonalCode/wfs/inc/queue.h \
+ /data/PersonalCode/wfs/src/thread/threadpool.h
+/data/PersonalCode/wfs/obj/hash.o: hash.c hash.h
+/data/PersonalCode/wfs/obj/log.o: log.c \
+ /data/PersonalCode/wfs/inc/error_hdr.h \
+ /data/PersonalCode/wfs/inc/error/get_num.h \
+ /data/PersonalCode/wfs/inc/error/error_functions.h log.h
+/data/PersonalCode/wfs/obj/md5.o: md5.c md5.h
+/data/PersonalCode/wfs/obj/server_sockopt.o: server_sockopt.c \
+ common_define.h wfs_util_func.h server_sockopt.h \
+ /data/PersonalCode/wfs/inc/queue.h \
+ /data/PersonalCode/wfs/src/thread/threadpool.h handle_pkg.h
+/data/PersonalCode/wfs/obj/wfs_util_func.o: wfs_util_func.c \
+ wfs_util_func.h

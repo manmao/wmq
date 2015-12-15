@@ -1,0 +1,23 @@
+/data/PersonalCode/wfs/obj/init.o: init.c \
+ /data/PersonalCode/wfs/src/common/global_config.h \
+ /data/PersonalCode/wfs/src/tools/get_confvalue.h \
+ /data/PersonalCode/wfs/src/common/log.h
+/data/PersonalCode/wfs/obj/main.o: main.c \
+ /data/PersonalCode/wfs/inc/error_hdr.h \
+ /data/PersonalCode/wfs/inc/error/get_num.h \
+ /data/PersonalCode/wfs/inc/error/error_functions.h \
+ /data/PersonalCode/wfs/src/client/test.h \
+ /data/PersonalCode/wfs/src/common/server_sockopt.h \
+ /data/PersonalCode/wfs/src/common/common_define.h \
+ /data/PersonalCode/wfs/src/common/wfs_util_func.h \
+ /data/PersonalCode/wfs/inc/queue.h \
+ /data/PersonalCode/wfs/src/thread/threadpool.h \
+ /data/PersonalCode/wfs/src/common/log.h \
+ /data/PersonalCode/wfs/inc/timer_list.h \
+ /data/PersonalCode/wfs/src/tools/get_confvalue.h \
+ /data/PersonalCode/wfs/inc/rbtree.h \
+ /data/PersonalCode/wfs/src/common/wfs_util_func.h \
+ /data/PersonalCode/wfs/src/common/md5.h \
+ /data/PersonalCode/wfs/src/slave/slave_init.h \
+ /data/PersonalCode/wfs/src/master/master_init.h init.h test_me.h
+/data/PersonalCode/wfs/obj/test_me.o: test_me.cpp test_me.h

@@ -1,0 +1,4 @@
+/data/PersonalCode/wfs/obj/error_functions.o: error_functions.c \
+ /data/PersonalCode/wfs/inc/error/error_functions.h ename.inc
+/data/PersonalCode/wfs/obj/get_num.o: get_num.c \
+ /data/PersonalCode/wfs/inc/error/get_num.h

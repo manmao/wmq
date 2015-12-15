@@ -8,7 +8,7 @@
 #include <errno.h>
 
 #include "error/error_functions.h"
-#include "ename.c.inc"
+#include "ename.inc"
 
 typedef enum {FALSE ,TRUE} Boolean;
 #ifdef __GUNC__

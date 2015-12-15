@@ -1,0 +1,9 @@
+/data/PersonalCode/wfs/obj/master_init.o: master_init.c \
+ /data/PersonalCode/wfs/src/common/common_define.h \
+ /data/PersonalCode/wfs/src/common/wfs_util_func.h \
+ /data/PersonalCode/wfs/src/slave/slave_init.h \
+ /data/PersonalCode/wfs/src/common/server_sockopt.h \
+ /data/PersonalCode/wfs/src/common/common_define.h \
+ /data/PersonalCode/wfs/inc/queue.h \
+ /data/PersonalCode/wfs/src/thread/threadpool.h master_init.h
+/data/PersonalCode/wfs/obj/meta_data.o: meta_data.c meta_data.h

@@ -1,0 +1,7 @@
+/data/PersonalCode/wfs/obj/slave_init.o: slave_init.c \
+ /data/PersonalCode/wfs/src/common/common_define.h \
+ /data/PersonalCode/wfs/src/common/wfs_util_func.h slave_init.h \
+ /data/PersonalCode/wfs/src/common/server_sockopt.h \
+ /data/PersonalCode/wfs/src/common/common_define.h \
+ /data/PersonalCode/wfs/inc/queue.h \
+ /data/PersonalCode/wfs/src/thread/threadpool.h

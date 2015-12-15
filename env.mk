@@ -5,9 +5,9 @@
 # cross compile...
 CROSS_COMPILE = 
 
-CC = $(CROSS_COMPILE)gcc
+CC  = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
-AR = $(CROSS_COMPILE)ar
+AR  = $(CROSS_COMPILE)ar
 
  #生成的目标文件名.......
 TARGET := wfs  
@@ -18,7 +18,7 @@ ROOT := $(shell pwd)
 #lib库
 LIB =-lpthread  -lz 
 
-##需要扫描的文件
+#需要扫描的文件
 TARGET_DIRS :=src/ src/common src/tools/lzma src/tools\
 				src/thread  \
 				src/client  src/slave \
@@ -43,12 +43,13 @@ CFLAGS := $(INCLUDE_DIR)
 
 CFLAGS += -c -Wall -O2  -D_7ZIP_ST
 
+
 #对所有的.o文件以.c文件创建它
 
 $(MAKEROOT)/obj/%.o :  %.c
-	@echo "Compling: " $(addsuffix .c, $(basename $(notdir $@)))
+	@echo "Compling: =====> " $(addsuffix .c, $(basename $(notdir $@)))
 	${CC} ${CFLAGS} -c $< -o $@ 
 	
 $(MAKEROOT)/obj/%.o :  %.cpp
-	@echo "Compling: " $(addsuffix .cpp, $(basename $(notdir $@)))
+	@echo "Compling: ======> " $(addsuffix .cpp, $(basename $(notdir $@)))
 	${CXX} ${CFLAGS} -c $< -o $@

@@ -40,3 +40,4 @@ clean:
 	-rm $(MAKEROOT)/obj/*.o  $(MAKEROOT)/bin/$(TARGET) 
 distclean:
 	@$(call del_obj)
+	-rm $(MAKEROOT)/obj/*.o  $(MAKEROOT)/bin/$(TARGET) 
