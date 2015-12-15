@@ -16,15 +16,20 @@ This file is free software, released under GPL. Please read acclosed license
 
 #include <stdio.h>
 
+/*
 #define ERROR 1
 #define WARN  2
-#define INFO  3
+#define INFO  3*/
 
-#define LOG_DEFAULT_PATH "/home/linux/log.txt"      //暂时日志文件路径
+typedef enum{
+	LOG_ERROR,
+	LOG_WARN,
+	LOG_INFO
+}LOG_TYPE;
 
 /* log.c */
 FILE * logFileOpen(char logFileName[]); 
 int logFileClose(FILE * lf);
-int logWriter(FILE * lf,int eventType,char *format, ...);
+int logWriter(FILE * lf,LOG_TYPE eventType,char *format, ...);
 
 #endif

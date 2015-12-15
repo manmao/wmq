@@ -17,7 +17,6 @@ static void handleterm(int sig)
 
 int master_server_init(int argc,char *argv[])
 {
-
 	pid_t pd;
 	pd=fork();
 
@@ -29,11 +28,7 @@ int master_server_init(int argc,char *argv[])
 	//父进程
 	if(pd>0)
 	{
-	  /*while(1)  
-       {  
-           signal(SIGTERM, handleterm);  
-           pause();  
-       }*/
+		
 	}else if(pd==0){ //子进程
 		SERVER *master_server;
 		init_server(&master_server,LISTERN_PORT);

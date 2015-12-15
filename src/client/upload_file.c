@@ -83,13 +83,13 @@ void buff_to_block(int fd,
 	/*将数据包hash到服务器节点上*/
 	unsigned char digest[16];
 	MD5Buffer(buff,strlen(buff),digest);
-	int idx=DJBhash(digest)%slave_server_num;
+	int idx=DJBhash(digest)%CONF.slave_server_num;
 	char dest_addr[15];
-	strcpy(dest_addr,slave_ip[idx]);
+	strcpy(dest_addr,CONF.slave_ip[idx]);
 	//发送到的IP地址  ???
 	item->block.to_addr.sin_family=AF_INET;
-	item->block.to_addr.sin_addr.s_addr = inet_addr(slave_ip[idx]); /*本地地址*/
-	item->block.to_addr.sin_port = htons(g_port); 		/*监听端口*/
+	item->block.to_addr.sin_addr.s_addr = inet_addr(CONF.slave_ip[idx]); /*本地地址*/
+	item->block.to_addr.sin_port = htons(CONF.g_port); 		/*监听端口*/
 
 	memcpy(item->block.buff,buff,len);
 	
@@ -106,7 +106,7 @@ void buff_to_block(int fd,
 	item->block.block_flag->block_id  = id;         			  //数据包的id  ???
 	item->block.block_flag->offset    = id*WFS_FILE_BUFF_SIZE;    //数据包在文件中的偏移量 
 	//data_save_path数据存储的路径
-	strcpy(item->block.block_flag->block_path,data_save_path);    //文件存储路径??
+	strcpy(item->block.block_flag->block_path,CONF.data_save_path);    //文件存储路径??
 
 }
 

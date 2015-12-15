@@ -1,6 +1,9 @@
-#include "wfs_util_func.h"
 #include <fcntl.h>
 #include <unistd.h>
+#include <time.h>
+
+#include "wfs_util_func.h"
+
 
 /*************************
  	求一个buff的ip校验和
@@ -71,4 +74,15 @@ int is_equal(unsigned char *buf1,unsigned char *buf2)
 	}
 
 	return 0;
+}
+
+
+void get_nowt(char *time_str)
+{
+    struct tm *timeStruct;
+    time_t timeTemp;
+
+	time(&timeTemp);
+    timeStruct = (struct tm *) localtime(&timeTemp);
+    strftime(time_str, 256, "[ %d-%b-%Y %H:%M:%S %Z ]", timeStruct);
 }

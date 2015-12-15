@@ -7,7 +7,7 @@
 /data/PersonalCode/wfs/obj/log.o: log.c \
  /data/PersonalCode/wfs/inc/error_hdr.h \
  /data/PersonalCode/wfs/inc/error/get_num.h \
- /data/PersonalCode/wfs/inc/error/error_functions.h log.h
+ /data/PersonalCode/wfs/inc/error/error_functions.h log.h wfs_util_func.h
 /data/PersonalCode/wfs/obj/md5.o: md5.c md5.h
 /data/PersonalCode/wfs/obj/server_sockopt.o: server_sockopt.c \
  common_define.h wfs_util_func.h server_sockopt.h \

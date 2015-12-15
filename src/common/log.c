@@ -17,6 +17,7 @@ This file is free software, released under GPL. Please read acclosed license
 
 #include "error_hdr.h"
 #include "log.h"
+#include "wfs_util_func.h"
 
 /* external variables */
 
@@ -34,40 +35,40 @@ void printch(FILE *lf,const char ch);
 
 FILE *logFileOpen(char logFileName[])
 {
-    char timeStr[256];
-    struct tm *timeStruct;
-    time_t timeTemp;
+
     FILE *lf;  //全局文件变量
 
-    time(&timeTemp);
-    timeStruct = (struct tm *) localtime(&timeTemp);
-    strftime(timeStr, 256, "[ %d-%b-%Y %H:%M:%S %Z ]", timeStruct);
-
-    int ret=access(logFileName, F_OK); //mode填F_OK试试。
+    int ret=access(logFileName, F_OK); //mode填F_OK
     if(ret == -1) //文件不存在
     {
         printf("%s\n",logFileName);
-        int fd=open(logFileName,O_CREAT|O_WRONLY,0644);
+        int fd=open(logFileName,O_CREAT|O_EXCL|O_RDWR,0644);
         if(fd < 0)
-        {
-            errExit("logFileName\n");
-            printf("创建文件失败");
-            exit(-1);
-        }
-        close(fd);
+            errExit("CreateLogFile Fail,File:%s , Line:%d\n",__FILE__,__LINE__);
+        lf = fdopen(fd,"w+");
     }
+    else
+    {
+       lf = fopen (logFileName, "a");
+    }
+   
 
-    lf = fopen (logFileName, "a");
-
-    if (lf == NULL)
+    if (lf == NULL){
+         errExit("OpenLogFile Fail,File:%s , Line:%d\n",__FILE__,__LINE__);
         return NULL;
-    fprintf(lf, "\n===Server started on===\n%s\n", timeStr);
+    }
+       
+    char time_str[50];
+    get_nowt(time_str);
+
+    fprintf(lf, "\t\n============Server started on================\n%s\n", time_str);
     fflush(lf); /* otherwise we have mysterious problems with fork() !! */ 
 
     printf("Opened Log File.\n");
 
     return lf;
 }
+
 
 /* Closes the log file
  */
@@ -84,6 +85,7 @@ int logFileClose(FILE * lf)
  * the event kind is given by eventType
  */
 
+
  /***
   *日志系统写入
   *函数名 logWriter
@@ -99,40 +101,37 @@ int logFileClose(FILE * lf)
   *日期 2015-03-26
   *
   ***/
-int logWriter(FILE * lf,int eventType,char *format, ...) 
+int logWriter(FILE * lf,LOG_TYPE eventType,char *format, ...) 
 {
     va_list ap;
-    char timeStr[256];
-    struct tm *timeStruct;
-    time_t timeTemp;
-
     va_start(ap, format);
 
-    time(&timeTemp);
-    timeStruct = (struct tm *)localtime(&timeTemp); //获取本地时间
+    char time_str[100];
+    get_nowt(time_str);
 
-    strftime(timeStr, 256, "%d-%b-%Y  %H:%M:%S %Z ", timeStruct);
+  
 
     switch (eventType)
     {
-    case ERROR:
-    	fprintf(lf,"[%s] [%s] ",timeStr,"ERROR");
-		break;
-    case WARN:
-        fprintf(lf,"[%s] [%s] ",timeStr,"WARN");
+    case LOG_ERROR:
+    	fprintf(lf,"[%s] [%s] \n",time_str,"ERROR");
+		  break;
+    case LOG_WARN:
+        fprintf(lf,"[%s] [%s] \n",time_str,"WARN");
         break;
-    case INFO:
-        fprintf(lf,"[%s] [%s] ",timeStr,"INFO");
-		break;
+    case LOG_INFO:
+        fprintf(lf,"[%s] [%s] \n",time_str,"INFO");
+		  break;
     default:
         printf ("Unknown event to log! Programming error!\n");
     }
-    
+
     while(*format)
     {
         if(*format != '%')
         {
             putchar(*format);
+            fprintf(lf,"%c",*format);
             format++;
         }
         else
@@ -142,7 +141,7 @@ int logWriter(FILE * lf,int eventType,char *format, ...)
             {
                 case 'c':
                  {
-                    char valch = va_arg(ap,int);
+                     char valch = va_arg(ap,int);
                      printch(lf,valch);
                      format++;
                     break;
@@ -188,6 +187,7 @@ int logWriter(FILE * lf,int eventType,char *format, ...)
 ***********************************************************/
 void printch(FILE * lf,const char ch)
 {
+    printf("%c",ch);
     fprintf(lf,"%c",ch);
 }
 
@@ -195,6 +195,7 @@ void printch(FILE * lf,const char ch)
 ***********************************************************/
 void printint(FILE * lf,const int dec)
 {
+    printf("%d",dec);
     fprintf(lf,"%d",dec);
 }
 /**********************************************************
@@ -202,6 +203,7 @@ void printint(FILE * lf,const int dec)
 ***********************************************************/
 void printstr(FILE * lf,const char *ptr)
 {
+   printf("%s",ptr);
    fprintf(lf,"%s",ptr);
 }
 
@@ -209,6 +211,7 @@ void printstr(FILE * lf,const char *ptr)
 ***********************************************************/
 void printfloat(FILE * lf,const float flt)
 {
+   printf("%0.3lf",flt);
     fprintf(lf,"%0.3lf",flt);
 }
 

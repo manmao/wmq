@@ -19,5 +19,4 @@
  /data/PersonalCode/wfs/src/common/wfs_util_func.h \
  /data/PersonalCode/wfs/src/common/md5.h \
  /data/PersonalCode/wfs/src/slave/slave_init.h \
- /data/PersonalCode/wfs/src/master/master_init.h init.h test_me.h
-/data/PersonalCode/wfs/obj/test_me.o: test_me.cpp test_me.h
+ /data/PersonalCode/wfs/src/master/master_init.h init.h

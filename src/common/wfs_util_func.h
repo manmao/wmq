@@ -26,6 +26,20 @@ extern unsigned short checksum(unsigned char *buf,int len);
 extern void setnonblock(int fd);
 
 
+/********************************
+	判断两个unsigned char buff值是否相等
+	
+@param 	
+		{unsigned char} buf1  需要比较的buff1	
+@param
+		{unsigned char} buf2  需要比较的buff2
+@return 
+		{int}   如果相等 返回0 如果不相等返回 -1 
+
+********************************/
 extern int is_equal(unsigned char *buf1,unsigned char *buf2);
+
+
+extern void get_nowt(char *time_str);
 
 #endif

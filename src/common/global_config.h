@@ -9,27 +9,33 @@
 #define __GLOBAL_CONFIG_H
 
 
-//DataNode集群服务器数量
-static int slave_server_num;
+typedef struct system_conf
+{
+	int master_server_num;
 
-//master
-static char master_ip[20];
+	//master
+ 	char master_ip[20];
 
-//slave
-static char *slave_ip[20];
+	//DataNode集群服务器数量
+	int slave_server_num;
 
-///本机的IP地址
+	//slave
+ 	char *slave_ip[20];
 
-//文件在数据节点上存储的路径
-static char *data_save_path;
+	//文件在数据节点上存储的路径
+	char *data_save_path;
 
-//slave监听端口
-static int g_port;
+	//slave监听端口
+	int g_port;
 
-//日志系统流句柄
-static FILE *lf; //全局变量
+	//日志系统流句柄
+	FILE *lf; //全局变量
 
-//文件系统存储路径
-static char *logpath;
+	//文件系统存储路径
+	char *logpath;
+
+}SYSTEM_CONF;
+
+SYSTEM_CONF CONF;
 
 #endif

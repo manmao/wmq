@@ -6,33 +6,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #include "error_hdr.h"
 #include "test.h"
 #include "slave_init.h"
 #include "master_init.h"
 #include "init.h"
-#include "test_me.h"
 
-
-
-int    g_argc;	   //保存传入的参数  参数个数
-char   *g_argv[];  //保存传入的参数  参数内容
-
-//	系统进程退
-void process_exit(int s)
-{
-	exit(0);
-}
-
-//子进程真正运行的方法
-//进程运行方法
-void main_fun(int argc,char *argv[])
+void child_run(int argc,char *argv[])
 {
 	/*
 	*根据参数设置相应的状态机
 	*/
-
 	init_log();
 	init_conf();
 
@@ -42,7 +26,7 @@ void main_fun(int argc,char *argv[])
 	 	printf("-master 启动master服务器\n");
 	 	printf("-slave 启动slave服务器\n");
 	 }
-	 
+
 	 //启动master服务器
 	 if(strcmp(argv[1],"master") == 0)
 	 {
@@ -56,84 +40,78 @@ void main_fun(int argc,char *argv[])
 	 	slave_server_init(0,NULL);
 	 	printf("slave_server_init started....\n");
 	 }
+
 	 //参数有误 
 	 else
 	 {
 	 	printf("参数有误--请输入参数:\n");
-	 	printf("-master 启动master服务器\n");
-	 	printf("-slave 启动slave服务器\n");
+	 	printf("xxx -master 启动master服务器\n");
+	 	printf("xxx -slave 启动slave服务器\n");
 	 }
+
 	while(1);
 }
 
 
-//开辟子进程
-void fork_child(int s)
-{	
-	pid_t child_process;
-    int status;
-    int signal_num;
-    wait(&status);//等待子进程中断或终止，释放子进程资源，否则死掉的子进程会变成僵尸进程
-    signal_num = WTERMSIG(status);
 
-    child_process=fork();
-    if(child_process == 0)
-    {
-    	printf("fork new child process.\n");
-        main_fun(g_argc,g_argv);  ///功能函数入口
-    }
+/**
+*  
+*
+*
+*
+*/
+void parent_run(int argc,char *argv[])
+{
+	int status;
+	pid_t ret;
+	ret = wait(&status);   //wait
+
+	if(ret <0){
+		perror("wait error");
+		exit(EXIT_FAILURE);
+	}
+
+	//exit normal
+	if (WIFEXITED(status)){
+		printf("child exited normal exit status=%d\n", WEXITSTATUS(status));
+	}
+
+	//exit signal 
+	else if (WIFSIGNALED(status)){
+		printf("child exited abnormal signal number=%d\n", WTERMSIG(status));
+	}
+
+	//exit un normal
+	else if (WIFSTOPPED(status)){
+		printf("child stoped signal number=%d\n", WSTOPSIG(status));
+		child_run(argc,argv);
+	}
 }
 
-
 /*********************************
+	
 	整个系统入口	
+
 **********************************/
+
 int main(int argc , char *argv[])
 {
 	pid_t mainpro;
 
-	/****获取main函数参数*****/
-	g_argc=argc;
-	int i;
-	for(i=1;i<=argc;i++)
-		g_argv[i] = argv[i];
-	
-	/***************************/
-	printf("a==%d\n",a);
-	test();
-
 	mainpro = fork();
-
-	if(mainpro == -1)
+	if(mainpro <= -1)
 	{
 		errExit("fork失败,file:%s,line:%d",__FILE__,__LINE__);
 	}
 
-	else if(mainpro > 0) //父进程
+	if(mainpro > 0) //父进程
 	{
-		while(1)
-		{ 
-			  //捕获子进程结束信号,如果子进程结束就会产生SIGCHLD信号
-			  //当检测到SIGCHLD信号时，重新创建子进程
-            //signal(SIGCHLD, fork_child); 
-              //当接收到SIGTERM时,整个进程退出
-              signal(SIGTERM, process_exit);
-              pause();//主进程休眠，当有信号到来时被唤醒。
-		}
+		parent_run(argc,argv);
 	}
 	else if(mainpro == 0) //子进程
 	{
-		 main_fun(argc,argv);
+		child_run(argc,argv);
 	}
 
 	return 0;
-
 }
-
-#if 0
-int main()
-{
-	testgetip();
-	return 0;
-}
-#endif

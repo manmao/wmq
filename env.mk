@@ -12,11 +12,10 @@ AR  = $(CROSS_COMPILE)ar
  #生成的目标文件名.......
 TARGET := wfs  
 
+
 #顶层目录
 ROOT := $(shell pwd)
 
-#lib库
-LIB =-lpthread  -lz 
 
 #需要扫描的文件
 TARGET_DIRS :=src/ src/common src/tools/lzma src/tools\
@@ -36,13 +35,25 @@ INCLUDE_DIR := \
 	-I$(MAKEROOT)/src/slave  \
 	-I$(MAKEROOT)/src/client \
 
-#lib静态库搜索路劲
-LIB_DIR := -L$(MAKEROOT)/lib \
 
-CFLAGS := $(INCLUDE_DIR)
+#lib库搜索路劲
+LIB_DIR := -L$(MAKEROOT)/lib -L$(MAKEROOT)/thirdlib \
 
-CFLAGS += -c -Wall -O2  -D_7ZIP_ST
 
+#lib库
+LIB =-lpthread  -lz 
+
+
+#gcc编译时定义宏
+DEFINE := -D_7ZIP_ST
+
+
+#gcc编译参数或者选项
+CFLAGS  := $(INCLUDE_DIR)
+CFLAGS  += $(DEFINE)
+
+#优化级别
+CFLAGS += -c -Wall -O2  
 
 #对所有的.o文件以.c文件创建它
 
