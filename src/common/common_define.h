@@ -5,7 +5,7 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <stdint.h>
-#include "wfs_util_func.h"
+#include "util.h"
 
 //自定义bool类型
 //#define  bool int

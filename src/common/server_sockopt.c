@@ -115,18 +115,25 @@ void modfd(int epollfd,int fd,int ev)
 **********************************/
 static void handle_accept_event(SERVER *server)
 {
-	struct connection *connectnode;  //连接队列
-	connectnode=(struct connection *)malloc(sizeof(struct connection));
-	socklen_t addrlen=sizeof(struct sockaddr);  //地址长度
-	connectnode->accept_fd=accept(server->listenfd,(struct sockaddr *)&connectnode->clientaddr,&(addrlen));
-			
-	//如果连接成功
-	if(connectnode->accept_fd != -1){
 
-		TAILQ_INSERT_TAIL(&server->ConnectQueue,connectnode,next);    // 在尾部添加
+	struct sockaddr clientaddr;
+	socklen_t addrlen=sizeof(struct sockaddr);  //地址长度
+	int a_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen));
+
+	//如果连接成功
+	if(connode->accept_fd != -1){
+
+		struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
+		type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
+		type->node->accept_fd=a_fd;
+		type->node->clientaddr=clientaddr;
+		//type->node->do_task ;
+		conn_insert(&server->conn_root,type);
+
 		server->connect_num++;
 		printf("连接数量 --%d\n",server->connect_num); 				  //用户连接数量
 		addfd(server->efd,connectnode->accept_fd);
+
 	}
 }
 
@@ -162,19 +169,18 @@ static void handle_readable_event(SERVER *server,struct epoll_event events)
 		if(buflen==0) 			//客户端断开连接
 		{		
 			server->connect_num--;  //客户端连接数量减1
+			
 			/**关闭文件描述符**/      			 
 			deletefd(server->efd,events.data.fd);
 			close(events.data.fd);
 
 			/*******删除连接队列中的点*******/
-			struct connection *connectnode;				 
-			TAILQ_FOREACH(connectnode, &server->ConnectQueue, next){
-			   if(connectnode->accept_fd == events.data.fd){
-					TAILQ_REMOVE(&server->ConnectQueue, connectnode, next); 
-					free(connectnode);      //删除节点
-					break;
-				}
-			}
+			struct conn_node node;
+			node->accept_fd=events.data.fd;			 
+			conn_delete(&server->conn_root,&node);
+
+
+
 			//调试信息
 			printf("有客户端断开连接了,现在连接数:%d\n",server->connect_num);
 			return ;
@@ -314,7 +320,7 @@ void  init_server(SERVER **server,int port){
 	(*server)->efd=efd;
 	(*server)->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池
 	(*server)->run=true; //初始化线程池
-	TAILQ_INIT(&(*server)->ConnectQueue); 	  //初始化连接队列
+	(*server)->conn_root=RB_ROOT;
 
 	/**注册监听信号进程**/
 	signal(SIGKILL,handle_close);
@@ -342,12 +348,6 @@ void  start_listen(SERVER *server){
 void  destroy_server(SERVER *server)
 {
 	/****删除所有连接节点****/
-	struct connection *connectnode;				 
-	TAILQ_FOREACH(connectnode,&server->ConnectQueue,next){
-			deletefd(server->efd,connectnode->accept_fd);
-		    TAILQ_REMOVE(&server->ConnectQueue, connectnode, next); 
-			free(connectnode);      //删除节点
-	}
 
 	deletefd(server->efd,server->listenfd);
 

@@ -3,9 +3,12 @@
 
 #include <sys/socket.h>
 
+
 #include "common_define.h"
-#include "queue.h"
 #include "threadpool.h"
+#include "rbtree.h"
+
+#include "connect.h"
 
 #define IP_SIZE 		20        // ip的 长度
 #define BACKLOG  	  	10        // 服务器侦听长度
@@ -16,14 +19,6 @@
 #define THREAD_NUM       10	      // 线程池开启的线程个数
 #define TASK_QUEUE_NUM   10000    // 队列的最大job个数 
 
-/******保存客户端连接的节点******/
-typedef struct connection{
-	int accept_fd;           							 	//和客户端连接的文件描述符
-	struct sockaddr clientaddr;  					 	    //客户端地址
-	int (*do_task)(void *arg);  	 	//回调函数，处理连接
-	TAILQ_ENTRY(connection) next;
-}CONNECT;
-
 
 /****服务器结构****/
 typedef struct sock_server{
@@ -31,7 +26,7 @@ typedef struct sock_server{
 	int efd;										 //epoll文件描述符
 	int connect_num;         						 //连接数据量
 	struct threadpool *tpool;				 		 //线程池
-	TAILQ_HEAD(connects, connection) ConnectQueue;   //保存客户端连接队列
+	struct rb_root    conn_root; 	
 	bool run;
 }SERVER;
 

@@ -40,7 +40,7 @@ void init_conf(void)
 		strcpy(CONF.slave_ip[i],ip_tmp[i]);
 		//printf("========slave :%s ======== \n",CONF.slave_ip[i]);
 	}
-
+	
 	int master_server_num;
 	get_ip("config/master",ip_tmp,&CONF.master_server_num);
 

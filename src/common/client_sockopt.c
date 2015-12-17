@@ -14,7 +14,7 @@
 
 #include "common_define.h"
 #include "client_sockopt.h"
-#include "wfs_util_func.h"
+#include "util.h"
 
 
 /********************************
