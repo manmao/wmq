@@ -20,7 +20,7 @@
 #include "common_define.h"
 #include "server_sockopt.h"
 #include "threadpool.h"
-#include "wfs_util_func.h"
+#include "util.h"
 #include "handle_pkg.h"
 
 int count=0;
