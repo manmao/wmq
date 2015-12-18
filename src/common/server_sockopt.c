@@ -115,7 +115,6 @@ void modfd(int epollfd,int fd,int ev)
 **********************************/
 static void handle_accept_event(SERVER *server)
 {
-
 	struct sockaddr clientaddr;
 	socklen_t addrlen=sizeof(struct sockaddr);  //地址长度
 	int a_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen));
@@ -178,8 +177,6 @@ static void handle_readable_event(SERVER *server,struct epoll_event events)
 			struct conn_node node;
 			node.accept_fd=events.data.fd;			 
 			conn_delete(&server->conn_root,&node);
-
-
 
 			//调试信息
 			printf("有客户端断开连接了,现在连接数:%d\n",server->connect_num);
@@ -289,7 +286,7 @@ static void server_listener(void *arg){
         初始化服务器端口
 
 ***************************/
-void  init_server(SERVER **server,int port){
+void  init_server(SERVER **server,int port,SERVER_TYPE type){
 
 	int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
@@ -322,7 +319,8 @@ void  init_server(SERVER **server,int port){
 	(*server)->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池
 	(*server)->run=true; //初始化线程池
 	(*server)->conn_root=RB_ROOT;
-
+	(*server)->type=type;
+	
 	/**注册监听信号进程**/
 	signal(SIGKILL,handle_close);
     signal(SIGINT,handle_close);

@@ -208,3 +208,27 @@ slave:192.168.21.200:11026
 [[ 18-Dec-2015 15:59:01 CST ]] [INFO] 
 master: 192.168.21.200:9908
 
+	
+============Server started on================
+[ 18-Dec-2015 18:12:48 CST ]
+[[ 18-Dec-2015 18:12:48 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 18-Dec-2015 18:12:48 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 18-Dec-2015 18:12:48 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 18-Dec-2015 18:12:48 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 18-Dec-2015 18:12:48 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 18-Dec-2015 18:12:48 CST ]] [ERROR] 
+child exited abnormal signal number=11
+
+[[ 18-Dec-2015 18:12:48 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+

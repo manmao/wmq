@@ -50,7 +50,7 @@ void testrevdata()
 
 	}else if(pd==0){
 		SERVER *server;
-		init_server(&server,9998);
+		init_server(&server,9998,MASTER);
 		start_listen(server);
 	  //printf("test end\n");
 	}

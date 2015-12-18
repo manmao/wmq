@@ -22,7 +22,7 @@ int slave_server_init(int argnum,char *argv[])
 	printf("slave id:%d\n",idx);
 	
 	SERVER *slave_server;
-	init_server(&slave_server,CONF.slave[idx-1].port);
+	init_server(&slave_server,CONF.slave[idx-1].port,SLAVE);
 	start_listen(slave_server);
 	
 }
