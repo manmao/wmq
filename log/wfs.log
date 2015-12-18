@@ -431,3 +431,11 @@ master ip:192.168.21.200
 
 [[ 18-Dec-2015 13:37:59 CST ]] [ERROR] 
 child exited abnormal signal number=11
+	
+============Server started on================
+[ 18-Dec-2015 13:51:20 CST ]
+[[ 18-Dec-2015 13:51:20 CST ]] [INFO] 
+master ip:192.168.21.200
+
+[[ 18-Dec-2015 13:51:20 CST ]] [ERROR] 
+child exited abnormal signal number=11
