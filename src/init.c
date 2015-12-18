@@ -2,10 +2,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "global_config.h"
-#include "get_confvalue.h"
+#include "global.h"
+#include "config.h"
 #include "log.h"
-
 
 /*************************
 *
@@ -15,11 +14,10 @@
 void init_log()
 {	
 	char KeyVal[100];
-	get_filestr("config/wfs_config.conf","wfs","logFilePath",KeyVal);
+	GetConfigStringValue("config/wfs_config.conf","wfs","logFilePath",KeyVal);
 	CONF.lf=logFileOpen(KeyVal);
 	printf("%s\n",KeyVal);
-
-   // logFileClose(lf); //记得注释掉
+   //logFileClose(lf); //记得注释掉
 }
 
 /*****************************
@@ -38,14 +36,22 @@ void init_conf(void)
 	{
 		CONF.slave_ip[i]=(char *)malloc(sizeof(char)*20);
 		strcpy(CONF.slave_ip[i],ip_tmp[i]);
-		//printf("========slave :%s ======== \n",CONF.slave_ip[i]);
 	}
-	
+
 	int master_server_num;
 	get_ip("config/master",ip_tmp,&CONF.master_server_num);
-
 	strcpy(CONF.master_ip,ip_tmp[0]);
+	logWriter(CONF.lf,LOG_INFO,"master ip:%s\n\n",CONF.master_ip);
 
-	logWriter(CONF.lf,LOG_INFO,"====master ip:%s===============\n\n",CONF.master_ip);
+	CONF.data_save_path=(char *)malloc(sizeof(char)*100);
+	GetConfigStringValue("config/wfs_config.conf","wfs","dataPath",CONF.data_save_path);
+	printf("%s\n",CONF.data_save_path);
 
+	GetConfigIntValue("config/wfs_config.conf","wfs","slave_port",&CONF.slave_port);
+	printf("%d\n",CONF.slave_port); 
+
+	GetConfigIntValue("config/wfs_config.conf","wfs","master_port",&CONF.master_port);
+	printf("%d\n",CONF.master_port); 
+
+ 
 }

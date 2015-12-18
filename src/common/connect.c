@@ -45,9 +45,9 @@ int conn_insert(struct rb_root *root, struct conn_type *data)
 
 void conn_delete(struct rb_root *root, struct conn_node *conn)
 {
-    struct conn_type *data = my_search(root, conn);
+    struct conn_type *data = conn_search(root, conn);
     if (!data) {
-        fprintf(stderr, "Not found %d.\n", num);
+        fprintf(stderr, "Not found %d.\n", conn->accept_fd);
         return;
     }
 

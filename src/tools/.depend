@@ -1,5 +1,3 @@
-/data/PersonalCode/wfs/obj/get_confvalue.o: get_confvalue.c \
- /data/PersonalCode/wfs/src/common/log.h \
- /data/PersonalCode/wfs/inc/error_hdr.h \
- /data/PersonalCode/wfs/inc/error/get_num.h \
- /data/PersonalCode/wfs/inc/error/error_functions.h
+/data/Coder/wfs/obj/config.o: config.c /data/Coder/wfs/src/common/log.h \
+ /data/Coder/wfs/inc/error_hdr.h /data/Coder/wfs/inc/error/get_num.h \
+ /data/Coder/wfs/inc/error/error_functions.h config.h

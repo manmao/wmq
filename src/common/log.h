@@ -16,6 +16,7 @@ This file is free software, released under GPL. Please read acclosed license
 
 #include <stdio.h>
 
+
 /*
 #define ERROR 1
 #define WARN  2
@@ -31,5 +32,7 @@ typedef enum{
 FILE * logFileOpen(char logFileName[]); 
 int logFileClose(FILE * lf);
 int logWriter(FILE * lf,LOG_TYPE eventType,char *format, ...);
+
+
 
 #endif

@@ -7,19 +7,16 @@
 #include <string.h>
 
 #include "error_hdr.h"
-#include "test.h"
+#include "init.h"
+#include "log.h"
 #include "slave_init.h"
 #include "master_init.h"
-#include "init.h"
+#include "global.h"
+
+#include "test.h"
 
 void child_run(int argc,char *argv[])
 {
-	/*
-	*根据参数设置相应的状态机
-	*/
-	init_log();
-	init_conf();
-
 	if(argc<2)
 	 {
 	 	printf("参数有误--请输入参数:\n");
@@ -53,7 +50,6 @@ void child_run(int argc,char *argv[])
 }
 
 
-
 /**
 *  
 *
@@ -73,23 +69,24 @@ void parent_run(int argc,char *argv[])
 
 	//exit normal
 	if (WIFEXITED(status)){
-		printf("child exited normal exit status=%d\n", WEXITSTATUS(status));
+		logWriter(CONF.lf,LOG_INFO,"child exited normal exit status=%d\n",WEXITSTATUS(status));
 	}
 
 	//exit signal 
 	else if (WIFSIGNALED(status)){
-		printf("child exited abnormal signal number=%d\n", WTERMSIG(status));
+		logWriter(CONF.lf,LOG_ERROR,"child exited abnormal signal number=%d\n", WTERMSIG(status));
 	}
 
 	//exit un normal
 	else if (WIFSTOPPED(status)){
-		printf("child stoped signal number=%d\n", WSTOPSIG(status));
+		logWriter(CONF.lf,LOG_ERROR,"child stoped signal number=%d\n", WSTOPSIG(status));
 		child_run(argc,argv);
 	}
+
 }
 
 /*********************************
-	
+
 	整个系统入口	
 
 **********************************/
@@ -98,12 +95,16 @@ int main(int argc , char *argv[])
 {
 	pid_t mainpro;
 
+	/*init*/
+	init_log();
+	init_conf();
+
+
 	mainpro = fork();
 	if(mainpro <= -1)
 	{
 		errExit("fork失败,file:%s,line:%d",__FILE__,__LINE__);
 	}
-
 	if(mainpro > 0) //父进程
 	{
 		parent_run(argc,argv);

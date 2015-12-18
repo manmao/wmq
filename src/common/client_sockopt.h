@@ -1,25 +1,21 @@
 #ifndef _CLIENT_SOCKOPT_H_
 #define _CLIENT_SOCKOPT_H_
 
+#include <sys/socket.h>
 #include "common_define.h"
 
 #define IP_SIZE 20            	//ip的长度
 
-/*
-*服务器端的网络地址
-*/
-struct server_addr{
-	uint8_t ip[IP_SIZE];  	 //ip地址
-	uint32_t port;			 //端口vim
-};
+
 /***********************
 保存和服务端的连接
 ************************/
 struct connection{
 	int fd;								//文件描述符 
-	uint16_t protocol; 						//连接协议
+	uint16_t protocol; 					//连接协议
 	bool is_conn;						//连接是否关闭
-	struct server_addr *addr; 			//自定义服务器端地址
+	struct sockaddr *saddr;
+
 };
 
 /************************
@@ -39,11 +35,9 @@ struct sock_client{
 	
 };
 
-extern void  client_init(struct sock_client **client);   				//客户端初始化
+extern void client_init(struct sock_client **client,char *server_ip,int port);				//客户端初始化
 
 extern void  client_set_sock(struct sock_client *client,int sfd);		//设置客户端keepalive
-
-extern int   init_connection(struct server_addr *addr,struct sock_client **client);	 //初始化连接 
 
 extern int   start_connection(struct sock_client *client);       				//连接到服务器
 

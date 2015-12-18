@@ -1,12 +1,8 @@
-/data/PersonalCode/wfs/obj/upload_file.o: upload_file.c upload_file.h \
- /data/PersonalCode/wfs/src/common/common_define.h \
- /data/PersonalCode/wfs/src/common/wfs_util_func.h \
- /data/PersonalCode/wfs/inc/queue.h /data/PersonalCode/wfs/inc/zlib.h \
- /data/PersonalCode/wfs/inc/zconf.h \
- /data/PersonalCode/wfs/inc/error_hdr.h \
- /data/PersonalCode/wfs/inc/error/get_num.h \
- /data/PersonalCode/wfs/inc/error/error_functions.h \
- /data/PersonalCode/wfs/src/common/wfs_util_func.h \
- /data/PersonalCode/wfs/src/common/global_config.h \
- /data/PersonalCode/wfs/src/common/hash.h \
- /data/PersonalCode/wfs/src/common/md5.h
+/data/Coder/wfs/obj/upload_file.o: upload_file.c upload_file.h \
+ /data/Coder/wfs/src/common/common_define.h \
+ /data/Coder/wfs/src/common/util.h /data/Coder/wfs/inc/queue.h \
+ /data/Coder/wfs/inc/zlib.h /data/Coder/wfs/inc/zconf.h \
+ /data/Coder/wfs/inc/error_hdr.h /data/Coder/wfs/inc/error/get_num.h \
+ /data/Coder/wfs/inc/error/error_functions.h \
+ /data/Coder/wfs/src/common/util.h /data/Coder/wfs/src/common/global.h \
+ /data/Coder/wfs/src/common/hash.h /data/Coder/wfs/src/common/md5.h

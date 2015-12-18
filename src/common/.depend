@@ -1,17 +1,17 @@
-/data/PersonalCode/wfs/obj/client_sockopt.o: client_sockopt.c \
- common_define.h wfs_util_func.h client_sockopt.h
-/data/PersonalCode/wfs/obj/handle_pkg.o: handle_pkg.c server_sockopt.h \
- common_define.h wfs_util_func.h /data/PersonalCode/wfs/inc/queue.h \
- /data/PersonalCode/wfs/src/thread/threadpool.h
-/data/PersonalCode/wfs/obj/hash.o: hash.c hash.h
-/data/PersonalCode/wfs/obj/log.o: log.c \
- /data/PersonalCode/wfs/inc/error_hdr.h \
- /data/PersonalCode/wfs/inc/error/get_num.h \
- /data/PersonalCode/wfs/inc/error/error_functions.h log.h wfs_util_func.h
-/data/PersonalCode/wfs/obj/md5.o: md5.c md5.h
-/data/PersonalCode/wfs/obj/server_sockopt.o: server_sockopt.c \
- common_define.h wfs_util_func.h server_sockopt.h \
- /data/PersonalCode/wfs/inc/queue.h \
- /data/PersonalCode/wfs/src/thread/threadpool.h handle_pkg.h
-/data/PersonalCode/wfs/obj/wfs_util_func.o: wfs_util_func.c \
- wfs_util_func.h
+/data/Coder/wfs/obj/client_sockopt.o: client_sockopt.c common_define.h \
+ util.h client_sockopt.h
+/data/Coder/wfs/obj/connect.o: connect.c /data/Coder/wfs/inc/rbtree.h \
+ connect.h util.h server_sockopt.h common_define.h \
+ /data/Coder/wfs/src/thread/threadpool.h
+/data/Coder/wfs/obj/handle_pkg.o: handle_pkg.c server_sockopt.h \
+ common_define.h util.h /data/Coder/wfs/src/thread/threadpool.h \
+ /data/Coder/wfs/inc/rbtree.h connect.h
+/data/Coder/wfs/obj/hash.o: hash.c hash.h
+/data/Coder/wfs/obj/log.o: log.c /data/Coder/wfs/inc/error_hdr.h \
+ /data/Coder/wfs/inc/error/get_num.h \
+ /data/Coder/wfs/inc/error/error_functions.h util.h log.h
+/data/Coder/wfs/obj/md5.o: md5.c md5.h
+/data/Coder/wfs/obj/server_sockopt.o: server_sockopt.c common_define.h \
+ util.h server_sockopt.h /data/Coder/wfs/src/thread/threadpool.h \
+ /data/Coder/wfs/inc/rbtree.h connect.h handle_pkg.h
+/data/Coder/wfs/obj/util.o: util.c util.h

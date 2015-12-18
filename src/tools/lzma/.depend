@@ -1,9 +1,8 @@
-/data/PersonalCode/wfs/obj/7zFile.o: 7zFile.c 7zFile.h Types.h
-/data/PersonalCode/wfs/obj/7zStream.o: 7zStream.c Types.h
-/data/PersonalCode/wfs/obj/Alloc.o: Alloc.c Alloc.h
-/data/PersonalCode/wfs/obj/LzFind.o: LzFind.c LzFind.h Types.h LzHash.h
-/data/PersonalCode/wfs/obj/LzmaDec.o: LzmaDec.c LzmaDec.h Types.h
-/data/PersonalCode/wfs/obj/LzmaEnc.o: LzmaEnc.c LzmaEnc.h Types.h \
- LzFind.h
-/data/PersonalCode/wfs/obj/LzmaUtil.o: LzmaUtil.c Alloc.h 7zFile.h \
- Types.h 7zVersion.h LzmaDec.h LzmaEnc.h
+/data/Coder/wfs/obj/7zFile.o: 7zFile.c 7zFile.h Types.h
+/data/Coder/wfs/obj/7zStream.o: 7zStream.c Types.h
+/data/Coder/wfs/obj/Alloc.o: Alloc.c Alloc.h
+/data/Coder/wfs/obj/LzFind.o: LzFind.c LzFind.h Types.h LzHash.h
+/data/Coder/wfs/obj/LzmaDec.o: LzmaDec.c LzmaDec.h Types.h
+/data/Coder/wfs/obj/LzmaEnc.o: LzmaEnc.c LzmaEnc.h Types.h LzFind.h
+/data/Coder/wfs/obj/LzmaUtil.o: LzmaUtil.c Alloc.h 7zFile.h Types.h \
+ 7zVersion.h LzmaDec.h LzmaEnc.h

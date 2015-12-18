@@ -14,10 +14,10 @@
 #include "server_sockopt.h"
 #include "log.h"
 #include "timer_list.h"
-#include "get_confvalue.h"
+#include "config.h"
 #include "rbtree.h"
 #include "threadpool.h"
-#include "wfs_util_func.h"
+#include "util.h"
 
 #include "md5.h"
 
@@ -25,7 +25,7 @@
 void testgetvalue()
 {
 	char KeyVal[100];
-	get_filestr("./config/wfs_config.conf","wfs","name",KeyVal);
+	GetConfigStringValue("config/wfs_config.conf","wfs","name",KeyVal);
 	printf("%s\n",KeyVal);
 }
 

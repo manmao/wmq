@@ -15,8 +15,8 @@
 #include "queue.h"
 #include "zlib.h"
 #include "error_hdr.h"
-#include "wfs_util_func.h"
-#include "global_config.h"
+#include "util.h"
+#include "global.h"
 #include "hash.h"
 #include "md5.h"
 
@@ -89,7 +89,7 @@ void buff_to_block(int fd,
 	//发送到的IP地址  ???
 	item->block.to_addr.sin_family=AF_INET;
 	item->block.to_addr.sin_addr.s_addr = inet_addr(CONF.slave_ip[idx]); /*本地地址*/
-	item->block.to_addr.sin_port = htons(CONF.g_port); 		/*监听端口*/
+	item->block.to_addr.sin_port = htons(CONF.master_port); 		/*监听端口*/
 
 	memcpy(item->block.buff,buff,len);
 	

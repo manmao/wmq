@@ -121,7 +121,7 @@ static void handle_accept_event(SERVER *server)
 	int a_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen));
 
 	//如果连接成功
-	if(connode->accept_fd != -1){
+	if(a_fd != -1){
 
 		struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
 		type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
@@ -132,7 +132,7 @@ static void handle_accept_event(SERVER *server)
 
 		server->connect_num++;
 		printf("连接数量 --%d\n",server->connect_num); 				  //用户连接数量
-		addfd(server->efd,connectnode->accept_fd);
+		addfd(server->efd,type->node->accept_fd);
 
 	}
 }
@@ -176,7 +176,7 @@ static void handle_readable_event(SERVER *server,struct epoll_event events)
 
 			/*******删除连接队列中的点*******/
 			struct conn_node node;
-			node->accept_fd=events.data.fd;			 
+			node.accept_fd=events.data.fd;			 
 			conn_delete(&server->conn_root,&node);
 
 
@@ -243,12 +243,13 @@ static void handle_close(int iSignNo)
 
 //void *server_listener(void *arg){
 static void server_listener(void *arg){
+
 	SERVER *server=(SERVER *)arg;
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
 
 	while(true){	
-		//被改变值时退出循环
-		//等待内核通知，获取可读的fd
+			//被改变值时退出循环
+			//等待内核通知，获取可读的fd
 		int number=epoll_wait(server->efd,events,MAXEVENTS,-1);
 		if(number < 0)
 		{

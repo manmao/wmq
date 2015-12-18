@@ -26,8 +26,12 @@ typedef struct system_conf
 	char *data_save_path;
 
 	//slave监听端口
-	int g_port;
+	int slave_port;
 
+	//
+	int master_port;
+
+	
 	FILE *lf;
 
 	//文件系统存储路径

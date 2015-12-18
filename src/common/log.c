@@ -16,8 +16,10 @@ This file is free software, released under GPL. Please read acclosed license
 #include <fcntl.h>
 
 #include "error_hdr.h"
+#include "util.h"
+
 #include "log.h"
-#include "wfs_util_func.h"
+
 
 /* external variables */
 

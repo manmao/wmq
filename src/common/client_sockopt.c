@@ -73,7 +73,7 @@ void  client_set_sock(struct sock_client *client,int sfd){
 *
 *********************************/
 
-void client_init(struct sock_client **client){
+void client_init(struct sock_client **client,char *server_ip,int port){
 
 	//client实体对象
 	(*client)=(struct sock_client *)malloc(sizeof(struct sock_client));
@@ -86,34 +86,6 @@ void client_init(struct sock_client **client){
 	//连接
 	(*client)->conn=(struct connection *)malloc(sizeof(struct connection)); //初始化连接
 
-}
-
-
-/**********************************************************************
-*创建客户端socket ,设置socket的属性
-*	主要作用是： 
-*				创建socket
-*				初始化连接信息
-*				
-*
-*  函数名:init_connection
-*  函数参数:
-*  		@param  addr 服务器端的地址，包括ip和port
-*				
-*		@param  client 客户端操作实体
-* 函数返回:
-*		@return  int
-*			 0  成功
-*			 -1 创建套接字失败
-*
-*	struct server_addr结构如下:
-*			struct server_addr{
-*				u8 ip[IP_SIZE];  	 //ip地址
-*				u32 port;			 //端口
-*			 };
-****************************************************************/
-int init_connection(struct server_addr *addr,struct sock_client **client){
-
 	int fd=socket(AF_INET,SOCK_STREAM,0);  //创建套接字
 
 	client_set_sock(*client,fd);         //设置keepalive属性
@@ -123,13 +95,22 @@ int init_connection(struct server_addr *addr,struct sock_client **client){
 		printf("create socket fail\n");
 		return -1;
 	}
+
     /**初始化连接**/
-	(*client)->conn->fd=fd;            //socket文件描述
+	(*client)->conn->fd=fd;           //socket文件描述
 	(*client)->conn->protocol=0x01;   //协议类型
 	(*client)->conn->is_conn=false;   //没有连接
-	(*client)->conn->addr=addr;       //服务器端地址
-	return 0;
+
+	struct sockaddr_in *saddr=(struct sockaddr_in *)malloc(sizeof(struct sockaddr_in));       
+	memset(&saddr,0,sizeof(saddr));  // 
+	saddr->sin_family=AF_INET;        //设置协议族
+	saddr->sin_port=htons(port);  //设置端口
+	saddr->sin_addr.s_addr=inet_addr(server_ip); //设置ip地址
+
+	(*client)->conn->saddr=(struct sockaddr *)saddr;
+
 }
+
 
 
 /**********************************************************************
@@ -153,21 +134,14 @@ int init_connection(struct server_addr *addr,struct sock_client **client){
 int start_connection(struct sock_client *client){
 
 	client->conn->is_conn=true;   //建立连接
-	
-	struct sockaddr_in saddr;       
-	memset(&saddr,0,sizeof(saddr));  // 
-	saddr.sin_family=AF_INET;        //设置协议族
-	saddr.sin_port=htons(client->conn->addr->port);  //设置端口
-	saddr.sin_addr.s_addr=inet_addr((const char *)client->conn->addr->ip); //设置ip地址
 
 	//连接服务器
-	int ret=connect(client->conn->fd,(struct sockaddr *)&saddr,sizeof(struct sockaddr));
+	int ret=connect(client->conn->fd,(struct sockaddr *)client->conn->saddr,sizeof(struct sockaddr));
 	if(ret == -1)
 	{
 		printf("连接服务器失败\n");
 		return -1;
 	}
-
 	setnonblock(client->conn->fd);  //设置fd为非阻塞
 
 	return 0;
