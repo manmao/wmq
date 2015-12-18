@@ -4,10 +4,9 @@
 #include <stdio.h>
 
 #include "common_define.h"
-#include "slave_init.h"
 #include "server_sockopt.h"
 #include "master_init.h"
-
+#include  "global.h"
 
 static void handleterm(int sig)  
 {  
@@ -24,15 +23,15 @@ int master_server_init(int argc,char *argv[])
 	{
 		errExit("FILE:%s,LINE:%d",__FILE__,__LINE__);
 	}
-
 	//父进程
-	if(pd>0)
-	{
-		
+	if(pd>0){
+
 	}else if(pd==0){ //子进程
+
 		SERVER *master_server;
-		init_server(&master_server,LISTERN_PORT);
+		init_server(&master_server,CONF.master.port);
 		start_listen(master_server);
-	   //printf("test end\n");
+	    //printf("test end\n");
+
 	}	
 }

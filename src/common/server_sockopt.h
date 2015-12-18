@@ -19,7 +19,6 @@
 #define THREAD_NUM       10	      // 线程池开启的线程个数
 #define TASK_QUEUE_NUM   10000    // 队列的最大job个数  
 
-
 /****服务器结构****/
 typedef struct sock_server{
 	int listenfd; 								    //服务端监听listenfd

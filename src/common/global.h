@@ -9,29 +9,27 @@
 #define __GLOBAL_CONFIG_H
 
 
+struct addr
+{
+	char ip[20];
+	int port;
+};
+
 typedef struct system_conf
 {
-	int master_server_num;
-
 	//master
- 	char master_ip[20];
+	int master_server_num;
+	
+ 	struct addr master;
 
 	//DataNode集群服务器数量
 	int slave_server_num;
-
 	//slave
- 	char *slave_ip[20];
+ 	struct addr *slave;
 
 	//文件在数据节点上存储的路径
 	char *data_save_path;
 
-	//slave监听端口
-	int slave_port;
-
-	//
-	int master_port;
-
-	
 	FILE *lf;
 
 	//文件系统存储路径

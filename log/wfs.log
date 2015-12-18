@@ -1,441 +1,210 @@
 	
 ============Server started on================
-[ 15-Dec-2015 13:31:06 CST ]
-[[ 15-Dec-2015 13:31:06 CST ]] [INFO] 
-=======master ip:192.168.21.200===============
-	
-============Server started on================
-[ 15-Dec-2015 13:33:08 CST ]
-[[ 15-Dec-2015 13:33:08 CST ]] [INFO] 
-	
- ====master ip:192.168.21.200===============
-	
-============Server started on================
-[ 15-Dec-2015 13:33:44 CST ]
-[[ 15-Dec-2015 13:33:44 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[ 18-Dec-2015 15:54:51 CST ]
+[[ 18-Dec-2015 15:54:51 CST ]] [INFO] 
+log file path : log/wfs.log
 
-	
-============Server started on================
-[ 18-Dec-2015 09:38:50 CST ]
-[[ 18-Dec-2015 09:38:50 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:54:51 CST ]] [INFO] 
+slave:192.168.21.200:11024
 
-	
-============Server started on================
-[ 18-Dec-2015 09:38:55 CST ]
-[[ 18-Dec-2015 09:38:55 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:54:51 CST ]] [INFO] 
+slave:192.168.21.200:11025
 
-	
-============Server started on================
-[ 18-Dec-2015 09:51:02 CST ]
-[[ 18-Dec-2015 09:51:02 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:54:51 CST ]] [INFO] 
+slave:192.168.21.200:11026
 
-	
-============Server started on================
-[ 18-Dec-2015 09:51:51 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 09:51:51 CST ]
-[[ 18-Dec-2015 09:51:51 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:54:51 CST ]] [INFO] 
+master: 192.168.21.200:9908
 
-[[ 18-Dec-2015 09:51:51 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 09:51:51 CST ]] [ERROR] 
+[[ 18-Dec-2015 15:54:51 CST ]] [ERROR] 
 child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:25:18 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:25:18 CST ]
-[[ 18-Dec-2015 10:25:18 CST ]] [INFO] 
-====master ip:192.168.21.200===============
 
-[[ 18-Dec-2015 10:25:18 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:54:51 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
 
 	
 ============Server started on================
-[ 18-Dec-2015 10:25:51 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:25:51 CST ]
-[[ 18-Dec-2015 10:25:51 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[ 18-Dec-2015 15:54:54 CST ]
+[[ 18-Dec-2015 15:54:54 CST ]] [INFO] 
+log file path : log/wfs.log
 
-[[ 18-Dec-2015 10:25:51 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:54:54 CST ]] [INFO] 
+slave:192.168.21.200:11024
 
-	
-============Server started on================
-[ 18-Dec-2015 10:26:11 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:26:11 CST ]
-[[ 18-Dec-2015 10:26:11 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:54:54 CST ]] [INFO] 
+slave:192.168.21.200:11025
 
-[[ 18-Dec-2015 10:26:11 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:54:54 CST ]] [INFO] 
+slave:192.168.21.200:11026
 
-	
-============Server started on================
-[ 18-Dec-2015 10:26:51 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:26:51 CST ]
-[[ 18-Dec-2015 10:26:51 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:54:54 CST ]] [INFO] 
+master: 192.168.21.200:9908
 
-[[ 18-Dec-2015 10:26:51 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-	
-============Server started on================
-[ 18-Dec-2015 10:28:44 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:28:44 CST ]
-[[ 18-Dec-2015 10:28:44 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:28:44 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:28:44 CST ]] [ERROR] 
+[[ 18-Dec-2015 15:54:54 CST ]] [ERROR] 
 child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:29:23 CST ]
-[[ 18-Dec-2015 10:29:23 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+
+[[ 18-Dec-2015 15:54:54 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
 
 	
 ============Server started on================
-[ 18-Dec-2015 10:29:23 CST ]
-[[ 18-Dec-2015 10:29:23 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[ 18-Dec-2015 15:54:57 CST ]
+[[ 18-Dec-2015 15:54:57 CST ]] [INFO] 
+log file path : log/wfs.log
 
-[[ 18-Dec-2015 10:29:23 CST ]] [ERROR] 
+[[ 18-Dec-2015 15:54:57 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 18-Dec-2015 15:54:57 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 18-Dec-2015 15:54:57 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 18-Dec-2015 15:54:57 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 18-Dec-2015 15:54:57 CST ]] [ERROR] 
 child exited abnormal signal number=11
+
+[[ 18-Dec-2015 15:54:57 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+
 	
 ============Server started on================
-[ 18-Dec-2015 10:29:51 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:29:51 CST ]
-[[ 18-Dec-2015 10:29:51 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[ 18-Dec-2015 15:56:35 CST ]
+[[ 18-Dec-2015 15:56:35 CST ]] [INFO] 
+log file path : log/wfs.log
 
-[[ 18-Dec-2015 10:29:51 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:56:35 CST ]] [INFO] 
+slave:192.168.21.200:11024
 
-[[ 18-Dec-2015 10:29:51 CST ]] [ERROR] 
+[[ 18-Dec-2015 15:56:35 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 18-Dec-2015 15:56:35 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 18-Dec-2015 15:56:35 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 18-Dec-2015 15:56:35 CST ]] [ERROR] 
 child exited abnormal signal number=11
+
+[[ 18-Dec-2015 15:56:35 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+
 	
 ============Server started on================
-[ 18-Dec-2015 10:30:37 CST ]
+[ 18-Dec-2015 15:57:06 CST ]
+[[ 18-Dec-2015 15:57:06 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 18-Dec-2015 15:57:06 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 18-Dec-2015 15:57:06 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 18-Dec-2015 15:57:06 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 18-Dec-2015 15:57:06 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
 	
 ============Server started on================
-[ 18-Dec-2015 10:30:37 CST ]
-[[ 18-Dec-2015 10:30:37 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[ 18-Dec-2015 15:58:11 CST ]
+[[ 18-Dec-2015 15:58:11 CST ]] [INFO] 
+log file path : log/wfs.log
 
-[[ 18-Dec-2015 10:30:37 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:58:11 CST ]] [INFO] 
+slave:192.168.21.200:11024
 
-[[ 18-Dec-2015 10:30:37 CST ]] [ERROR] 
+[[ 18-Dec-2015 15:58:11 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 18-Dec-2015 15:58:11 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 18-Dec-2015 15:58:11 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 18-Dec-2015 15:58:17 CST ]
+[[ 18-Dec-2015 15:58:17 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 18-Dec-2015 15:58:17 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 18-Dec-2015 15:58:17 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 18-Dec-2015 15:58:17 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 18-Dec-2015 15:58:17 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 18-Dec-2015 15:58:36 CST ]
+[[ 18-Dec-2015 15:58:36 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 18-Dec-2015 15:58:36 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 18-Dec-2015 15:58:36 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 18-Dec-2015 15:58:36 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 18-Dec-2015 15:58:36 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 18-Dec-2015 15:58:59 CST ]
+[[ 18-Dec-2015 15:58:59 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 18-Dec-2015 15:58:59 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 18-Dec-2015 15:58:59 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 18-Dec-2015 15:58:59 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 18-Dec-2015 15:58:59 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 18-Dec-2015 15:58:59 CST ]] [ERROR] 
 child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:30:41 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:30:41 CST ]
-[[ 18-Dec-2015 10:30:41 CST ]] [INFO] 
-====master ip:192.168.21.200===============
 
-[[ 18-Dec-2015 10:30:41 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:30:41 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:30:51 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:30:51 CST ]
-[[ 18-Dec-2015 10:30:51 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:30:51 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:30:51 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:33:39 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:33:39 CST ]
-[[ 18-Dec-2015 10:33:39 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:33:39 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:33:39 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:38:08 CST ]
-[[ 18-Dec-2015 10:38:08 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:58:59 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
 
 	
 ============Server started on================
-[ 18-Dec-2015 10:38:08 CST ]
-[[ 18-Dec-2015 10:38:08 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[ 18-Dec-2015 15:59:01 CST ]
+[[ 18-Dec-2015 15:59:01 CST ]] [INFO] 
+log file path : log/wfs.log
 
-[[ 18-Dec-2015 10:38:08 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:39:02 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:39:02 CST ]
-[[ 18-Dec-2015 10:39:02 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:59:01 CST ]] [INFO] 
+slave:192.168.21.200:11024
 
-[[ 18-Dec-2015 10:39:02 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:59:01 CST ]] [INFO] 
+slave:192.168.21.200:11025
 
-[[ 18-Dec-2015 10:39:02 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:42:38 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:42:38 CST ]
-[[ 18-Dec-2015 10:42:38 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:59:01 CST ]] [INFO] 
+slave:192.168.21.200:11026
 
-[[ 18-Dec-2015 10:42:38 CST ]] [INFO] 
-====master ip:192.168.21.200===============
+[[ 18-Dec-2015 15:59:01 CST ]] [INFO] 
+master: 192.168.21.200:9908
 
-[[ 18-Dec-2015 10:42:39 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:42:59 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:42:59 CST ]
-[[ 18-Dec-2015 10:42:59 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:42:59 CST ]] [INFO] 
-====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:42:59 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:44:46 CST ]
-[[ 18-Dec-2015 10:44:46 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-	
-============Server started on================
-[ 18-Dec-2015 10:44:46 CST ]
-[[ 18-Dec-2015 10:44:46 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:44:46 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:47:32 CST ]
-[[ 18-Dec-2015 10:47:32 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-	
-============Server started on================
-[ 18-Dec-2015 10:47:32 CST ]
-[[ 18-Dec-2015 10:47:32 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:47:32 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:50:34 CST ]
-	
-============Server started on================
-[ 18-Dec-2015 10:50:34 CST ]
-[[ 18-Dec-2015 10:50:34 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:50:34 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:50:34 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:51:22 CST ]
-[[ 18-Dec-2015 10:51:22 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:51:22 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:51:24 CST ]
-[[ 18-Dec-2015 10:51:24 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:51:24 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 10:56:58 CST ]
-[[ 18-Dec-2015 10:56:58 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 10:56:59 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 11:09:36 CST ]
-[[ 18-Dec-2015 11:09:36 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 11:09:36 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 11:21:42 CST ]
-[[ 18-Dec-2015 11:21:42 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 11:21:42 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 11:21:59 CST ]
-[[ 18-Dec-2015 11:21:59 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 11:21:59 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 11:22:01 CST ]
-[[ 18-Dec-2015 11:22:01 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 11:22:01 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 13:22:35 CST ]
-[[ 18-Dec-2015 13:22:35 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 13:22:35 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 13:22:36 CST ]
-[[ 18-Dec-2015 13:22:36 CST ]] [INFO] 
-=====master ip:192.168.21.200===============
-
-[[ 18-Dec-2015 13:22:37 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 13:26:25 CST ]
-[[ 18-Dec-2015 13:26:25 CST ]] [INFO] 
-master ip:192.168.21.200
-
-	
-============Server started on================
-[ 18-Dec-2015 13:26:56 CST ]
-[[ 18-Dec-2015 13:26:56 CST ]] [INFO] 
-master ip:192.168.21.200
-
-	
-============Server started on================
-[ 18-Dec-2015 13:27:23 CST ]
-[[ 18-Dec-2015 13:27:23 CST ]] [INFO] 
-master ip:192.168.21.200
-
-[[ 18-Dec-2015 13:27:23 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 13:28:17 CST ]
-[[ 18-Dec-2015 13:28:17 CST ]] [INFO] 
-master ip:192.168.21.200
-
-[[ 18-Dec-2015 13:28:17 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 13:28:19 CST ]
-[[ 18-Dec-2015 13:28:19 CST ]] [INFO] 
-master ip:192.168.21.200
-
-[[ 18-Dec-2015 13:28:19 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 13:28:20 CST ]
-[[ 18-Dec-2015 13:28:20 CST ]] [INFO] 
-master ip:192.168.21.200
-
-[[ 18-Dec-2015 13:28:20 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 13:28:23 CST ]
-[[ 18-Dec-2015 13:28:23 CST ]] [INFO] 
-master ip:192.168.21.200
-
-[[ 18-Dec-2015 13:28:23 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 13:34:09 CST ]
-[[ 18-Dec-2015 13:34:09 CST ]] [INFO] 
-master ip:192.168.21.200
-
-[[ 18-Dec-2015 13:34:09 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 13:37:59 CST ]
-[[ 18-Dec-2015 13:37:59 CST ]] [INFO] 
-master ip:192.168.21.200
-
-[[ 18-Dec-2015 13:37:59 CST ]] [ERROR] 
-child exited abnormal signal number=11
-	
-============Server started on================
-[ 18-Dec-2015 13:51:20 CST ]
-[[ 18-Dec-2015 13:51:20 CST ]] [INFO] 
-master ip:192.168.21.200
-
-[[ 18-Dec-2015 13:51:20 CST ]] [ERROR] 
-child exited abnormal signal number=11

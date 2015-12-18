@@ -20,20 +20,16 @@ This file is free software, released under GPL. Please read acclosed license
 
 #include "log.h"
 
-
 /* external variables */
 
-
-
-/* Opens the server log file
- * to be called once at the beginning
- */
-
+/* 
+*  Opens the server log file
+*  to be called once at the beginning
+*/
 void printfloat(FILE *lf,const float flt);
 void printstr(FILE *lf,const char *ptr);
 void printint(FILE *lf,const int dec);
 void printch(FILE *lf,const char ch);
-
 
 FILE *logFileOpen(char logFileName[])
 {
@@ -177,7 +173,8 @@ int logWriter(FILE * lf,LOG_TYPE eventType,char *format, ...)
             }
         }
     }
-
+    
+    fprintf(lf,"\n");
     fflush(lf);
     va_end(ap);
     

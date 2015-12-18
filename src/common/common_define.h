@@ -26,10 +26,6 @@
 #define CODE_LZMA  0x01
 #define CODE_ZLIB  0x02
 
-//监听端口
-#define LISTERN_PORT    9998      // 服务器监听端口
-
-
 //数据包标识，标识来自某个IP的某个文件
 struct  ugi 
 {

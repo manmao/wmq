@@ -12,41 +12,52 @@
 #include "slave_init.h"
 #include "master_init.h"
 #include "global.h"
-
 #include "test.h"
 
+void  process(int argc , char *argv[]);
+
+/**
+   start master:
+     ./bin/wfs master 1
+
+   start slave:
+     ./bin/wfs slave  1
+     ./bin/wfs slave  2
+     ./bin/wfs slave  3
+     ...
+     ./bin/wfs slave  n
+**/
 void child_run(int argc,char *argv[])
 {
-	if(argc<2)
-	 {
+	if(argc<3)
+	{
 	 	printf("参数有误--请输入参数:\n");
-	 	printf("-master 启动master服务器\n");
-	 	printf("-slave 启动slave服务器\n");
-	 }
+	 	printf(" master 1 启动master服务器\n");
+	 	printf(" slave  x 启动slave服务器\n");
+	}
 
-	 //启动master服务器
-	 if(strcmp(argv[1],"master") == 0)
-	 {
+	//启动master服务器
+	if(strcmp(argv[1],"master") == 0)
+	{
 	 	master_server_init(0,NULL);
 	 	printf("master_server_init started....\n");
-	 }
+	}
 
-	 //启动slave服务器
-	 else if( strcmp(argv[1],"slave") == 0 )
-	 {
-	 	slave_server_init(0,NULL);
+	//启动slave服务器
+	else if(strcmp(argv[1],"slave") == 0)
+	{
+	 	slave_server_init(argc,argv);
 	 	printf("slave_server_init started....\n");
-	 }
-
-	 //参数有误 
-	 else
-	 {
+	}
+	//参数有误 
+	else
+	{
 	 	printf("参数有误--请输入参数:\n");
-	 	printf("xxx -master 启动master服务器\n");
-	 	printf("xxx -slave 启动slave服务器\n");
-	 }
-
+	 	printf(" xxx  master 1 启动master服务器\n");
+	 	printf(" xxx  slave  n 启动slave服务器\n");
+	}
 	while(1);
+
 }
 
 
@@ -75,30 +86,28 @@ void parent_run(int argc,char *argv[])
 	//exit signal 
 	else if (WIFSIGNALED(status)){
 		logWriter(CONF.lf,LOG_ERROR,"child exited abnormal signal number=%d\n", WTERMSIG(status));
+		logWriter(CONF.lf,LOG_ERROR,"================Sever Exception Exit!!!!================\n");
 	}
 
 	//exit un normal
 	else if (WIFSTOPPED(status)){
 		logWriter(CONF.lf,LOG_ERROR,"child stoped signal number=%d\n", WSTOPSIG(status));
-		child_run(argc,argv);
+		logWriter(CONF.lf,LOG_ERROR,"================Sever Exception Exit!!!!================\n");
+		//child_run(argc,argv);
+		process(argc,argv);
 	}
-
+	
 }
 
-/*********************************
 
-	整个系统入口	
 
-**********************************/
-
-int main(int argc , char *argv[])
+void  process(int argc , char *argv[])
 {
 	pid_t mainpro;
 
 	/*init*/
 	init_log();
 	init_conf();
-
 
 	mainpro = fork();
 	if(mainpro <= -1)
@@ -113,6 +122,16 @@ int main(int argc , char *argv[])
 	{
 		child_run(argc,argv);
 	}
+}
 
+/*********************************
+
+	整个系统入口	
+
+**********************************/
+
+int main(int argc , char *argv[])
+{
+	process(argc,argv);
 	return 0;
 }

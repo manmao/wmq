@@ -85,11 +85,11 @@ void buff_to_block(int fd,
 	MD5Buffer(buff,strlen(buff),digest);
 	int idx=DJBhash(digest)%CONF.slave_server_num;
 	char dest_addr[15];
-	strcpy(dest_addr,CONF.slave_ip[idx]);
+	strcpy(dest_addr,CONF.slave[idx].ip);
 	//发送到的IP地址  ???
 	item->block.to_addr.sin_family=AF_INET;
-	item->block.to_addr.sin_addr.s_addr = inet_addr(CONF.slave_ip[idx]); /*本地地址*/
-	item->block.to_addr.sin_port = htons(CONF.master_port); 		/*监听端口*/
+	item->block.to_addr.sin_addr.s_addr = inet_addr(CONF.slave[idx].ip); /*本地地址*/
+	item->block.to_addr.sin_port = htons(CONF.master.port); 		/*监听端口*/
 
 	memcpy(item->block.buff,buff,len);
 	

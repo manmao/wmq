@@ -6,6 +6,7 @@
 #include "common_define.h"
 #include "slave_init.h"
 #include "server_sockopt.h"
+#include "global.h"
 
 static void handleterm(int sig)  
 {  
@@ -16,24 +17,12 @@ static void handleterm(int sig)
 //初始化slave服务器
 int slave_server_init(int argnum,char *argv[])
 {
+	int idx;
+	sscanf(argv[2],"%d",&idx);
+	printf("slave id:%d\n",idx);
 	
-	pid_t pd;
-	pd=fork();
-
-	if(pd<0)
-	{
-		errExit("FILE:%s,LINE:%d",__FILE__,__LINE__);
-	}
-
-	//父进程
-	if(pd>0)
-	{
-		
-
-	}else if(pd==0){ //子进程
-		SERVER *slave_server;
-		init_server(&slave_server,8080);
-		start_listen(slave_server);
-	   //printf("test end\n");
-	}	
+	SERVER *slave_server;
+	init_server(&slave_server,CONF.slave[idx-1].port);
+	start_listen(slave_server);
+	
 }

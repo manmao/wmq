@@ -342,7 +342,6 @@ void  start_listen(SERVER *server){
 }
 
 
-
 /************************
 *关闭服务器器监听
 *************************/
@@ -351,7 +350,7 @@ void  destroy_server(SERVER *server)
 	/****删除所有连接节点****/
 
 	deletefd(server->efd,server->listenfd);
-
+	
 	close(server->listenfd);
 	close(server->efd);
 	threadpool_destroy(server->tpool);
