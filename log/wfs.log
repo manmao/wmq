@@ -232,3 +232,696 @@ child exited abnormal signal number=11
 [[ 18-Dec-2015 18:12:48 CST ]] [ERROR] 
 ================Sever Exception Exit!!!!================
 
+	
+============Server started on================
+[ 21-Dec-2015 10:28:48 CST ]
+[[ 21-Dec-2015 10:28:48 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:28:48 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:28:48 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:28:48 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:28:48 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:30:07 CST ]
+[[ 21-Dec-2015 10:30:07 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:30:07 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:30:07 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:30:07 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:30:07 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:30:11 CST ]
+[[ 21-Dec-2015 10:30:11 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:30:11 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:30:11 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:30:11 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:30:11 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:30:15 CST ]
+[[ 21-Dec-2015 10:30:15 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:30:15 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:30:15 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:30:15 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:30:15 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:30:20 CST ]
+[[ 21-Dec-2015 10:30:20 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:30:20 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:30:20 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:30:20 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:30:20 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:34:25 CST ]
+[[ 21-Dec-2015 10:34:25 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:34:25 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:34:25 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:34:25 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:34:25 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:34:25 CST ]] [ERROR] 
+child exited abnormal signal number=11
+
+[[ 21-Dec-2015 10:34:25 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+
+	
+============Server started on================
+[ 21-Dec-2015 10:34:31 CST ]
+[[ 21-Dec-2015 10:34:31 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:34:31 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:34:31 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:34:31 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:34:31 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:35:06 CST ]
+[[ 21-Dec-2015 10:35:06 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:35:06 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:35:06 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:35:06 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:35:06 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:35:10 CST ]
+[[ 21-Dec-2015 10:35:10 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:35:10 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:35:10 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:35:10 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:35:10 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:36:34 CST ]
+[[ 21-Dec-2015 10:36:34 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:36:34 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:36:34 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:36:34 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:36:34 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:38:44 CST ]
+[[ 21-Dec-2015 10:38:44 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:38:44 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:38:44 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:38:44 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:38:44 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:38:50 CST ]
+[[ 21-Dec-2015 10:38:50 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:38:50 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:38:50 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:38:50 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:38:50 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:38:50 CST ]] [ERROR] 
+child exited abnormal signal number=11
+
+[[ 21-Dec-2015 10:38:50 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+
+	
+============Server started on================
+[ 21-Dec-2015 10:38:56 CST ]
+[[ 21-Dec-2015 10:38:56 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:38:56 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:38:56 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:38:56 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:38:56 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:48:57 CST ]
+[[ 21-Dec-2015 10:48:57 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:48:57 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:48:57 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:48:57 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:48:57 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:48:57 CST ]] [ERROR] 
+child exited abnormal signal number=11
+
+[[ 21-Dec-2015 10:48:57 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+
+	
+============Server started on================
+[ 21-Dec-2015 10:49:04 CST ]
+[[ 21-Dec-2015 10:49:04 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:49:04 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:49:04 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:49:04 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:49:04 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:49:10 CST ]
+[[ 21-Dec-2015 10:49:10 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:49:10 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:49:10 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:49:10 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:49:10 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:49:10 CST ]] [INFO] 
+child exited normal exit status=1
+
+	
+============Server started on================
+[ 21-Dec-2015 10:49:51 CST ]
+[[ 21-Dec-2015 10:49:51 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:49:51 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:49:51 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:49:51 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:49:51 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:49:51 CST ]] [INFO] 
+child exited normal exit status=1
+
+	
+============Server started on================
+[ 21-Dec-2015 10:49:57 CST ]
+[[ 21-Dec-2015 10:49:57 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:49:57 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:49:57 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:49:57 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:49:57 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:49:57 CST ]] [INFO] 
+child exited normal exit status=1
+
+	
+============Server started on================
+[ 21-Dec-2015 10:50:52 CST ]
+[[ 21-Dec-2015 10:50:52 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:50:52 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:50:52 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:50:52 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:50:52 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:50:52 CST ]] [ERROR] 
+child exited abnormal signal number=11
+
+[[ 21-Dec-2015 10:50:52 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+
+	
+============Server started on================
+[ 21-Dec-2015 10:50:54 CST ]
+[[ 21-Dec-2015 10:50:54 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:50:54 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:50:54 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:50:54 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:50:54 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:50:54 CST ]] [INFO] 
+child exited normal exit status=1
+
+	
+============Server started on================
+[ 21-Dec-2015 10:51:10 CST ]
+[[ 21-Dec-2015 10:51:10 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:51:10 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:51:10 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:51:10 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:51:10 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:51:10 CST ]] [INFO] 
+child exited normal exit status=1
+
+	
+============Server started on================
+[ 21-Dec-2015 10:51:49 CST ]
+[[ 21-Dec-2015 10:51:49 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:51:49 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:51:49 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:51:49 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:51:49 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:51:52 CST ]
+[[ 21-Dec-2015 10:51:52 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:51:52 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:51:52 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:51:52 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:51:52 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:51:54 CST ]
+[[ 21-Dec-2015 10:51:54 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:51:54 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:51:54 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:51:54 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:51:54 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:51:54 CST ]] [INFO] 
+child exited normal exit status=1
+
+	
+============Server started on================
+[ 21-Dec-2015 10:52:15 CST ]
+[[ 21-Dec-2015 10:52:15 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:52:15 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:52:15 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:52:15 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:52:15 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:52:17 CST ]
+[[ 21-Dec-2015 10:52:17 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:52:17 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:52:17 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:52:17 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:52:17 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:52:17 CST ]] [INFO] 
+child exited normal exit status=1
+
+	
+============Server started on================
+[ 21-Dec-2015 10:52:38 CST ]
+[[ 21-Dec-2015 10:52:38 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:52:38 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:52:38 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:52:38 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:52:38 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:52:38 CST ]] [INFO] 
+child exited normal exit status=1
+
+	
+============Server started on================
+[ 21-Dec-2015 10:52:45 CST ]
+[[ 21-Dec-2015 10:52:45 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:52:45 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:52:45 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:52:45 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:52:45 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:52:45 CST ]] [INFO] 
+child exited normal exit status=1
+
+	
+============Server started on================
+[ 21-Dec-2015 10:53:16 CST ]
+[[ 21-Dec-2015 10:53:16 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:53:16 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:53:16 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:53:16 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:53:16 CST ]] [INFO] 
+slave:192.168.21.200:11027
+
+[[ 21-Dec-2015 10:53:16 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:53:30 CST ]
+[[ 21-Dec-2015 10:53:30 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:53:30 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:53:30 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:53:30 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:53:30 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:53:30 CST ]] [INFO] 
+child exited normal exit status=1
+
+	
+============Server started on================
+[ 21-Dec-2015 10:53:36 CST ]
+[[ 21-Dec-2015 10:53:36 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:53:36 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:53:36 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:53:36 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:53:36 CST ]] [INFO] 
+slave:192.168.21.200:11027
+
+[[ 21-Dec-2015 10:53:36 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:53:54 CST ]
+[[ 21-Dec-2015 10:53:54 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:53:54 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:53:54 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:53:54 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:53:54 CST ]] [INFO] 
+slave:192.168.21.200:11027
+
+[[ 21-Dec-2015 10:53:54 CST ]] [INFO] 
+slave:192.168.21.200:11028
+
+[[ 21-Dec-2015 10:53:54 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:53:56 CST ]
+[[ 21-Dec-2015 10:53:56 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:53:56 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:53:56 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:53:56 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:53:56 CST ]] [INFO] 
+slave:192.168.21.200:11027
+
+[[ 21-Dec-2015 10:53:56 CST ]] [INFO] 
+slave:192.168.21.200:11028
+
+[[ 21-Dec-2015 10:53:56 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 10:53:59 CST ]
+[[ 21-Dec-2015 10:53:59 CST ]] [INFO] 
+log file path : log/wfs.log
+
+[[ 21-Dec-2015 10:53:59 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 10:53:59 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 10:53:59 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 10:53:59 CST ]] [INFO] 
+slave:192.168.21.200:11027
+
+[[ 21-Dec-2015 10:53:59 CST ]] [INFO] 
+slave:192.168.21.200:11028
+
+[[ 21-Dec-2015 10:53:59 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 10:53:59 CST ]] [INFO] 
+child exited normal exit status=1
+

@@ -56,6 +56,7 @@ void child_run(int argc,char *argv[])
 	 	printf(" xxx  master 1 启动master服务器\n");
 	 	printf(" xxx  slave  n 启动slave服务器\n");
 	}
+
 	while(1);
 
 }
@@ -108,7 +109,7 @@ void  process(int argc , char *argv[])
 	/*init*/
 	init_log();
 	init_conf();
-
+	
 	mainpro = fork();
 	if(mainpro <= -1)
 	{

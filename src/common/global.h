@@ -24,6 +24,7 @@ typedef struct system_conf
 
 	//DataNode集群服务器数量
 	int slave_server_num;
+
 	//slave
  	struct addr *slave;
 
@@ -38,5 +39,6 @@ typedef struct system_conf
 }SYSTEM_CONF;
 
 SYSTEM_CONF CONF;
+
 
 #endif

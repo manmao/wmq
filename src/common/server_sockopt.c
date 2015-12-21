@@ -17,11 +17,11 @@
 #include <signal.h>
 #include <stdio.h>
 
-#include "common_define.h"
 #include "server_sockopt.h"
-#include "threadpool.h"
 #include "util.h"
-#include "handle_pkg.h"
+
+#include "master_init.h"
+#include "slave_init.h"
 
 int count=0;
 
@@ -118,7 +118,7 @@ static void handle_accept_event(SERVER *server)
 	struct sockaddr clientaddr;
 	socklen_t addrlen=sizeof(struct sockaddr);  //地址长度
 	int a_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen));
-
+	
 	//如果连接成功
 	if(a_fd != -1){
 
@@ -136,7 +136,6 @@ static void handle_accept_event(SERVER *server)
 	}
 }
 
-
 /**********************************
 
 	函数功能：处理epoll可读事件
@@ -150,46 +149,23 @@ static void handle_accept_event(SERVER *server)
 **********************************/
 static void handle_readable_event(SERVER *server,struct epoll_event events)
 {
-	struct sock_pkt recv_pkt;//网络数据包数据结构
-	while(1)
-	{
-		int buflen=recv(events.data.fd,(void *)&recv_pkt,sizeof(struct sock_pkt),0);
-		if(buflen < 0)
-		{
-			 if(errno== EAGAIN || errno == EINTR){ //即当buflen<0且errno=EAGAIN时，表示没有数据了。(读/写都是这样)
-              	  printf("没有数据了\n");
-              	  return ;
-              }   
-              else{
-              	 printf("epoll error %s %s\n",__FILE__,__LINE__);
-              	 return;                 //真的失败了。
-              }        
-		}
-		if(buflen==0) 			//客户端断开连接
-		{		
-			server->connect_num--;  //客户端连接数量减1
-			
-			/**关闭文件描述符**/      			 
-			deletefd(server->efd,events.data.fd);
-			close(events.data.fd);
+	/*
+		dispatch
+	*/
+	switch(server->type){
 
-			/*******删除连接队列中的点*******/
-			struct conn_node node;
-			node.accept_fd=events.data.fd;			 
-			conn_delete(&server->conn_root,&node);
+		case MASTER:
+			on_master_handle(server,events);
+			break;
 
-			//调试信息
-			printf("有客户端断开连接了,现在连接数:%d\n",server->connect_num);
-			return ;
-		}
-		else if(buflen>0) //客户端发送数据过来了
-		{	
-			//将数据包加入任务队列
-			threadpool_add_job(server->tpool,handle_pkg,(void *)&recv_pkt);
-			printf("包个数: ==> %d\n",count++);
-			//往线程池添加执行单元
-		}	
+		case SLAVE:
+			on_slave_handle(server,events);
+			break;
+		default:
+			;
 	}
+   
+	
 }
 
 
@@ -255,8 +231,8 @@ static void server_listener(void *arg){
 		}
 		int i;
 		for(i=0;i<number;i++){                     //遍历epoll的所有事件
-			int sockfd=events[i].data.fd;       //获取fd
-			if(sockfd == server->listenfd){  //有客户端建立连接
+			int sockfd=events[i].data.fd;        //获取fd
+			if(sockfd == server->listenfd){      //有客户端建立连接
 
 				handle_accept_event(server);
 
@@ -292,7 +268,7 @@ void  init_server(SERVER **server,int port,SERVER_TYPE type){
 	struct sockaddr_in addr;
 	addr.sin_family=AF_INET;
 	addr.sin_port=htons(port);
-	addr.sin_addr.s_addr=INADDR_ANY;
+	addr.sin_addr.s_addr=INADDR_ANY; 
 
 	int ret=bind(sfd,(struct sockaddr *)&addr,sizeof(addr));  //绑定到服务器的端口
 	if(ret == -1){
@@ -300,7 +276,7 @@ void  init_server(SERVER **server,int port,SERVER_TYPE type){
 		close(sfd);
 		return ;
 	}
-
+	
 	ret=listen(sfd,BACKLOG);               //监听端口
 
 	assert(ret != -1);
@@ -339,7 +315,6 @@ void  start_listen(SERVER *server){
 	pthread_join(pt,NULL);
 }
 
-
 /************************
 *关闭服务器器监听
 *************************/
@@ -348,7 +323,7 @@ void  destroy_server(SERVER *server)
 	/****删除所有连接节点****/
 
 	deletefd(server->efd,server->listenfd);
-	
+
 	close(server->listenfd);
 	close(server->efd);
 	threadpool_destroy(server->tpool);
