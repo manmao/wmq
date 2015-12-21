@@ -18,6 +18,7 @@
 #include "rbtree.h"
 #include "threadpool.h"
 #include "util.h"
+#include "upload_file.h"
 
 #include "md5.h"
 
@@ -72,9 +73,9 @@ void testthreadpool()
 		//if(i%20==0)
 		//sleep(5);	
 	}
+	
 	//sleep(5);	
 	//threadpool_destroy(t);
-	
 }
 
 
@@ -149,5 +150,8 @@ void testgetip()
 		printf("ip%d : %s\n",i,ip[i]);
 	}
 }
+
+
+
 
 #endif

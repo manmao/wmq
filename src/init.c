@@ -30,8 +30,9 @@ void init_conf(void)
 	int num;
 	GetConfigIntValue("config/wfs_config.conf","slave","NUM",&num);
 	printf("%d\n",num);
-
-	CONF.slave=(struct addr *)malloc(sizeof(struct addr) *num);
+	
+	CONF.slave_server_num=num;
+	CONF.slave=(struct addr *)malloc(sizeof(struct addr)*num);
 	int i;
 	for(i=1;i<=num;i++){
 		
@@ -44,7 +45,7 @@ void init_conf(void)
 	}
 
 	//====master
-
+	CONF.master_server_num=1;
 	GetConfigStringValue("config/wfs_config.conf","master","IP",CONF.master.ip);
 	GetConfigIntValue("config/wfs_config.conf","master","PORT",&CONF.master.port);
 	logWriter(CONF.lf,LOG_INFO,"master: %s:%d\n",CONF.master.ip,CONF.master.port);

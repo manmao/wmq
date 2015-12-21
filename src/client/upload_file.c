@@ -102,12 +102,11 @@ void buff_to_block(int fd,
 
 	item->block.block_flag->filesize = file_stat.st_size;
 	item->block.block_flag->stime    = file_stat.st_mtime;
-	strcpy(item->block.block_flag->filename , filename);    	  //数据包所属的文件名 ???
-	item->block.block_flag->block_id  = id;         			  //数据包的id  ???
+	strcpy(item->block.block_flag->filename , filename);    	  //数据包所属的文件名 
+	item->block.block_flag->block_id  = id;         			  //数据包的id  
 	item->block.block_flag->offset    = id*WFS_FILE_BUFF_SIZE;    //数据包在文件中的偏移量 
 	//data_save_path数据存储的路径
-	strcpy(item->block.block_flag->block_path,CONF.data_save_path);    //文件存储路径??
-
+	strcpy(item->block.block_flag->block_path,CONF.data_save_path);    //文件存储路径
 }
 
 
@@ -120,7 +119,6 @@ void upload_file(char *path,char *filename)
 	{
 		errExit("open file error.file:%s,line:%d,funciton:%s\n",__FILE__,__LINE__,__FUNCTION__);
 	}
-	
 	int ret;
 	//WFS_FILE_BUFF_SIZE BUFF长度 1024*5
 	unsigned char buff[WFS_FILE_BUFF_SIZE];
@@ -141,6 +139,6 @@ void upload_file(char *path,char *filename)
 
 		count_id++;
 	}
-
 	close(fd);
+
 }

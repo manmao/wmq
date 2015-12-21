@@ -1,3 +1,4 @@
+/data/Coder/wfs/obj/test.o: test.c
 /data/Coder/wfs/obj/upload_file.o: upload_file.c upload_file.h \
  /data/Coder/wfs/src/common/common_define.h \
  /data/Coder/wfs/src/common/util.h /data/Coder/wfs/inc/queue.h \

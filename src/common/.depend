@@ -3,15 +3,15 @@
 /data/Coder/wfs/obj/connect.o: connect.c /data/Coder/wfs/inc/rbtree.h \
  connect.h util.h server_sockopt.h common_define.h \
  /data/Coder/wfs/src/thread/threadpool.h
-/data/Coder/wfs/obj/handle_pkg.o: handle_pkg.c server_sockopt.h \
- common_define.h util.h /data/Coder/wfs/inc/rbtree.h \
- /data/Coder/wfs/src/thread/threadpool.h connect.h
 /data/Coder/wfs/obj/hash.o: hash.c hash.h
 /data/Coder/wfs/obj/log.o: log.c /data/Coder/wfs/inc/error_hdr.h \
  /data/Coder/wfs/inc/error/get_num.h \
  /data/Coder/wfs/inc/error/error_functions.h util.h log.h
 /data/Coder/wfs/obj/md5.o: md5.c md5.h
-/data/Coder/wfs/obj/server_sockopt.o: server_sockopt.c common_define.h \
- util.h server_sockopt.h /data/Coder/wfs/inc/rbtree.h \
- /data/Coder/wfs/src/thread/threadpool.h connect.h handle_pkg.h
+/data/Coder/wfs/obj/server_sockopt.o: server_sockopt.c server_sockopt.h \
+ common_define.h util.h /data/Coder/wfs/inc/rbtree.h \
+ /data/Coder/wfs/src/thread/threadpool.h connect.h \
+ /data/Coder/wfs/src/master/master_init.h \
+ /data/Coder/wfs/src/common/server_sockopt.h \
+ /data/Coder/wfs/src/slave/slave_init.h
 /data/Coder/wfs/obj/util.o: util.c util.h

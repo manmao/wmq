@@ -1,0 +1,216 @@
+	
+============Server started on================
+[ 21-Dec-2015 11:06:29 CST ]
+[[ 21-Dec-2015 11:06:29 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 11:06:29 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 11:06:29 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 11:06:29 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 11:06:29 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 11:25:40 CST ]
+[[ 21-Dec-2015 11:25:40 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 11:25:40 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 11:25:40 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 11:25:40 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 11:25:40 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 11:32:04 CST ]
+[[ 21-Dec-2015 11:32:04 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 11:32:04 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 11:32:04 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 11:32:04 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 11:32:04 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 12:14:59 CST ]
+[[ 21-Dec-2015 12:14:59 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 12:14:59 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 12:14:59 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 12:14:59 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 12:14:59 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 12:14:59 CST ]] [ERROR] 
+child exited abnormal signal number=11
+
+[[ 21-Dec-2015 12:14:59 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+
+	
+============Server started on================
+[ 21-Dec-2015 12:15:02 CST ]
+[[ 21-Dec-2015 12:15:02 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 12:15:02 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 12:15:02 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 12:15:02 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 12:15:02 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 12:15:10 CST ]
+[[ 21-Dec-2015 12:15:10 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 12:15:10 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 12:15:10 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 12:15:10 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 12:15:10 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 12:20:47 CST ]
+[[ 21-Dec-2015 12:20:47 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 12:20:47 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 12:20:47 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 12:20:47 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 12:20:47 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 12:21:11 CST ]
+[[ 21-Dec-2015 12:21:11 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 12:21:11 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 12:21:11 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 12:21:11 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 12:21:11 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 21-Dec-2015 12:21:11 CST ]] [ERROR] 
+child exited abnormal signal number=11
+
+[[ 21-Dec-2015 12:21:11 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+
+[[ 21-Dec-2015 12:21:33 CST ]] [ERROR] 
+child exited abnormal signal number=6
+
+[[ 21-Dec-2015 12:21:33 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+
+	
+============Server started on================
+[ 21-Dec-2015 12:23:27 CST ]
+[[ 21-Dec-2015 12:23:27 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 12:23:27 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 12:23:27 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 12:23:27 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 12:23:27 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 12:25:38 CST ]
+[[ 21-Dec-2015 12:25:38 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 12:25:38 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 12:25:38 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 12:25:38 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 12:25:38 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 21-Dec-2015 12:27:21 CST ]
+[[ 21-Dec-2015 12:27:21 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 21-Dec-2015 12:27:21 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 21-Dec-2015 12:27:21 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 21-Dec-2015 12:27:21 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 21-Dec-2015 12:27:21 CST ]] [INFO] 
+master: 192.168.21.200:9908
+

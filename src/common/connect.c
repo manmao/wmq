@@ -62,7 +62,7 @@ void print_rbtree(struct rb_root *tree)
     struct rb_node *node;
 
     for (node = rb_first(tree); node; node = rb_next(node))
-        printf("%d ", rb_entry(node, struct conn_type, my_node)->node->accept_fd);
+        printf("%d  ", rb_entry(node, struct conn_type, my_node)->node->accept_fd);
 
     printf("\n");
 }
