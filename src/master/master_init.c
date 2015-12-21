@@ -18,13 +18,13 @@ static void deletefd(int epollfd,int fd){
 	close(fd);
 }
 
-
 int master_server_init(int argc,char *argv[])
 {
 	SERVER *master_server;
 	init_server(&master_server,CONF.master.port,MASTER);
 	start_listen(master_server);
 }
+
 
 /*void *handle_pkg(void *arg)
 {
@@ -38,9 +38,11 @@ void on_master_handle(struct sock_server *server,struct epoll_event events)
 	int event_fd=events.data.fd;
 
 	struct sock_pkt recv_pkt;//网络数据包数据结构
+	char tt[1024];
 	while(1)
 	{
 		int buflen=recv(event_fd,(void *)&recv_pkt,sizeof(struct sock_pkt),0);
+
 		if(buflen < 0)
 		{
 			if(errno== EAGAIN || errno == EINTR){ //即当buflen<0且errno=EAGAIN时，表示没有数据了。(读/写都是这样)
@@ -71,7 +73,6 @@ void on_master_handle(struct sock_server *server,struct epoll_event events)
 		}
 		else if(buflen>0) //客户端发送数据过来了
 		{	
-			int count=0;
 			//将数据包加入任务队列
 		//	threadpool_add_job(server->tpool,handle_pkg,(void *)&recv_pkt);
 		//	printf("包个数: ==> %d\n",count++);

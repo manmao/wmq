@@ -131,8 +131,12 @@ void  process(int argc , char *argv[])
 
 **********************************/
 
+#if 1
+
 int main(int argc , char *argv[])
 {
 	process(argc,argv);
 	return 0;
 }
+
+#endif

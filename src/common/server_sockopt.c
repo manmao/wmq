@@ -132,7 +132,7 @@ static void handle_accept_event(SERVER *server)
 		server->connect_num++;
 		printf("连接数量 --%d\n",server->connect_num); 				  //用户连接数量
 		addfd(server->efd,type->node->accept_fd);
-
+		//print_rbtree(&server->conn_root);
 	}
 }
 
