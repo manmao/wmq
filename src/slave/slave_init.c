@@ -10,6 +10,7 @@
 #include "common_define.h"
 #include "error_hdr.h"
 
+
 static void deletefd(int epollfd,int fd){
 	struct epoll_event event;
 	event.data.fd=fd;
@@ -61,9 +62,6 @@ void on_slave_handle(struct sock_server *server,struct epoll_event events)
 		}	
 	}
 }
-
-
-
 
 //初始化slave服务器
 int slave_server_init(int argnum,char *argv[])
