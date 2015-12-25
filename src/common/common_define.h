@@ -27,6 +27,7 @@
 #define CODE_LZMA  0x01
 #define CODE_ZLIB  0x02
 
+//server type
 typedef enum 
 {
 	MASTER,

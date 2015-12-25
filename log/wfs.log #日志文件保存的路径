@@ -214,3 +214,81 @@ slave:192.168.21.200:11026
 [[ 21-Dec-2015 12:27:21 CST ]] [INFO] 
 master: 192.168.21.200:9908
 
+	
+============Server started on================
+[ 25-Dec-2015 13:21:24 CST ]
+[[ 25-Dec-2015 13:21:24 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 25-Dec-2015 13:21:24 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 25-Dec-2015 13:21:24 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 25-Dec-2015 13:21:24 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 25-Dec-2015 13:21:24 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+[[ 25-Dec-2015 13:21:24 CST ]] [ERROR] 
+child exited abnormal signal number=11
+
+[[ 25-Dec-2015 13:21:24 CST ]] [ERROR] 
+================Sever Exception Exit!!!!================
+
+	
+============Server started on================
+[ 25-Dec-2015 13:21:28 CST ]
+[[ 25-Dec-2015 13:21:28 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 25-Dec-2015 13:21:28 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 25-Dec-2015 13:21:28 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 25-Dec-2015 13:21:28 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 25-Dec-2015 13:21:28 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 25-Dec-2015 13:21:50 CST ]
+[[ 25-Dec-2015 13:21:50 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 25-Dec-2015 13:21:50 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 25-Dec-2015 13:21:50 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 25-Dec-2015 13:21:50 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 25-Dec-2015 13:21:50 CST ]] [INFO] 
+master: 192.168.21.200:9908
+
+	
+============Server started on================
+[ 25-Dec-2015 13:23:02 CST ]
+[[ 25-Dec-2015 13:23:02 CST ]] [INFO] 
+log file path : log/wfs.log #日志文件保存的路径
+
+[[ 25-Dec-2015 13:23:02 CST ]] [INFO] 
+slave:192.168.21.200:11024
+
+[[ 25-Dec-2015 13:23:02 CST ]] [INFO] 
+slave:192.168.21.200:11025
+
+[[ 25-Dec-2015 13:23:02 CST ]] [INFO] 
+slave:192.168.21.200:11026
+
+[[ 25-Dec-2015 13:23:02 CST ]] [INFO] 
+master: 192.168.21.200:9908
+

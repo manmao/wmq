@@ -31,6 +31,7 @@ typedef struct system_conf
 	//文件在数据节点上存储的路径
 	char *data_save_path;
 
+	// Log file
 	FILE *lf;
 
 	//文件系统存储路径

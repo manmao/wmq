@@ -10,7 +10,6 @@
 #include "common_define.h"
 #include "error_hdr.h"
 
-
 static void deletefd(int epollfd,int fd){
 	struct epoll_event event;
 	event.data.fd=fd;
@@ -19,34 +18,9 @@ static void deletefd(int epollfd,int fd){
 	close(fd);
 }
 
-static void handleterm(int sig)  
-{  
-	printf("SIGTERM GET\n");
-    return;  
-}
-
-//初始化slave服务器
-int slave_server_init(int argnum,char *argv[])
-{
-	int idx;
-	sscanf(argv[2],"%d",&idx);
-	printf("slave id:%d,total slave server:%d\n",idx,CONF.slave_server_num);
-	
-	if(idx > CONF.slave_server_num)
-	{
-		errExit("slave 服务器编号不存在\n");
-	}
-	SERVER *slave_server;
-	printf("slave :%d\n",CONF.slave[idx-1].port);
-	init_server(&slave_server,CONF.slave[idx-1].port,SLAVE);
-	start_listen(slave_server);
-	
-}
-
 void on_slave_handle(struct sock_server *server,struct epoll_event events)
 {
 	int event_fd=events.data.fd;
-	
 	struct sock_pkt recv_pkt;//网络数据包数据结构
 	while(1)
 	{
@@ -87,3 +61,27 @@ void on_slave_handle(struct sock_server *server,struct epoll_event events)
 		}	
 	}
 }
+
+
+
+
+//初始化slave服务器
+int slave_server_init(int argnum,char *argv[])
+{
+	int idx;
+	sscanf(argv[2],"%d",&idx);
+	printf("slave id:%d,total slave server:%d\n",idx,CONF.slave_server_num);
+	if(idx > CONF.slave_server_num)
+	{
+		errExit("slave 服务器编号不存在\n");
+	}
+	printf("slave :%d\n",CONF.slave[idx-1].port);
+
+	struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
+	handler->handle_readable=&on_slave_handle;
+
+	SERVER *slave_server;
+	init_server(&slave_server,CONF. slave[idx-1].port, handler);
+	start_listen(slave_server);
+}
+
