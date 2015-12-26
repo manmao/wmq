@@ -18,6 +18,7 @@ static void deletefd(int epollfd,int fd){
 }
 
 
+static
 void on_master_handle(struct sock_server *server,struct epoll_event events)
 {
 	int event_fd=events.data.fd;
@@ -37,18 +38,18 @@ void on_master_handle(struct sock_server *server,struct epoll_event events)
             }else{
               	printf("epoll error %s %s\n",__FILE__,__LINE__);
               	return;                				 //error
-            }        
+            }
 		}
 		if(buflen==0) 				//客户端断开连接
-		{		
+		{
 			server->connect_num--;  //客户端连接数量减1
 
-			/**将文件描述符从epoll队列中移除**/      			 
+			/**将文件描述符从epoll队列中移除**/
 			deletefd(server->efd,event_fd);
 
 			/*******删除连接队列中的点*******/
 			struct conn_node node;
-			node.accept_fd=event_fd;			 
+			node.accept_fd=event_fd;
 			conn_delete(&server->conn_root,&node);
 
 			//调试信息
@@ -56,12 +57,12 @@ void on_master_handle(struct sock_server *server,struct epoll_event events)
 			return ;
 		}
 		else if(buflen>0) //客户端发送数据过来了
-		{	
+		{
 			//将数据包加入任务队列
 			//threadpool_add_job(server->tpool,handle_pkg,(void *)&recv_pkt);
 			//printf("包个数: ==> %d\n",count++);
 			//往线程池添加执行单元
-		}	
+		}
 	}
 }
 

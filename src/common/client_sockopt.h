@@ -37,8 +37,9 @@ struct sock_client{
 
 extern void  client_set_sock(struct sock_client *client,int sfd);		//设置客户端keepalive
 
+//初始化客户端
 extern void client_init(struct sock_client **client,char *server_ip,int port);				//客户端初始化
-
+//连接到服务器
 extern int   start_connection(struct sock_client *client);       				//连接到服务器
 
 extern int   client_send_data(struct sock_client *client, struct sock_pkt *sendpkt);//发送数据到服务器

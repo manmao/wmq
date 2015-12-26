@@ -7,7 +7,7 @@
 
 int master_server_init(int argc,char *argv[]);
 
-void on_master_handle(struct sock_server *server,struct epoll_event events);
+//void on_master_handle(struct sock_server *server,struct epoll_event events);
 
 
 #endif
