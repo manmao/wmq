@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <errno.h>
 
-#include "master_init.h"
-
+#include "server_sockopt.h"
 #include "common_define.h"
 #include "global.h"
+
+#include "master_init.h"
 
 static void deletefd(int epollfd,int fd){
 	struct epoll_event event;
@@ -77,5 +78,5 @@ int master_server_init(int argc,char *argv[])
 	handler->handle_readable=&on_master_handle;
 
 	init_server(&master_server,CONF.master.port,handler);
-	start_listen(master_server);
+	start_listen(master_server); //启动服务器
 }

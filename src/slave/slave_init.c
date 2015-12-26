@@ -5,10 +5,17 @@
 #include <sys/epoll.h>
 #include <errno.h>
 
-#include "slave_init.h"
+
 #include "global.h"
 #include "common_define.h"
 #include "error_hdr.h"
+
+#include "server_sockopt.h"
+
+#include "slave_init.h"
+
+
+
 
 
 static void deletefd(int epollfd,int fd){
@@ -19,6 +26,7 @@ static void deletefd(int epollfd,int fd){
 	close(fd);
 }
 
+static
 void on_slave_handle(struct sock_server *server,struct epoll_event events)
 {
 	int event_fd=events.data.fd;
