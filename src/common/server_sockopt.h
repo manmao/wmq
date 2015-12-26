@@ -16,20 +16,24 @@
 #define MAXEVENTS       100		  // 最大事件数
 
 #define THREAD_NUM       10	      // 线程池开启的线程个数
-#define TASK_QUEUE_NUM   10000    // 队列的最大job个数  
+#define TASK_QUEUE_NUM   10000    // 队列的最大job个数
 
 /****服务器结构****/
 typedef struct sock_server{
-	int listenfd; 					//服务端监听listenfd
-	int efd;						//epoll文件描述符
-	int connect_num;         		//连接数据量
-	struct threadpool *tpool;		//线程池
-	struct rb_root    conn_root; 	//客户端节点
+	int listenfd; 					 //服务端监听listenfd
+	int efd;						 //epoll文件描述符
+	int connect_num;         		 //连接数据量
+	struct threadpool *tpool;		 //线程池
+	struct rb_root    conn_root; 	 //客户端节点
 	bool run;
-	struct server_handler *handler;		// type:master,slave
+	struct server_handler *handler;  //连接处理函数回调
 }SERVER;
 
-
+/**
+*
+*
+*
+*/
 struct server_handler{
 	void (*handle_accept)(struct sock_server *server,struct epoll_event events);
 	void (*handle_readable)(struct sock_server *server,struct epoll_event events);
@@ -42,8 +46,5 @@ extern void  start_listen(SERVER *server);  		//开启服务器监听
 extern void  destroy_server(SERVER *server);
 
 extern void  server_set_sock(int sfd);				//设置套接字选项
-
-
-
 
 #endif

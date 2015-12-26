@@ -27,7 +27,7 @@ int count=0;
 
 /********************************
 *设置套接字属性
-*	主要作用是： 
+*	主要作用是：
 *				开启keepalive属性
 *				设置端口和地址可重用*
 *				禁用Nagle算法
@@ -39,6 +39,7 @@ int count=0;
 *		@return  null
 *********************************/
 void  server_set_sock(int sfd){
+
 	int optval; 	   //整形的选项值
 	socklen_t optlen;  //整形的选项值的长度
 	int err;		   //设置返回结果
@@ -49,10 +50,27 @@ void  server_set_sock(int sfd){
 	err=setsockopt(sfd,SOL_SOCKET,SO_REUSEADDR,(char *)&optval,optlen);
 
 	/*******禁用Nagle算法***********/
-	/*optval=1;
+	optval=1;
 	optlen=sizeof(optval);
-	err=setsockopt(sfd,IPPROTO_TCP,TCP_NODELAY,(char *)&optval,optlen);*/
+	err=setsockopt(sfd,IPPROTO_TCP,TCP_NODELAY,(char *)&optval,optlen);
 	/*******设置文件描述符非阻塞*********/
+
+     ///设置发送缓冲区大小
+    int iSockBuf = 1024 * 1024;
+    while (setsockopt(sfd, SOL_SOCKET, SO_SNDBUF, (void*)&iSockBuf, sizeof(iSockBuf)) < 0)
+    {
+        iSockBuf -= 1024;
+        if (iSockBuf <= 1024) break;
+    }
+
+    ///设置接收缓冲区大小
+    iSockBuf = 1024 * 1024;
+    while(setsockopt(sfd, SOL_SOCKET, SO_RCVBUF, (void *)&iSockBuf, sizeof(iSockBuf)) < 0)
+    {
+        iSockBuf -= 1024;
+        if (iSockBuf <= 1024) break;
+    }
+
 	setnonblock(sfd);
 }
 
@@ -79,7 +97,7 @@ static void addfd(int epollfd,int fd){
 
 	efd为内核事件表的文件描述符
 	fd为添加的fd 文件描述符
-	
+
 ************************/
 static void deletefd(int epollfd,int fd){
 	struct epoll_event event;
@@ -118,13 +136,14 @@ static void handle_accept_event(SERVER *server)
 	struct sockaddr clientaddr;
 	socklen_t addrlen=sizeof(struct sockaddr);  //地址长度
 	int a_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen));
-	
+
 	//如果连接成功
 	if(a_fd != -1){
 		struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
 		type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
 		type->node->accept_fd=a_fd;
 		type->node->clientaddr=clientaddr;
+
 		//type->node->do_task ;
 		conn_insert(&server->conn_root,type);
 
@@ -156,8 +175,8 @@ static void handle_readable_event(SERVER *server,struct epoll_event events)
 
 	函数功能：处理epoll可写事件
 	函数参数:
-			@param  
-			@param  
+			@param
+			@param
 	函数返回：
 			@return -------  void
 
@@ -202,7 +221,7 @@ static void server_listener(void *arg){
 	SERVER *server=(SERVER *)arg;
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
 
-	while(true){	
+	while(true){
 			//被改变值时退出循环
 			//等待内核通知，获取可读的fd
 		int number=epoll_wait(server->efd,events,MAXEVENTS,-1);
@@ -250,7 +269,7 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 	struct sockaddr_in addr;
 	addr.sin_family=AF_INET;
 	addr.sin_port=htons(port);
-	addr.sin_addr.s_addr=INADDR_ANY; 
+	addr.sin_addr.s_addr=INADDR_ANY;
 
 	int ret=bind(sfd,(struct sockaddr *)&addr,sizeof(addr));  //绑定到服务器的端口
 	if(ret == -1){
@@ -258,7 +277,7 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 		close(sfd);
 		return ;
 	}
-	
+
 	ret=listen(sfd,BACKLOG);               //监听端口
 
 	assert(ret != -1);
@@ -271,8 +290,8 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 
     /**初始化客户端连接的数量**/
     *server=(SERVER *)malloc(sizeof(struct sock_server));
-	(*server)->listenfd=sfd;    
-	(*server)->connect_num=0; 			   
+	(*server)->listenfd=sfd;
+	(*server)->connect_num=0;
 	(*server)->efd=efd;
 	(*server)->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池
 	(*server)->run=true; //初始化线程池

@@ -11,7 +11,7 @@
 保存和服务端的连接
 ************************/
 struct connection{
-	int fd;								//文件描述符 
+	int fd;								//文件描述符
 	uint16_t protocol; 					//连接协议
 	bool is_conn;						//连接是否关闭
 	struct sockaddr *saddr;
@@ -25,14 +25,14 @@ struct sock_client{
 
 	int keepAlive;           // 开启keepalive属性. 缺省值: 0(关闭)  1(打开)
 
-	int keepIdle;           //(单位:秒数)如果在60秒内没有任何数据交互,则进行探测. 缺省值:7200(s)  
+	int keepIdle;           //(单位:秒数)如果在60秒内没有任何数据交互,则进行探测. 缺省值:7200(s)
 
 	int keepInterval;       //(单位:秒数)探测时发探测包的时间间隔为5秒. 缺省值:75(s)
 
-	int keepCount;   		 // 探测重试的次数. 全部超时则认定连接失效..缺省值:9(次)  
+	int keepCount;   		 // 探测重试的次数. 全部超时则认定连接失效..缺省值:9(次)
 
 	struct connection *conn;  //服务器建立连接
-	
+
 };
 
 extern void  client_set_sock(struct sock_client *client,int sfd);		//设置客户端keepalive

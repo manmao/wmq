@@ -19,7 +19,7 @@
 
 /********************************
 *设置和服务端连接套接字的属性
-*	主要作用是： 
+*	主要作用是：
 *				开启keepalive属性
 *				设置端口和地址可重用*
 *				禁用Nagle算法
@@ -32,19 +32,19 @@
 *********************************/
 
 void  client_set_sock(struct sock_client *client,int sfd){
-	
+
 	//开启keepalive属性
-	setsockopt(sfd, SOL_SOCKET, SO_KEEPALIVE, (void*)&client->keepAlive, sizeof(client->keepAlive));  
+	setsockopt(sfd, SOL_SOCKET, SO_KEEPALIVE, (void*)&client->keepAlive, sizeof(client->keepAlive));
 
 	 //设置客户端超时探测
 	setsockopt(sfd,SOL_TCP, TCP_KEEPIDLE, (void*)&client->keepIdle, sizeof(client->keepIdle));
 
-	//发送探测包的间隔时间 
-	setsockopt(sfd, SOL_TCP, TCP_KEEPINTVL, (void*)&client->keepInterval, sizeof(client->keepInterval)); 
+	//发送探测包的间隔时间
+	setsockopt(sfd, SOL_TCP, TCP_KEEPINTVL, (void*)&client->keepInterval, sizeof(client->keepInterval));
 
-	 //发送探测重试次数 
-	setsockopt(sfd, SOL_TCP, TCP_KEEPCNT, (void*)&client->keepCount, sizeof(client->keepCount)); 
-	
+	 //发送探测重试次数
+	setsockopt(sfd, SOL_TCP, TCP_KEEPCNT, (void*)&client->keepCount, sizeof(client->keepCount));
+
     /***设置端口和地址可重用**/
 	int optval=1;
 	int optlen=sizeof(optval);
@@ -60,7 +60,7 @@ void  client_set_sock(struct sock_client *client,int sfd){
 
 /********************************
 *初始化客户端连接的一些属性,开辟空间
-*	主要作用是： 
+*	主要作用是：
 *				发送心跳信息的间隔和时间
 *				malloc 创建client实体
 *				malloc 创建服务器端的连接实体
@@ -77,11 +77,11 @@ void client_init(struct sock_client **client,char *server_ip,int port){
 
 	//client实体对象
 	(*client)=(struct sock_client *)malloc(sizeof(struct sock_client));
-	
+
 	(*client)->keepAlive = 1;    //开启keepalive属性
 	(*client)->keepIdle=60; 	//如果在60秒内没有任何数据交互,则进行探测. 缺省值:7200(s)
-	(*client)->keepInterval=5; //探测时发探测包的时间间隔为5秒. 缺省值:75(s)   		  
-	(*client)->keepCount=2;   //探测重试的次数. 全部超时则认定连接失效..缺省值:9(次)  		
+	(*client)->keepInterval=5; //探测时发探测包的时间间隔为5秒. 缺省值:75(s)
+	(*client)->keepCount=2;   //探测重试的次数. 全部超时则认定连接失效..缺省值:9(次)
 
 	//连接
 	(*client)->conn=(struct connection *)malloc(sizeof(struct connection)); //初始化连接
@@ -101,8 +101,8 @@ void client_init(struct sock_client **client,char *server_ip,int port){
 	(*client)->conn->protocol=0x01;   //协议类型
 	(*client)->conn->is_conn=false;   //没有连接
 
-	struct sockaddr_in *saddr=(struct sockaddr_in *)malloc(sizeof(struct sockaddr_in));       
-	memset(&saddr,0,sizeof(saddr));  // 
+	struct sockaddr_in *saddr=(struct sockaddr_in *)malloc(sizeof(struct sockaddr_in));
+	memset(&saddr,0,sizeof(saddr));  //
 	saddr->sin_family=AF_INET;        //设置协议族
 	saddr->sin_port=htons(port);  //设置端口
 	saddr->sin_addr.s_addr=inet_addr(server_ip); //设置ip地址
@@ -115,16 +115,16 @@ void client_init(struct sock_client **client,char *server_ip,int port){
 
 /**********************************************************************
 *连接到服务器端
-*	主要作用是： 
+*	主要作用是：
 *				创建socket
 *				初始化连接信息
-*				
+*
 *
 *  函数名:start_connection
 *  函数参数:
-*  	
+*
 *		@param  client 客户端操作实体
-*       
+*
 * 函数返回:
 *		@return  int
 *			 0  成功
@@ -153,14 +153,14 @@ int start_connection(struct sock_client *client){
 
 /**********************************************************************
 *发送数据到服务端
-*	主要作用是： 
+*	主要作用是：
 *			发送数据到服务端
 *
 *  函数名:client_send_data
 *  函数参数:
 *		@param  client 客户端操作实体
 *		@param  sendpkt 发送的数据包
-* 
+*
 * 函数返回:
 *		@return  int
 *			 0  成功
@@ -191,14 +191,14 @@ int  client_send_data(struct sock_client *client,struct sock_pkt *sendpkt){
 
 /**********************************************************************
 *接收数据
-*	主要作用是： 
+*	主要作用是：
 *			接收数据
 *
 *  函数名:client_recv_data
 *  函数参数:
 *		@param  client 客户端操作实体
 *		@param  revpkt 接收到的数据包存放的实体
-* 
+*
 * 函数返回:
 *		@return  int
 *			 0  成功
@@ -230,13 +230,13 @@ int client_recv_data(struct sock_client *client,  struct sock_pkt *revpkt){
 
 /**********************************************************************
 *	关闭连接
-*	主要作用是： 
-*			关闭连接文件描述符  close(client->conn->fd); 
-*			
+*	主要作用是：
+*			关闭连接文件描述符  close(client->conn->fd);
+*
 *  函数名:destroy_connection
 *  函数参数:
 *		@param  client 客户端操作实体
-* 
+*
 * 函数返回:
 *		@return null
 *
