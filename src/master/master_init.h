@@ -3,7 +3,6 @@
 
 #include <sys/epoll.h>
 
-#include "server_sockopt.h"
 
 int master_server_init(int argc,char *argv[]);
 
