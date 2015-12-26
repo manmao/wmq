@@ -121,7 +121,6 @@ static void handle_accept_event(SERVER *server)
 	
 	//如果连接成功
 	if(a_fd != -1){
-
 		struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
 		type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
 		type->node->accept_fd=a_fd;
@@ -137,7 +136,6 @@ static void handle_accept_event(SERVER *server)
 }
 
 /**********************************
-
 	函数功能：处理epoll可读事件
 	函数参数:
 			@param  server ------- SERVER参数
@@ -147,27 +145,11 @@ static void handle_accept_event(SERVER *server)
 
 	这个函数主要用处理epoll可读事件
 **********************************/
+
 static void handle_readable_event(SERVER *server,struct epoll_event events)
 {
-	/*
-		dispatch
-	*/
-	switch(server->type){
-
-		case MASTER:
-			on_master_handle(server,events);
-			break;
-
-		case SLAVE:
-			on_slave_handle(server,events);
-			break;
-		default:
-			;
-	}
-   
-	
+	server->handler->handle_readable(server,events);
 }
-
 
 
 /**********************************
@@ -262,7 +244,7 @@ static void server_listener(void *arg){
         初始化服务器端口
 
 ***************************/
-void  init_server(SERVER **server,int port,SERVER_TYPE type){
+void  init_server(SERVER **server,int port,struct server_handler *handler){
 
 	int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
@@ -295,8 +277,8 @@ void  init_server(SERVER **server,int port,SERVER_TYPE type){
 	(*server)->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池
 	(*server)->run=true; //初始化线程池
 	(*server)->conn_root=RB_ROOT;
-	(*server)->type=type;
-	
+	(*server)->handler=handler;
+
 	/**注册监听信号进程**/
 	signal(SIGKILL,handle_close);
     signal(SIGINT,handle_close);

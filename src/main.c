@@ -96,10 +96,8 @@ void parent_run(int argc,char *argv[])
 		logWriter(CONF.lf,LOG_ERROR,"================Sever Exception Exit!!!!================\n");
 		//child_run(argc,argv);
 		process(argc,argv);
-	}
-	
+	}	
 }
-
 
 
 void  process(int argc , char *argv[])

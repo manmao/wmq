@@ -16,7 +16,6 @@ struct conn_node{
 	int (*do_task)(void *arg);  	 	                    //回调函数，处理连接
 };
 
-
 /****** rbtree 节点******/
 struct conn_type {
 

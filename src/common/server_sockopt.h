@@ -26,11 +26,16 @@ typedef struct sock_server{
 	struct threadpool *tpool;		//线程池
 	struct rb_root    conn_root; 	//客户端节点
 	bool run;
-	SERVER_TYPE type;							// type:master,slave
+	struct server_handler *handler;		// type:master,slave
 }SERVER;
 
 
-extern void  init_server(SERVER **server,int port,SERVER_TYPE type);	//初始化
+struct server_handler{
+	void (*handle_accept)(struct sock_server *server,struct epoll_event events);
+	void (*handle_readable)(struct sock_server *server,struct epoll_event events);
+};
+
+extern void  init_server(SERVER **server,int port,struct server_handler *handler);	//初始化
 
 extern void  start_listen(SERVER *server);  		//开启服务器监听
 
