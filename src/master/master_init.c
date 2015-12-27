@@ -3,29 +3,22 @@
 #include <signal.h>
 #include <stdio.h>
 #include <errno.h>
+#include <stdlib.h>
 
-#include "server_sockopt.h"
 #include "common_define.h"
 #include "global.h"
 
-#include "master_init.h"
+#include "server_sockopt.h"
 
-static void deletefd(int epollfd,int fd){
-	struct epoll_event event;
-	event.data.fd=fd;
-	event.events=EPOLLIN | EPOLLET |  EPOLLPRI;  //ET 模式
-	epoll_ctl(epollfd,EPOLL_CTL_DEL,fd,&event);  //删除fd和事件
-	close(fd);
-}
+#include "master_init.h"
 
 
 static
-void on_master_handle(struct sock_server *server,struct epoll_event events)
+void on_master_handle(struct sock_server *server,struct epoll_event event)
 {
-	int event_fd=events.data.fd;
+	int event_fd=event.data.fd;
 
 	struct sock_pkt recv_pkt;//网络数据包数据结构
-	char tt[1024];
 	while(1)
 	{
 
@@ -37,7 +30,7 @@ void on_master_handle(struct sock_server *server,struct epoll_event events)
               	printf("no data get!!!!\n");
               	return ;
             }else{
-              	printf("epoll error %s %s\n",__FILE__,__LINE__);
+              	printf("epoll error %s %d\n",__FILE__,__LINE__);
               	return;                				 //error
             }
 		}

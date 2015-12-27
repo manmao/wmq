@@ -2,6 +2,8 @@
 #define _SERVER_SOCKOPT_H_
 
 #include <sys/socket.h>
+#include <sys/epoll.h>
+#include <sys/types.h>
 
 #include "common_define.h"
 
@@ -35,9 +37,13 @@ typedef struct sock_server{
 *
 */
 struct server_handler{
-	void (*handle_accept)(struct sock_server *server,struct epoll_event events);
-	void (*handle_readable)(struct sock_server *server,struct epoll_event events);
+	int (*handle_accept)(struct sock_server *server,struct epoll_event event);
+	int (*handle_readable)(struct sock_server *server,struct epoll_event event);
+    int (*handle_writeable)(struct sock_server *server,struct epoll_event event);
+    int (*handle_urg)(struct sock_server *server,struct epoll_event event);
+    int (*handle_unknown)(struct sock_server *server,struct epoll_event event);
 };
+
 
 extern void  init_server(SERVER **server,int port,struct server_handler *handler);	//初始化
 
@@ -46,5 +52,15 @@ extern void  start_listen(SERVER *server);  		//开启服务器监听
 extern void  destroy_server(SERVER *server);
 
 extern void  server_set_sock(int sfd);				//设置套接字选项
+
+/**
+*
+*epoll fd 操作
+*/
+extern void addfd(int epollfd,int fd);
+
+extern void deletefd(int epollfd,int fd);
+
+extern void modfd(int epollfd,int fd,int ev);
 
 #endif

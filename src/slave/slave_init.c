@@ -5,7 +5,6 @@
 #include <sys/epoll.h>
 #include <errno.h>
 
-
 #include "global.h"
 #include "common_define.h"
 #include "error_hdr.h"
@@ -15,19 +14,8 @@
 #include "slave_init.h"
 
 
-
-
-
-static void deletefd(int epollfd,int fd){
-	struct epoll_event event;
-	event.data.fd=fd;
-	event.events=EPOLLIN | EPOLLET |  EPOLLPRI;  //ET 模式
-	epoll_ctl(epollfd,EPOLL_CTL_DEL,fd,&event);  //删除fd和事件
-	close(fd);
-}
-
 static
-void on_slave_handle(struct sock_server *server,struct epoll_event events)
+int on_slave_handle(struct sock_server *server,struct epoll_event events)
 {
 	int event_fd=events.data.fd;
 	struct sock_pkt recv_pkt;//网络数据包数据结构
@@ -38,10 +26,10 @@ void on_slave_handle(struct sock_server *server,struct epoll_event events)
 		{
 			if(errno== EAGAIN || errno == EINTR){ //即当buflen<0且errno=EAGAIN时，表示没有数据了。(读/写都是这样)
               	printf("----------no data----------------\n");
-              	return ;
+              	return -1;
             }else{
-              	printf("epoll error %s %s\n",__FILE__,__LINE__);
-              	return;                				 //error
+              	printf("----epoll error %s %d------------\n",__FILE__,__LINE__);
+              	return -1;                				 //error
             }
 		}
 		if(buflen==0) 				//客户端断开连接
@@ -58,7 +46,7 @@ void on_slave_handle(struct sock_server *server,struct epoll_event events)
 
 			//调试信息
 			printf("有客户端断开连接了,现在连接数:%d\n",server->connect_num);
-			return ;
+			return -1;
 		}
 		else if(buflen>0) //客户端发送数据过来了
 		{
@@ -88,5 +76,6 @@ int slave_server_init(int argnum,char *argv[])
 	struct sock_server *slave_server;
 	init_server(&slave_server,CONF. slave[idx-1].port, handler);
 	start_listen(slave_server);//启动服务器
+	return 0;
 }
 

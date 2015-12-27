@@ -1,3 +1,0 @@
-/data/Coder/wfs/obj/config.o: config.c /data/Coder/wfs/src/common/log.h \
- /data/Coder/wfs/inc/error_hdr.h /data/Coder/wfs/inc/error/get_num.h \
- /data/Coder/wfs/inc/error/error_functions.h config.h

@@ -4,7 +4,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
+
 #define MAX_TIMER_NUM		1000	/**< max timer number	*/
 #define TIMER_START 		1	/**< timer start(second)*/
 #define TIMER_TICK 		1	/**< timer tick(second)	*/
@@ -34,8 +34,8 @@ typedef int timer_expiry(timer_id id, void *user_data, int len);
  * The type of the timer
  */
 struct timer {
-	LIST_ENTRY(timer) entries;	/**< list entry		*/	
-	
+	LIST_ENTRY(timer) entries;	/**< list entry		*/
+
 	timer_id id;			/**< timer id		*/
 
 	int interval;			/**< timer interval(second)*/
@@ -67,8 +67,10 @@ extern int init_timer(int count);
 
 extern int destroy_timer(void);
 
-extern timer_id 
-add_timer(int interval, timer_expiry *cb, void *user_data, int len);
+extern timer_id add_timer(int interval,
+                          timer_expiry *cb,
+                          void *user_data,
+                          int len);
 
 extern int del_timer(timer_id id);
 

@@ -18,12 +18,58 @@
 #include <stdio.h>
 
 #include "server_sockopt.h"
+
 #include "util.h"
 
 #include "master_init.h"
 #include "slave_init.h"
 
-int count=0;
+
+/*******************************************
+	当客户端可服务器端建立连接时
+
+	添加fd,到epoll内核事件表中
+
+	efd为内核事件表的文件描述符
+	fd为添加的fd 文件描述符
+
+********************************************/
+void addfd(int epollfd,int fd){
+	struct epoll_event event;
+	event.data.fd=fd;
+	event.events=EPOLLIN | EPOLLET | EPOLLPRI;   //ET 模式,为fd注册事件
+	epoll_ctl(epollfd,EPOLL_CTL_ADD,fd,&event); //添加fd和事件
+	setnonblock(sfd);
+}
+
+/***********************
+	客户端和服务器端端开连接
+
+	efd为内核事件表的文件描述符
+	fd为添加的fd 文件描述符
+
+************************/
+void deletefd(int epollfd,int fd){
+	struct epoll_event event;
+	event.data.fd=fd;
+	event.events=EPOLLIN | EPOLLET |  EPOLLPRI;  //ET 模式
+	epoll_ctl(epollfd,EPOLL_CTL_DEL,fd,&event);  //删除fd和事件
+	close(fd);
+}
+
+/*******************************
+
+	修改fd 的epollfd属性
+
+*********************************/
+void modfd(int epollfd,int fd,int ev)
+{
+	struct epoll_event event;
+	event.data.fd=fd;
+	event.events=ev|EPOLLET|EPOLLONESHOT|EPOLLRDHUP;
+	epoll_ctl(epollfd,EPOLL_CTL_MOD,fd,&event);
+}
+
 
 /********************************
 *设置套接字属性
@@ -75,52 +121,6 @@ void  server_set_sock(int sfd){
 }
 
 
-/*******************************************
-	当客户端可服务器端建立连接时
-
-	添加fd,到epoll内核事件表中
-
-	efd为内核事件表的文件描述符
-	fd为添加的fd 文件描述符
-
-********************************************/
-static void addfd(int epollfd,int fd){
-	struct epoll_event event;
-	event.data.fd=fd;
-	event.events=EPOLLIN | EPOLLET | EPOLLPRI;   //ET 模式,为fd注册事件
-	epoll_ctl(epollfd,EPOLL_CTL_ADD,fd,&event); //添加fd和事件
-	setnonblock(fd);
-}
-
-/***********************
-	客户端和服务器端端开连接
-
-	efd为内核事件表的文件描述符
-	fd为添加的fd 文件描述符
-
-************************/
-static void deletefd(int epollfd,int fd){
-	struct epoll_event event;
-	event.data.fd=fd;
-	event.events=EPOLLIN | EPOLLET |  EPOLLPRI;  //ET 模式
-	epoll_ctl(epollfd,EPOLL_CTL_DEL,fd,&event);  //删除fd和事件
-	close(fd);
-}
-
-/*******************************
-
-	修改fd 的epollfd属性
-
-*********************************/
-void modfd(int epollfd,int fd,int ev)
-{
-	struct epoll_event event;
-	event.data.fd=fd;
-	event.events=ev|EPOLLET|EPOLLONESHOT|EPOLLRDHUP;
-	epoll_ctl(epollfd,EPOLL_CTL_MOD,fd,&event);
-}
-
-
 /**********************************
 
 	函数功能：处理epoll数据连接
@@ -131,7 +131,8 @@ void modfd(int epollfd,int fd,int ev)
 			@return -------  void
 
 **********************************/
-static void handle_accept_event(SERVER *server)
+static
+void handle_accept_event(SERVER *server)
 {
 	struct sockaddr clientaddr;
 	socklen_t addrlen=sizeof(struct sockaddr);  //地址长度
@@ -143,7 +144,6 @@ static void handle_accept_event(SERVER *server)
 		type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
 		type->node->accept_fd=a_fd;
 		type->node->clientaddr=clientaddr;
-
 		//type->node->do_task ;
 		conn_insert(&server->conn_root,type);
 
@@ -164,12 +164,12 @@ static void handle_accept_event(SERVER *server)
 
 	这个函数主要用处理epoll可读事件
 **********************************/
-
-static void handle_readable_event(SERVER *server,struct epoll_event events)
+static
+void handle_readable_event(SERVER *server,struct epoll_event event)
 {
-	server->handler->handle_readable(server,events);
+    if(server->handler->handle_readable)
+	    server->handler->handle_readable(server,event);
 }
-
 
 /**********************************
 
@@ -183,12 +183,35 @@ static void handle_readable_event(SERVER *server,struct epoll_event events)
 	这个函数主要用处理epoll可读事件
 
 **********************************/
-static void handle_writeable_event()
+static
+void handle_writeable_event(SERVER *server,struct epoll_event event)
 {
+    if(server->handler->handle_writeable)
+        server->handler->handle_writeable(server,event);
+}
 
+/***************************
+函数功能：处理带外数据
+	函数参数:
+			@param
+			@param
+	函数返回：
+			@return -------  void
+****************************/
+static
+void handle_urg_event(SERVER *server,struct epoll_event event)
+{
+    if(server->handler->handle_urg)
+        server->handler->handle_urg(server,event);
 }
 
 
+static
+void handle_unknown_event(SERVER *server,struct epoll_event event)
+{
+    if(server->handler->handle_unknown)
+         server->handler->handle_unknown(server,event);
+}
 
 /**********************************
 
@@ -201,7 +224,8 @@ static void handle_writeable_event()
 		@return  -----  void
 
 **********************************/
-static void handle_close(int iSignNo)
+static
+void handle_sig(int iSignNo)
 {
 	//destroy_server(server);
 	printf("捕捉到信号\n");
@@ -237,30 +261,33 @@ static void server_listener(void *arg){
 
 				handle_accept_event(server);
 
-			}else if(events[i].events & EPOLLIN){      //efd中有fd可读,
+			}else if(events[i].events & EPOLLIN){       //efd中有fd可读,
 
 				handle_readable_event(server,events[i]);
 
-			}else if( events[i].events&EPOLLOUT ){      //efd中有fd可写
+			}else if(events[i].events&EPOLLOUT){      //efd中有fd可写
 
-				handle_writeable_event();
+				handle_writeable_event(server,events[i]);
 
-			}else if(events[i].events&EPOLLPRI){
-				printf("带外数据\n");
-			}else{  //其他
-				printf("其他错误\n");
+			}else if(events[i].events&EPOLLPRI){        //带外数据
+
+			    handle_urg_event(server,events[i]);
+
+			}else{                                      //其他
+			    handle_unknown_event(server,events[i]);
 			}
 		}
 	}
+
 	pthread_exit(NULL);
-	printf("监听线程退出\n");
 
 }
 
 
+
 /**************************
 
-        初始化服务器端口
+     初始化服务器端口
 
 ***************************/
 void  init_server(SERVER **server,int port,struct server_handler *handler){
@@ -299,12 +326,12 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 	(*server)->handler=handler;
 
 	/**注册监听信号进程**/
-	signal(SIGKILL,handle_close);
-    signal(SIGINT,handle_close);
-	signal(SIGTERM,handle_close);
+	signal(SIGKILL,handle_sig);
+    signal(SIGINT,handle_sig);
+	signal(SIGTERM,handle_sig);
 	printf("init sucesss!\n");
-
 }
+
 
 /*******************************
 	开始监听服务器的连接

@@ -13,7 +13,7 @@
 ***************************/
 
 void init_log()
-{	
+{
 	char KeyVal[100];
 	GetConfigStringValue("config/wfs_config.conf","wfs","logFilePath",KeyVal);
 	CONF.lf=logFileOpen(KeyVal);
@@ -22,7 +22,7 @@ void init_log()
 
 /*****************************
 *
-* 初始化全局变量，从配置文件中读取 
+* 初始化全局变量，从配置文件中读取
 *
 *****************************/
 void init_conf(void)
@@ -30,12 +30,12 @@ void init_conf(void)
 	int num;
 	GetConfigIntValue("config/wfs_config.conf","slave","NUM",&num);
 	printf("%d\n",num);
-	
+
 	CONF.slave_server_num=num;
 	CONF.slave=(struct addr *)malloc(sizeof(struct addr)*num);
 	int i;
 	for(i=1;i<=num;i++){
-		
+
 		char tmp[10];
 		sprintf(tmp,"IP%d",i);
 		GetConfigStringValue("config/wfs_config.conf","slave",tmp,CONF.slave[i-1].ip);
@@ -55,5 +55,5 @@ void init_conf(void)
 	GetConfigStringValue("config/wfs_config.conf","wfs","dataPath",CONF.data_save_path);
 	printf("%s\n",CONF.data_save_path);
 
- 
+
 }
