@@ -56,6 +56,7 @@ extern int is_equal(unsigned char *buf1,unsigned char *buf2);
 
 
 
+//获取当前时间字符串
 extern void get_nowt(char *time_str);
 
 #endif

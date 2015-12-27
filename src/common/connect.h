@@ -13,7 +13,6 @@
 struct conn_node{
 	int accept_fd;           							 	//和客户端连接的文件描述符
 	struct sockaddr clientaddr;  					 	    //客户端地址
-	int (*do_task)(void *arg);  	 	                    //回调函数，处理连接
 };
 
 /****** rbtree 节点******/

@@ -1,0 +1,4 @@
+/mnt/hgfs/share/wfs/obj/config.o: config.c \
+ /mnt/hgfs/share/wfs/src/common/log.h /mnt/hgfs/share/wfs/inc/error_hdr.h \
+ /mnt/hgfs/share/wfs/inc/error/get_num.h \
+ /mnt/hgfs/share/wfs/inc/error/error_functions.h config.h

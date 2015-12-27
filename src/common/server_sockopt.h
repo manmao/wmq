@@ -27,26 +27,34 @@ typedef struct sock_server{
 	int connect_num;         		 //连接数据量
 	struct threadpool *tpool;		 //线程池
 	struct rb_root    conn_root; 	 //客户端节点
-	bool run;
 	struct server_handler *handler;  //连接处理函数回调
 }SERVER;
 
+
 /**
 *
-*
+*服务器端回调函数处理
 *
 */
 struct server_handler{
-	int (*handle_accept)(struct sock_server *server,struct epoll_event event);
-	int (*handle_readable)(struct sock_server *server,struct epoll_event event);
+    //客户端连接事件
+	int (*handle_accept)(struct sock_server *server,int accept_fd);
+    //可读事件
+    int (*handle_readable)(struct sock_server *server,struct epoll_event event);
+    //可写事件
     int (*handle_writeable)(struct sock_server *server,struct epoll_event event);
+    //带外数据
     int (*handle_urg)(struct sock_server *server,struct epoll_event event);
+    //未知事件
     int (*handle_unknown)(struct sock_server *server,struct epoll_event event);
+    //信号处理
+    void (*handle_sig)(int sig);
 };
 
-
+//初始化服务器
 extern void  init_server(SERVER **server,int port,struct server_handler *handler);	//初始化
 
+//开启服务
 extern void  start_listen(SERVER *server);  		//开启服务器监听
 
 extern void  destroy_server(SERVER *server);
@@ -55,7 +63,8 @@ extern void  server_set_sock(int sfd);				//设置套接字选项
 
 /**
 *
-*epoll fd 操作
+*  epoll fd 操作
+*
 */
 extern void addfd(int epollfd,int fd);
 

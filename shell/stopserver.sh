@@ -1,7 +1,5 @@
 #关闭wfs进程
-#!/bin/sh
-ps -A|grep "wfs" |awk '{print $1}' |while read proc
+ps -ef |grep wfs |awk '{print $2}' | while read pid
 do
-	kill -9 ${proc};
+        kill -9 $pid
 done
-

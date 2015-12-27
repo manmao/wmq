@@ -16,7 +16,6 @@
 #include "client_sockopt.h"
 #include "util.h"
 
-
 /********************************
 *设置和服务端连接套接字的属性
 *	主要作用是：
@@ -65,7 +64,7 @@ void  client_set_sock(struct sock_client *client,int sfd){
 *				malloc 创建client实体
 *				malloc 创建服务器端的连接实体
 *
-*  函数名:client_init
+*  函数名:      client_init
 *  函数参数：
 *  		@param  client 客户端操作实体
 * 函数返回:

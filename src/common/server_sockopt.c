@@ -24,7 +24,6 @@
 #include "master_init.h"
 #include "slave_init.h"
 
-
 /*******************************************
 	当客户端可服务器端建立连接时
 
@@ -39,7 +38,7 @@ void addfd(int epollfd,int fd){
 	event.data.fd=fd;
 	event.events=EPOLLIN | EPOLLET | EPOLLPRI;   //ET 模式,为fd注册事件
 	epoll_ctl(epollfd,EPOLL_CTL_ADD,fd,&event); //添加fd和事件
-	setnonblock(sfd);
+	setnonblock(fd);
 }
 
 /***********************
@@ -49,6 +48,7 @@ void addfd(int epollfd,int fd){
 	fd为添加的fd 文件描述符
 
 ************************/
+
 void deletefd(int epollfd,int fd){
 	struct epoll_event event;
 	event.data.fd=fd;
@@ -84,6 +84,7 @@ void modfd(int epollfd,int fd,int ev)
 * 函数返回:
 *		@return  null
 *********************************/
+
 void  server_set_sock(int sfd){
 
 	int optval; 	   //整形的选项值
@@ -116,20 +117,17 @@ void  server_set_sock(int sfd){
         iSockBuf -= 1024;
         if (iSockBuf <= 1024) break;
     }
-
 	setnonblock(sfd);
 }
 
 
 /**********************************
-
 	函数功能：处理epoll数据连接
 	函数参数:
 			@param  server ------- SERVER参数
 
 	函数返回：
 			@return -------  void
-
 **********************************/
 static
 void handle_accept_event(SERVER *server)
@@ -140,17 +138,25 @@ void handle_accept_event(SERVER *server)
 
 	//如果连接成功
 	if(a_fd != -1){
+
+        //往红黑树中插入节点
 		struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
 		type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
 		type->node->accept_fd=a_fd;
 		type->node->clientaddr=clientaddr;
-		//type->node->do_task ;
 		conn_insert(&server->conn_root,type);
 
+        //添加到epoll监听队列
 		server->connect_num++;
 		printf("连接数量 --%d\n",server->connect_num); 				  //用户连接数量
 		addfd(server->efd,type->node->accept_fd);
 		//print_rbtree(&server->conn_root);
+
+		//回调函数调用
+        if(server->handler->handle_accept){
+
+               server->handler->handle_accept(server,a_fd);
+        }
 	}
 }
 
@@ -158,7 +164,7 @@ void handle_accept_event(SERVER *server)
 	函数功能：处理epoll可读事件
 	函数参数:
 			@param  server ------- SERVER参数
-			@param  events	-------- epoll事件
+			@param  events -------- epoll事件
 	函数返回：
 			@return -------  void
 
@@ -205,31 +211,11 @@ void handle_urg_event(SERVER *server,struct epoll_event event)
         server->handler->handle_urg(server,event);
 }
 
-
 static
 void handle_unknown_event(SERVER *server,struct epoll_event event)
 {
     if(server->handler->handle_unknown)
          server->handler->handle_unknown(server,event);
-}
-
-/**********************************
-
-	信号注册回调函数:处理SIGKILL
-
-	函数名称：handle_close
-	函数参数：
-		@param  iSignNo  -----
-	函数返回：
-		@return  -----  void
-
-**********************************/
-static
-void handle_sig(int iSignNo)
-{
-	//destroy_server(server);
-	printf("捕捉到信号\n");
-	exit(0);
 }
 
 
@@ -239,7 +225,6 @@ void handle_sig(int iSignNo)
 	当断开连接时	删除和释放内存空间
 ***********************************************/
 
-//void *server_listener(void *arg){
 static void server_listener(void *arg){
 
 	SERVER *server=(SERVER *)arg;
@@ -283,13 +268,12 @@ static void server_listener(void *arg){
 
 }
 
-
-
 /**************************
 
      初始化服务器端口
 
 ***************************/
+
 void  init_server(SERVER **server,int port,struct server_handler *handler){
 
 	int sfd=socket(AF_INET,SOCK_STREAM,0);
@@ -321,17 +305,17 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 	(*server)->connect_num=0;
 	(*server)->efd=efd;
 	(*server)->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池
-	(*server)->run=true; //初始化线程池
 	(*server)->conn_root=RB_ROOT;
 	(*server)->handler=handler;
 
 	/**注册监听信号进程**/
-	signal(SIGKILL,handle_sig);
-    signal(SIGINT,handle_sig);
-	signal(SIGTERM,handle_sig);
-	printf("init sucesss!\n");
+    if(handler->handle_sig){
+        signal(SIGKILL,handler->handle_sig);
+        signal(SIGINT,handler->handle_sig);
+	    signal(SIGTERM,handler->handle_sig);
+    }
+	printf("init server sucesss!\n");
 }
-
 
 /*******************************
 	开始监听服务器的连接

@@ -1,5 +1,8 @@
+#include <stdlib.h>
+
 #include "rbtree.h"
 #include "connect.h"
+
 
 struct conn_type *conn_search(struct rb_root *root, struct conn_node *conn)
 {
