@@ -72,7 +72,8 @@ int master_server_init(int argc,char *argv[])
 {
 	//挂接服务器事件处理函数
 	struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
-	handlSERVER *master_server=NULL;er->handle_readable=&on_master_handle;
+	handlSERVER *master_server=NULL;
+    handler->handle_readable=&on_master_handle;
     //如果没有相关接口实现的，一定要赋值为空值
     handler->handle_accept=NULL;
     handler->handle_unknown=NULL;
