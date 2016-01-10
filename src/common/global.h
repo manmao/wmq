@@ -16,10 +16,10 @@ struct addr
 };
 
 typedef struct system_conf
-{
+{；
 	//master
 	int master_server_num;
-	
+
  	struct addr master;
 
 	//DataNode集群服务器数量
