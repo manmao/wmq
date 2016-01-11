@@ -38,18 +38,16 @@ typedef enum
 /****************************
 
  socket 网络传输数据包的定义头部和数据
-
+ 
 ****************************/
-
 struct sock_pkt{
-        uint8_t      version; //协议版本
-	uint8_t      type;  //传输数据类型  命令/数据(0x01/0x02)
-	uint8_t	     code;  //数据编码方式  lmza/zlib(0x01/0x02)
-	uint32_t     data_len; //数据长度
-	uint16_t     checksum; //数据校验和
-	uint16_t     pkt_id; //数据包的编号(一个时间戳值)
-	struct       sockaddr_in  to_addr;//发送到的目的IP地址
-        uint8_t      cmd;      //命令
+        uint8_t           version;      //协议版本
+	uint8_t           type;         //传输数据类型  命令/数据(0x01/0x02)
+	uint8_t	          code;        //数据编码方式  lmza/zlib(0x01/0x02)
+	uint32_t          data_len;    //数据长度
+	uint16_t          checksum;   //数据校验和
+	uint16_t          pkt_id;     //数据包的编号(一个时间戳值)
+        unsigned  long    cmd;          //命令
         unsigned  char   *data_buff;     //数据{5KB大小}
 };
 
