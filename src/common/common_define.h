@@ -42,6 +42,7 @@ typedef enum
 ****************************/
 
 struct sock_pkt{
+
     uint8_t   version;       		     //协议版本
 	uint8_t   type;          		     //传输数据类型  命令/数据(0x01/0x02)
 	uint8_t	  code;		   		 	     //数据编码方式  lmza/zlib(0x01/0x02)

@@ -100,7 +100,7 @@ void  server_set_sock(int sfd){
 	optval=1;
 	optlen=sizeof(optval);
 	err=setsockopt(sfd,IPPROTO_TCP,TCP_NODELAY,(char *)&optval,optlen);
-	/*******设置文件描述符非阻塞*********/
+
 
      ///设置发送缓冲区大小
     int iSockBuf = 1024 * 1024;
@@ -117,6 +117,15 @@ void  server_set_sock(int sfd){
         iSockBuf -= 1024;
         if (iSockBuf <= 1024) break;
     }
+
+    //设置linger,关闭close后的延迟，不进入TIME_WAIT状态
+    struct linger ling= {0, 0};
+    if (setsockopt(sfd, SOL_SOCKET, SO_LINGER, (void *)&ling, sizeof(ling))!= 0)
+    {
+        return ;
+    }
+
+    /*******设置文件描述符非阻塞*********/
 	setnonblock(sfd);
 }
 
