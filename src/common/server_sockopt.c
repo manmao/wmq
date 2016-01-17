@@ -119,6 +119,8 @@ void  server_set_sock(int sfd){
     }
 
     //设置linger,关闭close后的延迟，不进入TIME_WAIT状态
+    //struct linger{#1:开关 0关1开,#2:时间值，毫秒}
+    //strcut linger设置socket close后是否进入WAIT状态
     struct linger ling= {0, 0};
     if (setsockopt(sfd, SOL_SOCKET, SO_LINGER, (void *)&ling, sizeof(ling))!= 0)
     {
