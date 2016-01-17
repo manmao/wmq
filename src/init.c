@@ -16,8 +16,8 @@ void init_log()
 {
 	char KeyVal[100];
 	GetConfigStringValue("config/wfs_config.conf","wfs","logFilePath",KeyVal);
-	CONF.lf=logFileOpen(KeyVal);
-	logWriter(CONF.lf,LOG_INFO,"log file path : %s\n",KeyVal);
+	CONF.lf=log_file_open(KeyVal);
+	log_write(CONF.lf,LOG_INFO,"log file path : %s\n",KeyVal);
 }
 
 /*****************************
@@ -41,14 +41,14 @@ void init_conf(void)
 		GetConfigStringValue("config/wfs_config.conf","slave",tmp,CONF.slave[i-1].ip);
 		sprintf(tmp,"PORT%d",i);
 	    GetConfigIntValue("config/wfs_config.conf","slave",tmp,&CONF.slave[i-1].port);
-	    logWriter(CONF.lf,LOG_INFO,"slave:%s:%d\n",CONF.slave[i-1].ip,CONF.slave[i-1].port);
+	    log_write(CONF.lf,LOG_INFO,"slave:%s:%d\n",CONF.slave[i-1].ip,CONF.slave[i-1].port);
 	}
 
 	//====master
 	CONF.master_server_num=1;
 	GetConfigStringValue("config/wfs_config.conf","master","IP",CONF.master.ip);
 	GetConfigIntValue("config/wfs_config.conf","master","PORT",&CONF.master.port);
-	logWriter(CONF.lf,LOG_INFO,"master: %s:%d\n",CONF.master.ip,CONF.master.port);
+	log_write(CONF.lf,LOG_INFO,"master: %s:%d\n",CONF.master.ip,CONF.master.port);
 
 	//====data save path
 	CONF.data_save_path=(char *)malloc(sizeof(char)*100);

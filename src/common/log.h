@@ -29,9 +29,9 @@ typedef enum{
 }LOG_TYPE;
 
 /* log.c */
-FILE * logFileOpen(char logFileName[]); 
-int logFileClose(FILE * lf);
-int logWriter(FILE * lf,LOG_TYPE eventType,char *format, ...);
+FILE * log_file_open(char logFileName[]);
+int log_file_close(FILE * lf);
+int log_write(FILE * lf,LOG_TYPE eventType,char *format, ...);
 
 
 

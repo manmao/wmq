@@ -26,13 +26,13 @@
 void testgetvalue()
 {
 	char KeyVal[100];
-	GetConfigStringValue("config/wfs_config.conf","wfs","name",KeyVal);
+	get_config_string("config/wfs_config.conf","wfs","name",KeyVal);
 	printf("%s\n",KeyVal);
 }
 
-static void handleterm(int sig)  
-{  
-    return;  
+static void handleterm(int sig)
+{
+    return;
 }
 
 
@@ -43,11 +43,11 @@ void testrevdata()
 	pd=fork();
 	if(pd>0)
 	{
-		while(1)  
-        {  
-            signal(SIGTERM, handleterm);  
-            pause();  
-        }  
+		while(1)
+        {
+            signal(SIGTERM, handleterm);
+            pause();
+        }
 
 	}else if(pd==0){
 		SERVER *server;
@@ -71,10 +71,10 @@ void testthreadpool()
 		threadpool_add_job(t,&handle,&i);
 		usleep(30);
 		//if(i%20==0)
-		//sleep(5);	
+		//sleep(5);
 	}
-	
-	//sleep(5);	
+
+	//sleep(5);
 	//threadpool_destroy(t);
 }
 

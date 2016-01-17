@@ -49,7 +49,7 @@ void child_run(int argc,char *argv[])
 	 	slave_server_init(argc,argv);
 	 	printf("slave_server_init started....\n");
 	}
-	//参数有误 
+	//参数有误
 	else
 	{
 	 	printf("参数有误--请输入参数:\n");
@@ -63,7 +63,7 @@ void child_run(int argc,char *argv[])
 
 
 /**
-*  
+*
 *
 *
 *
@@ -81,22 +81,22 @@ void parent_run(int argc,char *argv[])
 
 	//exit normal
 	if (WIFEXITED(status)){
-		logWriter(CONF.lf,LOG_INFO,"child exited normal exit status=%d\n",WEXITSTATUS(status));
+		log_write(CONF.lf,LOG_INFO,"child exited normal exit status=%d\n",WEXITSTATUS(status));
 	}
 
-	//exit signal 
+	//exit signal
 	else if (WIFSIGNALED(status)){
-		logWriter(CONF.lf,LOG_ERROR,"child exited abnormal signal number=%d\n", WTERMSIG(status));
-		logWriter(CONF.lf,LOG_ERROR,"================Sever Exception Exit!!!!================\n");
+		log_write(CONF.lf,LOG_ERROR,"child exited abnormal signal number=%d\n", WTERMSIG(status));
+		log_write(CONF.lf,LOG_ERROR,"================Sever Exception Exit!!!!================\n");
 	}
 
 	//exit un normal
 	else if (WIFSTOPPED(status)){
-		logWriter(CONF.lf,LOG_ERROR,"child stoped signal number=%d\n", WSTOPSIG(status));
-		logWriter(CONF.lf,LOG_ERROR,"================Sever Exception Exit!!!!================\n");
+		log_write(CONF.lf,LOG_ERROR,"child stoped signal number=%d\n", WSTOPSIG(status));
+		log_write(CONF.lf,LOG_ERROR,"================Sever Exception Exit!!!!================\n");
 		//child_run(argc,argv);
 		process(argc,argv);
-	}	
+	}
 }
 
 
@@ -107,7 +107,7 @@ void  process(int argc , char *argv[])
 	/*init*/
 	init_log();
 	init_conf();
-	
+
 	mainpro = fork();
 	if(mainpro <= -1)
 	{
@@ -125,7 +125,7 @@ void  process(int argc , char *argv[])
 
 /*********************************
 
-	整个系统入口	
+	整个系统入口
 
 **********************************/
 

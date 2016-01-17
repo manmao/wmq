@@ -9,7 +9,7 @@ mail: rmottola@users.sourceforge.net
 This file is free software, released under GPL. Please read acclosed license
 */
 
-#include <stdio.h> 
+#include <stdio.h>
 #include <time.h>
 #include <stdarg.h>
 #include <unistd.h>
@@ -22,7 +22,7 @@ This file is free software, released under GPL. Please read acclosed license
 
 /* external variables */
 
-/* 
+/*
 *  Opens the server log file
 *  to be called once at the beginning
 */
@@ -31,7 +31,7 @@ void printstr(FILE *lf,const char *ptr);
 void printint(FILE *lf,const int dec);
 void printch(FILE *lf,const char ch);
 
-FILE *logFileOpen(char logFileName[])
+FILE *log_file_open(char logFileName[])
 {
 
     FILE *lf;  //全局文件变量
@@ -49,18 +49,18 @@ FILE *logFileOpen(char logFileName[])
     {
        lf = fopen (logFileName, "a");
     }
-   
+
 
     if (lf == NULL){
          errExit("OpenLogFile Fail,File:%s , Line:%d\n",__FILE__,__LINE__);
         return NULL;
     }
-       
+
     char time_str[50];
     get_nowt(time_str);
 
     fprintf(lf, "\t\n============Server started on================\n%s\n", time_str);
-    fflush(lf); /* otherwise we have mysterious problems with fork() !! */ 
+    fflush(lf); /* otherwise we have mysterious problems with fork() !! */
 
     printf("Opened Log File.\n");
 
@@ -70,7 +70,7 @@ FILE *logFileOpen(char logFileName[])
 
 /* Closes the log file
  */
-int logFileClose(FILE * lf)
+int log_file_close(FILE * lf)
 {
     fclose(lf);
    	printf("Closed Log File.\n");
@@ -78,7 +78,7 @@ int logFileClose(FILE * lf)
 }
 
 
-/* 
+/*
     Writes an event in the log.
  * the event kind is given by eventType
  */
@@ -87,8 +87,8 @@ int logFileClose(FILE * lf)
  /***
   *日志系统写入
   *函数名 logWriter
-  *函数参数  
-  *      @param eventType  日志类型 
+  *函数参数
+  *      @param eventType  日志类型
             #define ERROR  错误
             #define WARN   警告
             #define INFO   信息
@@ -99,7 +99,7 @@ int logFileClose(FILE * lf)
   *日期 2015-03-26
   *
   ***/
-int logWriter(FILE * lf,LOG_TYPE eventType,char *format, ...) 
+int log_write(FILE * lf,LOG_TYPE eventType,char *format, ...)
 {
     va_list ap;
     va_start(ap, format);
@@ -107,7 +107,7 @@ int logWriter(FILE * lf,LOG_TYPE eventType,char *format, ...)
     char time_str[100];
     get_nowt(time_str);
 
-  
+
 
     switch (eventType)
     {
@@ -173,11 +173,11 @@ int logWriter(FILE * lf,LOG_TYPE eventType,char *format, ...)
             }
         }
     }
-    
+
     fprintf(lf,"\n");
     fflush(lf);
     va_end(ap);
-    
+
     return 0;
 }
 
