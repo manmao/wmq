@@ -31,7 +31,7 @@
 *********************************/
 
 void  client_set_sock(struct sock_client *client,int sfd){
-
+    
 	//开启keepalive属性
 	setsockopt(sfd, SOL_SOCKET, SO_KEEPALIVE, (void*)&client->keepAlive, sizeof(client->keepAlive));
 
