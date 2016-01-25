@@ -112,13 +112,13 @@ int log_write(FILE * lf,LOG_TYPE eventType,char *format, ...)
     switch (eventType)
     {
     case LOG_ERROR:
-    	fprintf(lf,"[%s] [%s] \n",time_str,"ERROR");
+    	fprintf(lf,"[%s] [%s]  ",time_str,"ERROR");
 		  break;
     case LOG_WARN:
-        fprintf(lf,"[%s] [%s] \n",time_str,"WARN");
+        fprintf(lf,"[%s] [%s]  ",time_str,"WARN");
         break;
     case LOG_INFO:
-        fprintf(lf,"[%s] [%s] \n",time_str,"INFO");
+        fprintf(lf,"[%s] [%s]  ",time_str,"INFO");
 		  break;
     default:
         printf ("Unknown event to log! Programming error!\n");
