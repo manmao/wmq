@@ -42,7 +42,6 @@ struct sock_pkt{
 	uint16_t          pkt_id;      //数据包的编号(一个时间戳值)
     unsigned  long    cmd;         //命令
     unsigned  char   *data_buff;    //数据{5KB大小}
-
 };
 
 #endif
