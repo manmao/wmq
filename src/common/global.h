@@ -16,7 +16,7 @@ struct addr
 };
 
 typedef struct system_conf
-{；
+{
 	//master
 	int master_server_num;
 

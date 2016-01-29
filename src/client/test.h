@@ -36,27 +36,6 @@ static void handleterm(int sig)
 }
 
 
-//测试接收数据
-void testrevdata()
-{
-	pid_t pd;
-	pd=fork();
-	if(pd>0)
-	{
-		while(1)
-        {
-            signal(SIGTERM, handleterm);
-            pause();
-        }
-
-	}else if(pd==0){
-		SERVER *server;
-		init_server(&server,9998,MASTER);
-		start_listen(server);
-	  //printf("test end\n");
-	}
-}
-
 void *handle(void *arg)
 {
 	printf("num is %d\n",*(int *)arg);
