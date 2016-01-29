@@ -55,6 +55,9 @@ CFLAGS  += $(DEFINE)
 #优化级别
 CFLAGS += -c -Wall -O2  
 
+#openmp支持
+CFLAGS += -fopenmp
+
 #对所有的.o文件以.c文件创建它
 
 $(MAKEROOT)/obj/%.o :  %.c

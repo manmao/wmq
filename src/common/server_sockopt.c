@@ -91,7 +91,7 @@ void  server_set_sock(int sfd){
 	socklen_t optlen;  //整形的选项值的长度
 	int err;		   //设置返回结果
 
-       /***设置端口和地址可重用**/
+    /***设置端口和地址可重用**/
 	optval=1;
 	optlen=sizeof(optval);
 	err=setsockopt(sfd,SOL_SOCKET,SO_REUSEADDR,(char *)&optval,optlen);
@@ -164,8 +164,8 @@ void handle_accept_event(SERVER *server)
 
 		//回调函数调用
         if(server->handler->handle_accept){
-
-               server->handler->handle_accept(server,a_fd);
+             
+             server->handler->handle_accept(server,a_fd);
         }
 	}
 }
@@ -338,7 +338,7 @@ void  start_listen(SERVER *server){
 }
 
 /************************
-*关闭服务器器监听
+*   关闭服务器器监听
 *************************/
 void  destroy_server(SERVER *server)
 {

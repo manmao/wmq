@@ -14,22 +14,26 @@
 
 #include "slave_init.h"
 
+
 static
 int on_slave_handle(struct sock_server *server,struct epoll_event event)
 {
 	int event_fd=event.data.fd;
 	struct sock_pkt recv_pkt;//网络数据包数据结构
+    
+    #pragma omp parallel num_threads(1)
 	while(1)
 	{
 		int buflen=recv(event_fd,(void *)&recv_pkt,sizeof(struct sock_pkt),0);
-		if(buflen < 0)
+		
+        if(buflen < 0)
 		{
 			if(errno== EAGAIN || errno == EINTR){ //即当buflen<0且errno=EAGAIN时，表示没有数据了。(读/写都是这样)
               	printf("----------no data----------------\n");
-              	return -1;
+             // 	return -1;
             }else{
               	printf("----epoll error %s %d------------\n",__FILE__,__LINE__);
-              	return -1;                				 //error
+              //	return -1;                				 //error
             }
 		}
 		if(buflen==0) 				//客户端断开连接
@@ -46,7 +50,7 @@ int on_slave_handle(struct sock_server *server,struct epoll_event event)
 
 			//调试信息
 			printf("有客户端断开连接了,现在连接数:%d\n",server->connect_num);
-			return -1;
+			//return 0;
 		}
 		else if(buflen>0) //客户端发送数据过来了
 		{
@@ -56,6 +60,7 @@ int on_slave_handle(struct sock_server *server,struct epoll_event event)
 			//往线程池添加执行单元
 		}
 	}
+   
 }
 
 //初始化slave服务器
@@ -68,9 +73,9 @@ int slave_server_init(int argnum,char *argv[])
 	{
 		errExit("slave 服务器编号不存在\n");
 	}
-
+    
 	printf("slave listern port:%d\n",CONF.slave[idx-1].port);
-
+    
 	struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
 	handler->handle_readable=&on_slave_handle;
     handler->handle_accept=NULL;

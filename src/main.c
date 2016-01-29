@@ -87,13 +87,13 @@ void parent_run(int argc,char *argv[])
 	//exit signal
 	else if (WIFSIGNALED(status)){
 		log_write(CONF.lf,LOG_ERROR,"child exited abnormal signal number=%d\n", WTERMSIG(status));
-		log_write(CONF.lf,LOG_ERROR,"================Sever Exception Exit!!!!================\n");
+		log_write(CONF.lf,LOG_ERROR,"*************Sever Exception Exit!!!!************\n");
 	}
 
 	//exit un normal
 	else if (WIFSTOPPED(status)){
 		log_write(CONF.lf,LOG_ERROR,"child stoped signal number=%d\n", WSTOPSIG(status));
-		log_write(CONF.lf,LOG_ERROR,"================Sever Exception Exit!!!!================\n");
+		log_write(CONF.lf,LOG_ERROR,"********************Sever Exception Exit!!!!**************\n");
 		//child_run(argc,argv);
 		process(argc,argv);
 	}
