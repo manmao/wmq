@@ -70,13 +70,10 @@ int on_master_handle(struct sock_server *server,struct epoll_event event)
 
 int master_server_init(int argc,char *argv[])
 {
-<<<<<<< HEAD
-	//挂接服务器事件处理函数
-	struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
-=======
+
     //挂接服务器事件处理函数
     struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
->>>>>>> 54fa561dfb541f94d05968cca9cec340bd4efc3d
+
     handler->handle_readable=&on_master_handle;
     //如果没有相关接口实现的，一定要赋值为空值
     handler->handle_accept=NULL;
@@ -85,17 +82,8 @@ int master_server_init(int argc,char *argv[])
     handler->handle_urg=NULL;
     handler->handle_sig=&handle_sig;
 
-<<<<<<< HEAD
-    struct sock_server *master_server=NULL;
-	init_server(&master_server,CONF.master.port,handler);
-	start_listen(master_server); //启动服务器
-	return 0;
-
-=======
-
     SERVER *master_server=NULL;
     init_server(&master_server,CONF.master.port,handler);
     start_listen(master_server); //启动服务器
     return 0;
->>>>>>> 54fa561dfb541f94d05968cca9cec340bd4efc3d
 }
