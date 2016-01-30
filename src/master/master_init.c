@@ -11,7 +11,6 @@
 #include "server_sockopt.h"
 #include "master_init.h"
 
-
 static
 void handle_sig(int sig)
 {
@@ -64,6 +63,7 @@ int on_master_handle(struct sock_server *server,struct epoll_event event)
 			//往线程池添加执行单元
         }
 	}
+
     return 0;
 }
 
@@ -73,8 +73,8 @@ int master_server_init(int argc,char *argv[])
 {
     //挂接服务器事件处理函数
     struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
-    
-     //如果没有相关接口实现的，一定要赋值为空值
+
+    //如果没有相关接口实现的，一定要赋值为空值
     handler->handle_readable=&on_master_handle;
     handler->handle_accept=NULL;
     handler->handle_unknown=NULL;
@@ -82,8 +82,8 @@ int master_server_init(int argc,char *argv[])
     handler->handle_urg=NULL;
     handler->handle_sig=&handle_sig;
 
-    SERVER *master_server=NULL;
+    struct sock_server *master_server=NULL;
     init_server(&master_server,CONF.master.port,handler);
-    start_listen(master_server); //启动服务器
+    start_listen(master_server); //启动服务器监听进程
     return 0;
 }

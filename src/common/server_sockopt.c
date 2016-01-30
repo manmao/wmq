@@ -16,6 +16,7 @@
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
+#include <log.h>
 
 #include "server_sockopt.h"
 
@@ -164,7 +165,7 @@ void handle_accept_event(SERVER *server)
 
 		//回调函数调用
         if(server->handler->handle_accept){
-             
+
              server->handler->handle_accept(server,a_fd);
         }
 	}
@@ -227,7 +228,6 @@ void handle_unknown_event(SERVER *server,struct epoll_event event)
     if(server->handler->handle_unknown)
          server->handler->handle_unknown(server,event);
 }
-
 
 /**********************************************
 	服务器监听器
@@ -331,10 +331,52 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 	开始监听服务器的连接
 ******************************/
 void  start_listen(SERVER *server){
-	pthread_t pt;
-	pthread_create(&pt,NULL,(void *)&server_listener,(void *)server);
+    //线程实现监听
+    //pthread_t pt;
+	//pthread_create(&pt,NULL,(void *)&server_listener,(void *)server);
 	//pthread_detach(pt);
-	pthread_join(pt,NULL);
+	//pthread_join(pt,NULL);
+
+    //进程实现监听
+    pid_t server_id;
+    server_id=fork();
+    if(server_id <= -1)
+    {
+         log_write(CONF.lf,LOG_ERROR,"监听失败,file:%s,line:%d",__FILE__,__LINE__);
+         errExit("fork失败,file:%s,line:%d",__FILE__,__LINE__);
+    }
+
+    if(server_id == 0) //子进程
+	{
+		server_listener(server);
+	}
+    else if(server_id > 0) //父进程
+	{
+        int status;
+	    pid_t ret;
+	    ret = wait(&status);   //wait
+	    if(ret <0){
+		    perror("wait error");
+		    exit(EXIT_FAILURE);
+	    }
+	    //exit normal
+	    if (WIFEXITED(status)){
+		    log_write(CONF.lf,LOG_INFO,"child exited normal exit status=%d\n",WEXITSTATUS(status));
+	    }
+
+	    //exit signal
+	    else if (WIFSIGNALED(status)){
+		    log_write(CONF.lf,LOG_ERROR,"*********Sever Exception Exit!!!!*******child exited abnormal signal number=%d\n", WTERMSIG(status));
+	    }
+
+	    //exit un normal
+	    else if (WIFSTOPPED(status)){
+		    log_write(CONF.lf,LOG_ERROR,"****Sever Exception Exit!!!!****child stoped signal number=%d \n", WSTOPSIG(status));
+        }
+	}
+
+
+
 }
 
 /************************
