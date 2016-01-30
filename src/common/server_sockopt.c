@@ -21,6 +21,7 @@
 #include "server_sockopt.h"
 
 #include "util.h"
+#include "global.h"
 
 #include "master_init.h"
 #include "slave_init.h"

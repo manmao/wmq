@@ -3,14 +3,14 @@
 #
 
 # cross compile...
-CROSS_COMPILE = 
+CROSS_COMPILE =
 
 CC  = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
 AR  = $(CROSS_COMPILE)ar
 
  #生成的目标文件名.......
-TARGET := wfs  
+TARGET := wfs
 
 
 #顶层目录
@@ -41,7 +41,7 @@ LIB_DIR := -L$(MAKEROOT)/lib -L$(MAKEROOT)/thirdlib \
 
 
 #lib库
-LIB =-lpthread  -lz 
+LIB =-lpthread  -lz
 
 
 #gcc编译时定义宏
@@ -53,17 +53,15 @@ CFLAGS  := $(INCLUDE_DIR)
 CFLAGS  += $(DEFINE)
 
 #优化级别
-CFLAGS += -c -Wall -O2  
+CFLAGS += -c -Wall -O2
 
-#openmp支持
-CFLAGS += -fopenmp
 
 #对所有的.o文件以.c文件创建它
 
 $(MAKEROOT)/obj/%.o :  %.c
 	@echo "Compling: =====> " $(addsuffix .c, $(basename $(notdir $@)))
-	${CC} ${CFLAGS} -c $< -o $@ 
-	
+	${CC} ${CFLAGS} -c $< -o $@
+
 $(MAKEROOT)/obj/%.o :  %.cpp
 	@echo "Compling: ======> " $(addsuffix .cpp, $(basename $(notdir $@)))
 	${CXX} ${CFLAGS} -c $< -o $@
