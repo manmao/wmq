@@ -38,15 +38,15 @@ typedef struct sock_server{
 */
 struct server_handler{
     //客户端连接事件
-	int (*handle_accept)(struct sock_server *server,int accept_fd);
+	int (*handle_accept)(int accept_fd);
     //可读事件
-    int (*handle_readable)(struct sock_server *server,struct epoll_event event);
+    int (*handle_readable)(struct sock_pkt *pkg);
     //可写事件
-    int (*handle_writeable)(struct sock_server *server,struct epoll_event event);
+    int (*handle_writeable)(int event_fd);
     //带外数据
-    int (*handle_urg)(struct sock_server *server,struct epoll_event event);
+    int (*handle_urg)(int event_fd);
     //未知事件
-    int (*handle_unknown)(struct sock_server *server,struct epoll_event event);
+    int (*handle_unknown)(int event_fd);
     //信号处理
     void (*handle_sig)(int sig);
 };

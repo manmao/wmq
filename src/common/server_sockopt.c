@@ -146,11 +146,10 @@ void handle_accept_event(SERVER *server)
 {
 	struct sockaddr clientaddr;
 	socklen_t addrlen=sizeof(struct sockaddr);  //地址长度
-	int a_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen));
+	int a_fd=-1;
 
-	//如果连接成功
-	if(a_fd != -1){
-
+    while ((a_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)))>0)
+    {
         //往红黑树中插入节点
 		struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
 		type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
@@ -160,16 +159,21 @@ void handle_accept_event(SERVER *server)
 
         //添加到epoll监听队列
 		server->connect_num++;
-		printf("连接数量 --%d\n",server->connect_num); 				  //用户连接数量
+        log_write(CONF.lf,LOG_ERROR,"连接数量 -- %d\n",server->connect_num);//用户连接数量
 		addfd(server->efd,type->node->accept_fd);
 		//print_rbtree(&server->conn_root);
 
 		//回调函数调用
         if(server->handler->handle_accept){
-
-             server->handler->handle_accept(server,a_fd);
+             server->handler->handle_accept(a_fd);
         }
 	}
+    if (a_fd == -1) {
+       if (errno != EAGAIN && errno != ECONNABORTED
+                   && errno != EPROTO && errno != EINTR){
+           log_write(CONF.lf,LOG_ERROR,"error,file:%s,line:%d",__FILE__,__LINE__);
+        }
+    }
 }
 
 /**********************************
@@ -185,8 +189,53 @@ void handle_accept_event(SERVER *server)
 static
 void handle_readable_event(SERVER *server,struct epoll_event event)
 {
-    if(server->handler->handle_readable)
-	    server->handler->handle_readable(server,event);
+    int event_fd=event.data.fd;
+	struct sock_pkt recv_pkt;//网络数据包数据结构
+	while(1)
+	{
+		int buflen=recv(event_fd,(void *)&recv_pkt,sizeof(struct sock_pkt),0);
+
+        if(buflen < 0)
+		{
+			if(errno== EAGAIN || errno == EINTR){ //即当buflen<0且errno=EAGAIN时，表示没有数据了。(读/写都是这样)
+              	printf("----------no data----------------\n");
+              	return -1;
+            }else{
+              	printf("----epoll error %s %d------------\n",__FILE__,__LINE__);
+           	    return -1;                				 //error
+            }
+		}
+		else if(buflen==0) 				//客户端断开连接
+		{
+			server->connect_num--;  //客户端连接数量减1
+
+			/**将文件描述符从epoll队列中移除**/
+			deletefd(server->efd,event_fd);
+
+			/*******删除连接队列中的点*******/
+			struct conn_node node;
+			node.accept_fd=event_fd;
+			conn_delete(&server->conn_root,&node);
+
+			//调试信息
+			printf("有客户端断开连接了,现在连接数:%d\n",server->connect_num);
+			return 0;
+		}
+		else if(buflen>0) //客户端发送数据过来了
+		{
+			//将数据包加入任务队列
+			//threadpool_add_job(server->tpool,handle_pkg,(void *)&recv_pkt);
+			//printf("包个数: ==> %d\n",count++);
+			//往线程池添加执行单元
+            if(server->handler->handle_readable){
+                struct sock_pkt *recv_pkt_p =(struct sock_pkt *)malloc(sizeof(struct sock_pkt));
+                memcpy(recv_pkt_p,&recv_pkt,sizeof(struct sock_pkt));
+                server->handler->handle_readable(recv_pkt_p);
+            }
+
+		}
+	}
+
 }
 
 /**********************************
@@ -204,8 +253,9 @@ void handle_readable_event(SERVER *server,struct epoll_event event)
 static
 void handle_writeable_event(SERVER *server,struct epoll_event event)
 {
+    int event_fd=event.data.fd;
     if(server->handler->handle_writeable)
-        server->handler->handle_writeable(server,event);
+        server->handler->handle_writeable(event_fd);
 }
 
 /***************************
@@ -219,15 +269,17 @@ void handle_writeable_event(SERVER *server,struct epoll_event event)
 static
 void handle_urg_event(SERVER *server,struct epoll_event event)
 {
+    int event_fd=event.data.fd;
     if(server->handler->handle_urg)
-        server->handler->handle_urg(server,event);
+        server->handler->handle_urg(event_fd);
 }
 
 static
 void handle_unknown_event(SERVER *server,struct epoll_event event)
 {
+    int event_fd=event.data.fd;
     if(server->handler->handle_unknown)
-         server->handler->handle_unknown(server,event);
+         server->handler->handle_unknown(event_fd);
 }
 
 /**********************************************
@@ -242,14 +294,15 @@ static void server_listener(void *arg){
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
 
 	while(true){
-			//被改变值时退出循环
-			//等待内核通知，获取可读的fd
+		//被改变值时退出循环
+		//等待内核通知，获取可读的fd
 		int number=epoll_wait(server->efd,events,MAXEVENTS,-1);
 		if(number < 0)
 		{
 			printf("epoll failure\n");
 			break;
 		}
+
 		int i;
 		for(i=0;i<number;i++){                     //遍历epoll的所有事件
 			int sockfd=events[i].data.fd;        //获取fd
@@ -391,6 +444,7 @@ void  destroy_server(SERVER *server)
 
 	close(server->listenfd);
 	close(server->efd);
+
 	threadpool_destroy(server->tpool);
 
 	free(server);

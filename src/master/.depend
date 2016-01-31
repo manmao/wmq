@@ -1,4 +1,3 @@
-/mnt/hgfs/share/wfs/obj/meta_data.o: meta_data.c meta_data.h
 /mnt/hgfs/share/wfs/obj/master_init.o: master_init.c \
  /mnt/hgfs/share/wfs/src/common/common_define.h \
  /mnt/hgfs/share/wfs/src/common/util.h \
@@ -9,3 +8,4 @@
  /mnt/hgfs/share/wfs/src/thread/threadpool.h \
  /mnt/hgfs/share/wfs/src/common/connect.h \
  /mnt/hgfs/share/wfs/src/common/server_sockopt.h master_init.h
+/mnt/hgfs/share/wfs/obj/meta_data.o: meta_data.c meta_data.h
