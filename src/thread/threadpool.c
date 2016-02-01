@@ -16,11 +16,13 @@ struct threadpool* threadpool_init(int thread_num, int queue_max_num)
             printf("failed to malloc threadpool!\n");
             break;
         }
+        
         pool->thread_num = thread_num;
         pool->queue_max_num = queue_max_num;
         pool->queue_cur_num = 0;
         pool->head = NULL;
         pool->tail = NULL;
+        
         if (pthread_mutex_init(&(pool->mutex), NULL))
         {
             printf("failed to init mutex!\n");
@@ -138,6 +140,7 @@ void* threadpool_function(void* arg)
         pthread_mutex_unlock(&(pool->mutex));
         
         (*(pjob->callback_function))(pjob->arg);   //线程真正要做的工作，回调函数的调用
+        //  (*(pjob->callback_function))(pjob); 
         free(pjob);
         pjob = NULL;    
     }

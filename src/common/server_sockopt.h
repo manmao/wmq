@@ -17,7 +17,7 @@
 #define MAXCONNS 		65535	  // 服务器最大连接数
 #define MAXEVENTS       100		  // 最大事件数
 
-#define THREAD_NUM       10	      // 线程池开启的线程个数
+#define THREAD_NUM       20	      // 线程池开启的线程个数
 #define TASK_QUEUE_NUM   10000    // 队列的最大job个数
 
 /****服务器结构****/
@@ -52,10 +52,15 @@ struct server_handler{
 };
 
 //初始化服务器
-extern void  init_server(SERVER **server,int port,struct server_handler *handler);	//初始化
-
+extern void  init_server(SERVER **server,
+                         int port,
+                         struct server_handler *handler,
+                         int thread_num,
+                         int thread_queue_num);	//初始化服务器
+                         
 //开启服务
 extern void  start_listen(SERVER *server);  		//开启服务器监听
+
 
 extern void  destroy_server(SERVER *server);
 

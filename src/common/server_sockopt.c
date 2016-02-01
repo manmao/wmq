@@ -302,11 +302,12 @@ static void server_listener(void *arg){
 			printf("epoll failure\n");
 			break;
 		}
-
+        
 		int i;
-		for(i=0;i<number;i++){                     //遍历epoll的所有事件
+		for(i=0;i<number;i++){                   //遍历epoll的所有事件
 			int sockfd=events[i].data.fd;        //获取fd
-			if(sockfd == server->listenfd){      //有客户端建立连接
+            
+           if(sockfd == server->listenfd){      //有客户端建立连接
 
 				handle_accept_event(server);
 
@@ -338,7 +339,7 @@ static void server_listener(void *arg){
 
 ***************************/
 
-void  init_server(SERVER **server,int port,struct server_handler *handler){
+void  init_server(SERVER **server,int port,struct server_handler *handler,int thread_num,int thread_queue_num){
 
 	int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
@@ -368,10 +369,15 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 	(*server)->listenfd=sfd;
 	(*server)->connect_num=0;
 	(*server)->efd=efd;
-	(*server)->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池
+	
 	(*server)->conn_root=RB_ROOT;
 	(*server)->handler=handler;
-
+    if(thread_num ==0 || thread_queue_num == 0){
+       (*server)->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
+    }else{
+       (*server)->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
+    }
+    
 	/**注册监听信号进程**/
     if(handler->handle_sig){
         signal(SIGKILL,handler->handle_sig);
