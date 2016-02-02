@@ -44,4 +44,15 @@ struct sock_pkt{
     unsigned  char   *data_buff;    //数据{5KB大小}
 };
 
+
+/**
+    请求队列
+**/
+struct request{
+  struct sock_pkt *pkg;
+  struct request *next;
+};
+
+
+
 #endif

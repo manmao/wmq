@@ -159,7 +159,7 @@ void handle_accept_event(SERVER *server)
 
         //添加到epoll监听队列
 		server->connect_num++;
-        log_write(CONF.lf,LOG_ERROR,"连接数量 -- %d\n",server->connect_num);//用户连接数量
+        log_write(CONF.lf,LOG_INFO,"连接数量 -- %d\n",server->connect_num);//用户连接数量
 		addfd(server->efd,type->node->accept_fd);
 		//print_rbtree(&server->conn_root);
 
@@ -190,49 +190,57 @@ static
 void handle_readable_event(SERVER *server,struct epoll_event event)
 {
     int event_fd=event.data.fd;
-	struct sock_pkt recv_pkt;//网络数据包数据结构
-	while(1)
+    struct request *req_pkt_p=NULL;     //网络请求数据包
+
+    while(1)
 	{
-		int buflen=recv(event_fd,(void *)&recv_pkt,sizeof(struct sock_pkt),0);
+	    //开辟空间
+        req_pkt_p =(struct request*)malloc(sizeof(struct request));
+        req_pkt_p->pkg=(struct sock_pkt *)malloc(sizeof(struct sock_pkt));
+        //......
+        assert(req_pkt_p != NULL);
+        assert(req_pkt_p->pkg != NULL);
+        //接收客户端发送过来的数据
+        int buflen=recv(event_fd,(void *)req_pkt_p,sizeof(struct request),0);
 
         if(buflen < 0)
 		{
 			if(errno== EAGAIN || errno == EINTR){ //即当buflen<0且errno=EAGAIN时，表示没有数据了。(读/写都是这样)
-              	printf("----------no data----------------\n");
-              	return -1;
+              	log_write(CONF.lf,LOG_INFO,"no data:file:%s,line :%d\n",__FILE__,__LINE__);
+
             }else{
-              	printf("----epoll error %s %d------------\n",__FILE__,__LINE__);
-           	    return -1;                				 //error
+              	log_write(CONF.lf,LOG_INFO,"error:file:%s,line :%d\n",__FILE__,__LINE__);
+           	                  				 //error
             }
+            free(req_pkt_p->pkg);
+            free(req_pkt_p);
+            return -1;
 		}
 		else if(buflen==0) 				//客户端断开连接
 		{
-			server->connect_num--;  //客户端连接数量减1
+			server->connect_num--;      //客户端连接数量减1
 
 			/**将文件描述符从epoll队列中移除**/
 			deletefd(server->efd,event_fd);
 
-			/*******删除连接队列中的点*******/
+            /*******删除连接队列中的点*******/
 			struct conn_node node;
 			node.accept_fd=event_fd;
 			conn_delete(&server->conn_root,&node);
 
-			//调试信息
+            //调试信息
 			printf("有客户端断开连接了,现在连接数:%d\n",server->connect_num);
-			return 0;
+
+            free(req_pkt_p->pkg);
+            free(req_pkt_p);
+            return 0;
+
 		}
 		else if(buflen>0) //客户端发送数据过来了
 		{
-			//将数据包加入任务队列
-			//threadpool_add_job(server->tpool,handle_pkg,(void *)&recv_pkt);
-			//printf("包个数: ==> %d\n",count++);
-			//往线程池添加执行单元
             if(server->handler->handle_readable){
-                struct sock_pkt *recv_pkt_p =(struct sock_pkt *)malloc(sizeof(struct sock_pkt));
-                memcpy(recv_pkt_p,&recv_pkt,sizeof(struct sock_pkt));
-                server->handler->handle_readable(recv_pkt_p);
+                server->handler->handle_readable(req_pkt_p);
             }
-
 		}
 	}
 
@@ -302,12 +310,12 @@ static void server_listener(void *arg){
 			printf("epoll failure\n");
 			break;
 		}
-        
+
 		int i;
 		for(i=0;i<number;i++){                   //遍历epoll的所有事件
-			int sockfd=events[i].data.fd;        //获取fd
-            
-           if(sockfd == server->listenfd){      //有客户端建立连接
+           int sockfd=events[i].data.fd;         //获取fd
+
+           if(sockfd == server->listenfd){       //有客户端建立连接
 
 				handle_accept_event(server);
 
@@ -330,13 +338,23 @@ static void server_listener(void *arg){
 	}
 
 	pthread_exit(NULL);
+}
 
+
+static
+void lock(struct sock_server *server)
+{
+    pthread_mutex_lock(&(server->lock));
+}
+
+static
+void unlock(struct sock_server *server)
+{
+    pthread_mutex_unlock(&(server->lock));
 }
 
 /**************************
-
      初始化服务器端口
-
 ***************************/
 
 void  init_server(SERVER **server,int port,struct server_handler *handler,int thread_num,int thread_queue_num){
@@ -369,16 +387,22 @@ void  init_server(SERVER **server,int port,struct server_handler *handler,int th
 	(*server)->listenfd=sfd;
 	(*server)->connect_num=0;
 	(*server)->efd=efd;
-	
+    (*server)->lock; //初始化锁
 	(*server)->conn_root=RB_ROOT;
 	(*server)->handler=handler;
+
+
     if(thread_num ==0 || thread_queue_num == 0){
        (*server)->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
     }else{
        (*server)->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
     }
-    
-	/**注册监听信号进程**/
+
+    pthread_mutex_init(&(*server)->lock,NULL);
+    (*server)->lock_server=&lock;
+    (*server)->unlock_server=&unlock;
+
+    /**注册监听信号进程**/
     if(handler->handle_sig){
         signal(SIGKILL,handler->handle_sig);
         signal(SIGINT,handler->handle_sig);
@@ -391,6 +415,7 @@ void  init_server(SERVER **server,int port,struct server_handler *handler,int th
 	开始监听服务器的连接
 ******************************/
 void  start_listen(SERVER *server){
+
     //线程实现监听
     //pthread_t pt;
 	//pthread_create(&pt,NULL,(void *)&server_listener,(void *)server);
@@ -426,7 +451,10 @@ void  start_listen(SERVER *server){
 
 	    //exit signal
 	    else if (WIFSIGNALED(status)){
-		    log_write(CONF.lf,LOG_ERROR,"*********Sever Exception Exit!!!!*******child exited abnormal signal number=%d\n", WTERMSIG(status));
+		    log_write(CONF.lf,LOG_ERROR,
+                    "****Sever Exception Exit!!!!**child exited abnormal signal number=%d\n file:%s,line:%d\n",
+                    __FILE__,__LINE__,
+                    WTERMSIG(status));
 	    }
 
 	    //exit un normal
@@ -450,6 +478,7 @@ void  destroy_server(SERVER *server)
 
 	close(server->listenfd);
 	close(server->efd);
+    pthread_mutex_destroy(&(server->lock));
 
 	threadpool_destroy(server->tpool);
 

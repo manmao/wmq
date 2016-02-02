@@ -4,6 +4,7 @@
 #include <sys/socket.h>
 #include <sys/epoll.h>
 #include <sys/types.h>
+#include <pthread.h>
 
 #include "common_define.h"
 
@@ -22,14 +23,19 @@
 
 /****服务器结构****/
 typedef struct sock_server{
-	int listenfd; 					 //服务端监听listenfd
+
+    int listenfd; 					 //服务端监听listenfd
 	int efd;						 //epoll文件描述符
 	int connect_num;         		 //连接数据量
 	struct threadpool *tpool;		 //线程池
 	struct rb_root    conn_root; 	 //客户端节点
 	struct server_handler *handler;  //连接处理函数回调
-}SERVER;
+	pthread_mutex_t lock;     //互斥锁
 
+    //上锁和解锁
+    void (*lock_server)(struct sock_server *server);
+    void (*unlock_server)(struct sock_server *server);
+}SERVER;
 
 /**
 *
@@ -40,7 +46,7 @@ struct server_handler{
     //客户端连接事件
 	int (*handle_accept)(int accept_fd);
     //可读事件
-    int (*handle_readable)(struct sock_pkt *pkg);
+    int (*handle_readable)(struct request *req_pkg_p);
     //可写事件
     int (*handle_writeable)(int event_fd);
     //带外数据
@@ -57,10 +63,9 @@ extern void  init_server(SERVER **server,
                          struct server_handler *handler,
                          int thread_num,
                          int thread_queue_num);	//初始化服务器
-                         
+
 //开启服务
 extern void  start_listen(SERVER *server);  		//开启服务器监听
-
 
 extern void  destroy_server(SERVER *server);
 

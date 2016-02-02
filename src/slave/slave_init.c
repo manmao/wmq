@@ -16,7 +16,7 @@
 
 
 static
-int on_slave_handle(struct sock_pkt *pkt_p)
+int on_slave_handle(struct request *req_pkg_p)
 {
 
 }
