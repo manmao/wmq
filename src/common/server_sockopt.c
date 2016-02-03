@@ -43,12 +43,13 @@ void addfd(int epollfd,int fd){
 	setnonblock(fd);
 }
 
+
 /***********************
 	客户端和服务器端端开连接
-
+    
 	efd为内核事件表的文件描述符
 	fd为添加的fd 文件描述符
-
+    
 ************************/
 
 void deletefd(int epollfd,int fd){
@@ -191,13 +192,14 @@ void handle_readable_event(SERVER *server,struct epoll_event event)
 {
     int event_fd=event.data.fd;
     struct request *req_pkt_p=NULL;     //网络请求数据包
-
+    
     while(1)
 	{
 	    //开辟空间
         req_pkt_p =(struct request*)malloc(sizeof(struct request));
         req_pkt_p->pkg=(struct sock_pkt *)malloc(sizeof(struct sock_pkt));
         //......
+            
         assert(req_pkt_p != NULL);
         assert(req_pkt_p->pkg != NULL);
         //接收客户端发送过来的数据
@@ -295,19 +297,18 @@ void handle_unknown_event(SERVER *server,struct epoll_event event)
 	当有数据来 		启动handler线程处理
 	当断开连接时	删除和释放内存空间
 ***********************************************/
-
 static void server_listener(void *arg){
-
+    
 	SERVER *server=(SERVER *)arg;
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
-
+    
 	while(true){
 		//被改变值时退出循环
 		//等待内核通知，获取可读的fd
 		int number=epoll_wait(server->efd,events,MAXEVENTS,-1);
 		if(number < 0)
 		{
-			printf("epoll failure\n");
+			log_write(CONF.lf,LOG_ERROR,"epoll failure\n");
 			break;
 		}
 
@@ -340,34 +341,33 @@ static void server_listener(void *arg){
 	pthread_exit(NULL);
 }
 
-
 static
-void lock(struct sock_server *server)
+void lock(pthread_mutex_t *lock)
 {
-    pthread_mutex_lock(&(server->lock));
+    pthread_mutex_lock(lock);
 }
 
 static
-void unlock(struct sock_server *server)
+void unlock(pthread_mutex_t *lock)
 {
-    pthread_mutex_unlock(&(server->lock));
+    pthread_mutex_unlock(lock);
 }
 
 /**************************
+     
      初始化服务器端口
+     
 ***************************/
-
 void  init_server(SERVER **server,int port,struct server_handler *handler,int thread_num,int thread_queue_num){
-
-	int sfd=socket(AF_INET,SOCK_STREAM,0);
+    int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
 	addr.sin_family=AF_INET;
 	addr.sin_port=htons(port);
 	addr.sin_addr.s_addr=INADDR_ANY;
-
+    
 	int ret=bind(sfd,(struct sockaddr *)&addr,sizeof(addr));  //绑定到服务器的端口
 	if(ret == -1){
-		printf("绑定到服务器的端口失败\n");
+		log_write(CONF.lf,LOG_ERROR,"绑定到服务器的端口失败\n");
 		close(sfd);
 		return ;
 	}
@@ -408,7 +408,7 @@ void  init_server(SERVER **server,int port,struct server_handler *handler,int th
         signal(SIGINT,handler->handle_sig);
 	    signal(SIGTERM,handler->handle_sig);
     }
-	printf("init server sucesss!\n");
+	log_write(CONF.lf,LOG_INFO,"init server sucesss!\n");
 }
 
 /*******************************
@@ -439,12 +439,15 @@ void  start_listen(SERVER *server){
 	{
         int status;
 	    pid_t ret;
-	    ret = wait(&status);   //wait
-	    if(ret <0){
+	    
+        ret = wait(&status);   //wait
+	    
+        if(ret <0){
 		    perror("wait error");
 		    exit(EXIT_FAILURE);
 	    }
-	    //exit normal
+	    
+        //exit normal
 	    if (WIFEXITED(status)){
 		    log_write(CONF.lf,LOG_INFO,"child exited normal exit status=%d\n",WEXITSTATUS(status));
 	    }
@@ -456,7 +459,7 @@ void  start_listen(SERVER *server){
                     __FILE__,__LINE__,
                     WTERMSIG(status));
 	    }
-
+        
 	    //exit un normal
 	    else if (WIFSTOPPED(status)){
 		    log_write(CONF.lf,LOG_ERROR,"****Sever Exception Exit!!!!****child stoped signal number=%d \n", WSTOPSIG(status));
@@ -468,20 +471,22 @@ void  start_listen(SERVER *server){
 }
 
 /************************
+*
 *   关闭服务器器监听
+*
 *************************/
+
 void  destroy_server(SERVER *server)
-{
+
 	/****删除所有连接节点****/
-
 	deletefd(server->efd,server->listenfd);
-
+    
 	close(server->listenfd);
 	close(server->efd);
     pthread_mutex_destroy(&(server->lock));
-
+    
 	threadpool_destroy(server->tpool);
-
+    
 	free(server);
-	printf("销毁监听\n");
+	log_write(CONF.lf,LOG_INFO,"销毁监听\n");
 }

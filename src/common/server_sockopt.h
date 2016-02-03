@@ -12,7 +12,7 @@
 #include "threadpool.h"
 #include "connect.h"
 
-#define IP_SIZE 		20        // ip的 长度
+
 #define BACKLOG  	  	5        // 服务器侦听长度
 
 #define MAXCONNS 		65535	  // 服务器最大连接数
@@ -23,7 +23,6 @@
 
 /****服务器结构****/
 typedef struct sock_server{
-
     int listenfd; 					 //服务端监听listenfd
 	int efd;						 //epoll文件描述符
 	int connect_num;         		 //连接数据量
@@ -31,10 +30,11 @@ typedef struct sock_server{
 	struct rb_root    conn_root; 	 //客户端节点
 	struct server_handler *handler;  //连接处理函数回调
 	pthread_mutex_t lock;     //互斥锁
-
+    
     //上锁和解锁
-    void (*lock_server)(struct sock_server *server);
-    void (*unlock_server)(struct sock_server *server);
+    void (*lock_server)(pthread_mutex_t *lock);
+    void (*unlock_server)(pthread_mutex_t *lock);
+    
 }SERVER;
 
 /**

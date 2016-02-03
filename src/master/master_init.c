@@ -36,7 +36,6 @@ int on_master_handle(struct request *req_pkg_p)
     return 0;
 }
 
-
 static struct sock_server *master_server=NULL;
 
 int master_server_init(int argc,char *argv[])
@@ -50,7 +49,7 @@ int master_server_init(int argc,char *argv[])
     handler->handle_writeable=NULL;
     handler->handle_urg=NULL;
     handler->handle_sig=&handle_sig;
-
+    
     init_server(&master_server,CONF.master.port,handler,50,10000);
     start_listen(master_server); //启动服务器监听子进程
     return 0;

@@ -30,7 +30,7 @@
 /****************************
 
  socket 网络传输数据包的定义头部和数据
-
+ 
 ****************************/
 struct sock_pkt{
     uint8_t           version;      //协议版本
@@ -41,18 +41,14 @@ struct sock_pkt{
 	uint16_t          checksum;    //数据校验和
 	uint16_t          pkt_id;      //数据包的编号(一个时间戳值)
     unsigned  long    cmd;         //命令
-    unsigned  char   *data_buff;    //数据{5KB大小}
+    unsigned  char    data_buff[WFS_FILE_BUFF_SIZE];    //数据{5KB大小}
 };
 
-
 /**
-    请求队列
+  请求队列
 **/
 struct request{
   struct sock_pkt *pkg;
-  struct request *next;
 };
-
-
 
 #endif

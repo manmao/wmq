@@ -30,9 +30,8 @@ typedef enum{
 
 /* log.c */
 FILE * log_file_open(char logFileName[]);
-int log_file_close(FILE * lf);
 int log_write(FILE * lf,LOG_TYPE eventType,char *format, ...);
-
+int log_file_close(FILE * lf);
 
 
 #endif
