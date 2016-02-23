@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "global.h"
+#include "config.h"
 #include "config.h"
 #include "log.h"
 

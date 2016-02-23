@@ -1,7 +1,7 @@
 /mnt/hgfs/share/wfs/obj/server_sockopt.o: server_sockopt.c \
  /mnt/hgfs/share/wfs/src/common/log.h server_sockopt.h common_define.h \
  util.h /mnt/hgfs/share/wfs/inc/rbtree.h \
- /mnt/hgfs/share/wfs/src/thread/threadpool.h connect.h global.h \
+ /mnt/hgfs/share/wfs/src/thread/threadpool.h connect.h config.h \
  /mnt/hgfs/share/wfs/src/master/master_init.h \
  /mnt/hgfs/share/wfs/src/slave/slave_init.h
 /mnt/hgfs/share/wfs/obj/connect.o: connect.c \

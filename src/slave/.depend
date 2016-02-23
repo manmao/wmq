@@ -1,5 +1,5 @@
 /mnt/hgfs/share/wfs/obj/slave_init.o: slave_init.c \
- /mnt/hgfs/share/wfs/src/common/global.h \
+ /mnt/hgfs/share/wfs/src/common/config.h \
  /mnt/hgfs/share/wfs/src/common/common_define.h \
  /mnt/hgfs/share/wfs/src/common/util.h \
  /mnt/hgfs/share/wfs/inc/error_hdr.h \

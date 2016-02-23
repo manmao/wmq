@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #include "common_define.h"
-#include "global.h"
+#include "config.h"
 
 #include "server_sockopt.h"
 #include "master_init.h"

@@ -1,7 +1,7 @@
 /mnt/hgfs/share/wfs/obj/master_init.o: master_init.c \
  /mnt/hgfs/share/wfs/src/common/common_define.h \
  /mnt/hgfs/share/wfs/src/common/util.h \
- /mnt/hgfs/share/wfs/src/common/global.h \
+ /mnt/hgfs/share/wfs/src/common/config.h \
  /mnt/hgfs/share/wfs/src/common/server_sockopt.h \
  /mnt/hgfs/share/wfs/src/common/common_define.h \
  /mnt/hgfs/share/wfs/inc/rbtree.h \

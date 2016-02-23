@@ -16,12 +16,12 @@
 #include "zlib.h"
 #include "error_hdr.h"
 #include "util.h"
-#include "global.h"
+#include "config.h"
 #include "hash.h"
 #include "md5.h"
 
 /************************************
-	将buf封装到buf_to_block	
+	将buf封装到buf_to_block
 
 	@param
 		fd {int} 打开的文件描述符
@@ -32,8 +32,8 @@
 	@param
 		len {int}  buf长度
 	@param
-		id 	{unsigned long}  buff对应文件的id 
-	@return 
+		id 	{unsigned long}  buff对应文件的id
+	@return
 		void
 ***********************************************/
 

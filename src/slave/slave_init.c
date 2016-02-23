@@ -6,7 +6,7 @@
 #include <errno.h>
 #include <stdlib.h>
 
-#include "global.h"
+#include "config.h"
 #include "common_define.h"
 #include "error_hdr.h"
 

@@ -6,7 +6,7 @@
  /mnt/hgfs/share/wfs/inc/error/get_num.h \
  /mnt/hgfs/share/wfs/inc/error/error_functions.h \
  /mnt/hgfs/share/wfs/src/common/util.h \
- /mnt/hgfs/share/wfs/src/common/global.h \
+ /mnt/hgfs/share/wfs/src/common/config.h \
  /mnt/hgfs/share/wfs/src/common/hash.h \
  /mnt/hgfs/share/wfs/src/common/md5.h
 /mnt/hgfs/share/wfs/obj/test.o: test.c
