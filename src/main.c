@@ -11,7 +11,7 @@
 #include "log.h"
 #include "slave_init.h"
 #include "master_init.h"
-#include "global.h"
+#include "config.h"
 #include "test.h"
 
 void  process(int argc , char *argv[]);
