@@ -1,4 +1,12 @@
----- on_master_handle Matches (3 in 3 files) ----
-master_init.c (src\master):void on_master_handle(struct sock_server *server,struct epoll_event events)
-master_init.h (src\master):void on_master_handle(struct sock_server *server,struct epoll_event events);
-server_sockopt.c (src\common):			on_master_handle(server,events);
+---- _7ZIP_ST Matches (11 in 1 files) ----
+LzmaEnc.c (src\tools\lzma):#ifndef _7ZIP_ST
+LzmaEnc.c (src\tools\lzma):      #ifndef _7ZIP_ST
+LzmaEnc.c (src\tools\lzma):  #ifndef _7ZIP_ST
+LzmaEnc.c (src\tools\lzma):  #ifndef _7ZIP_ST
+LzmaEnc.c (src\tools\lzma):  #ifndef _7ZIP_ST
+LzmaEnc.c (src\tools\lzma):  #ifndef _7ZIP_ST
+LzmaEnc.c (src\tools\lzma):  #ifndef _7ZIP_ST
+LzmaEnc.c (src\tools\lzma):  #ifndef _7ZIP_ST
+LzmaEnc.c (src\tools\lzma):  #ifndef _7ZIP_ST
+LzmaEnc.c (src\tools\lzma):  #ifndef _7ZIP_ST
+LzmaEnc.c (src\tools\lzma):  #ifndef _7ZIP_ST
