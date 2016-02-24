@@ -89,9 +89,9 @@ int log_file_close(FILE * lf)
   *函数名 logWriter
   *函数参数
   *      @param eventType  日志类型
-            #define ERROR  错误
-            #define WARN   警告
-            #define INFO   信息
+            #define LOG_ERROR  错误
+            #define LOG_WARN   警告
+            #define LOG_INFO   信息
 
   *      @param *format    格式化字符串 "%s %d %f"
   *      @param ...        参数
