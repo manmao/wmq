@@ -188,7 +188,7 @@ void handle_readable_event(SERVER *server,struct epoll_event event)
 
     type=conn_search(&(server->conn_root),&node);
 
-    if(type!=NULL && server->handler->handle_readable != NULL)
+    if(type != NULL && server->handler->handle_readable != NULL)
     {
         server->handler->handle_readable(type->node);
     }
@@ -334,6 +334,7 @@ void  start_listen(SERVER *server){
 	{
 		server_listener(server);
 	}
+
     else if(server_id > 0) //父进程
 	{
         int status;
@@ -362,6 +363,7 @@ void  start_listen(SERVER *server){
 	    //exit un normal
 	    else if (WIFSTOPPED(status)){
 		    log_write(CONF.lf,LOG_ERROR,"****Sever Exception Exit!!!!****child stoped signal number=%d \n", WSTOPSIG(status));
+            server_listener(server);
         }
 	}
 

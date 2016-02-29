@@ -46,7 +46,7 @@ void *master_handle_request(void *arg){
        }
        else if(buflen>0) //客户端发送数据过来了
        {
-            printf("data comming....\n");
+            log_write(CONF.lf,LOG_INFO,"%s","data comming....\n");
             //处理req_pkt_p
        }
    }

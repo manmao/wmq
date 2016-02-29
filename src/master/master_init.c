@@ -13,9 +13,7 @@
 #include "master_init.h"
 #include "handler.h"
 
-
 static struct sock_server *master_server=NULL;
-
 
 static
 void handle_sig(int sig)
@@ -23,6 +21,7 @@ void handle_sig(int sig)
     printf("catch sig %d\n",sig);
     exit(-1);
 }
+
 
 static
 void on_master_accept(int accept_fd)
@@ -34,10 +33,10 @@ static
 int on_master_handle(struct conn_node *node)
 {
     //将数据包加入任务队列
-    threadpool_add_job(master_server->tpool,master_handle_request,(void *)node);
-
     //往线程池添加执行单元
     //放入线程池
+    threadpool_add_job(master_server->tpool,master_handle_request,(void *)node);
+
     return 0;
 }
 
