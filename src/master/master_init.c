@@ -24,7 +24,6 @@ void on_master_accept(int accept_fd)
     //放入线程池
 }
 
-
 static
 int on_master_handle(struct request *req_pkg_p)
 {
@@ -33,6 +32,11 @@ int on_master_handle(struct request *req_pkg_p)
     //printf("包个数: ==> %d\n",count++);
     //往线程池添加执行单元
     //放入线程池
+
+
+
+
+
     return 0;
 }
 
@@ -49,7 +53,7 @@ int master_server_init(int argc,char *argv[])
     handler->handle_writeable=NULL;
     handler->handle_urg=NULL;
     handler->handle_sig=&handle_sig;
-    
+
     init_server(&master_server,CONF.master.port,handler,50,10000);
     start_listen(master_server); //启动服务器监听子进程
     return 0;
