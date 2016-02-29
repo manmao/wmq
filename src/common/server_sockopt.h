@@ -30,7 +30,8 @@ typedef struct sock_server{
 	struct rb_root    conn_root; 	 //客户端节点
 
     struct server_handler *handler;  //连接处理函数回调
-	pthread_mutex_t lock;            //互斥锁
+
+    pthread_mutex_t lock;            //互斥锁
     //上锁和解锁
     void (*lock_server)(pthread_mutex_t *lock);
     void (*unlock_server)(pthread_mutex_t *lock);
@@ -46,9 +47,7 @@ struct server_handler{
     //客户端连接事件
 	int (*handle_accept)(int accept_fd);
     //可读事件
-    int (*handle_readable)(struct request *req_pkg_p);
-    //可写事件
-    int (*handle_writeable)(int event_fd);
+    int (*handle_readable)(struct conn_node *node);
     //未知事件
     int (*handle_unknown)(int event_fd);
     //信号处理

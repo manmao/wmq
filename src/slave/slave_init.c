@@ -35,10 +35,9 @@ int slave_server_init(int argnum,char *argv[])
 	printf("slave listern port:%d\n",CONF.slave[idx-1].port);
 
 	struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
-	handler->handle_readable=&on_slave_handle;
+	handler->handle_readable=NULL;
     handler->handle_accept=NULL;
     handler->handle_unknown=NULL;
-    handler->handle_writeable=NULL;
     handler->handle_sig=NULL;
 
 	struct sock_server *slave_server=NULL;

@@ -7,9 +7,15 @@
 
 #include "common_define.h"
 #include "config.h"
+#include "log.h"
 
 #include "server_sockopt.h"
 #include "master_init.h"
+#include "handler.h"
+
+
+static struct sock_server *master_server=NULL;
+
 
 static
 void handle_sig(int sig)
@@ -25,18 +31,17 @@ void on_master_accept(int accept_fd)
 }
 
 static
-int on_master_handle(struct request *req_pkg_p)
+int on_master_handle(struct conn_node *node)
 {
     //将数据包加入任务队列
-    //threadpool_add_job(server->tpool,handle_pkg,(void *)&recv_pkt);
-    //printf("包个数: ==> %d\n",count++);
+    threadpool_add_job(master_server->tpool,master_handle_request,(void *)node);
+
     //往线程池添加执行单元
     //放入线程池
-
     return 0;
 }
 
-static struct sock_server *master_server=NULL;
+
 
 int master_server_init(int argc,char *argv[])
 {
@@ -46,10 +51,10 @@ int master_server_init(int argc,char *argv[])
     handler->handle_readable=&on_master_handle;
     handler->handle_accept=NULL;
     handler->handle_unknown=NULL;
-    handler->handle_writeable=NULL;
     handler->handle_sig=&handle_sig;
 
     init_server(&master_server,CONF.master.port,handler,50,10000);
     start_listen(master_server); //启动服务器监听子进程
+
     return 0;
 }

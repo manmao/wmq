@@ -3,9 +3,6 @@
 
 #include <sys/epoll.h>
 
-
 int master_server_init(int argc,char *argv[]);
-
-
 
 #endif

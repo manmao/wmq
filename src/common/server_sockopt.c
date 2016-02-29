@@ -147,28 +147,29 @@ void handle_accept_event(SERVER *server)
 {
 	struct sockaddr clientaddr;
 	socklen_t addrlen=sizeof(struct sockaddr);  //地址长度
-	int a_fd=-1;
 
+    int conn_fd=-1;
     //读取客户端的连接
-    while ((a_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)))>0)
+    while ((conn_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)))>0)
     {
         //往红黑树中插入节点
 		struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
 		type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
-		type->node->accept_fd=a_fd;
-		type->node->clientaddr=clientaddr;
-		conn_insert(&server->conn_root,type);
+        type->node->conn_fd = conn_fd;
+        type->node->epoll_fd = server->efd;
+		type->node->clientaddr = clientaddr;
+        conn_insert(&server->conn_root,type);
 
         //添加到epoll监听队列
-		addfd(server->efd,type->node->accept_fd);
-		//print_rbtree(&server->conn_root);
+		addfd(server->efd,conn_fd);
 
 		//回调函数调用
         if(server->handler->handle_accept){
-             server->handler->handle_accept(a_fd);
+             server->handler->handle_accept(conn_fd);
         }
 	}
-    if (a_fd == -1) {
+
+    if (conn_fd == -1) {
        if (errno != EAGAIN && errno != ECONNABORTED
                    && errno != EPROTO && errno != EINTR){
            log_write(CONF.lf,LOG_ERROR,"error,file:%s,line:%d",__FILE__,__LINE__);
@@ -176,91 +177,23 @@ void handle_accept_event(SERVER *server)
     }
 }
 
-/**********************************
-	函数功能：处理epoll可读事件
-	函数参数:
-			@param  server ------- SERVER参数
-			@param  events -------- epoll事件
-	函数返回：
-			@return -------  void
-
-	这个函数主要用处理epoll可读事件
-**********************************/
 static
 void handle_readable_event(SERVER *server,struct epoll_event event)
 {
     int event_fd=event.data.fd;
-    struct request *req_pkt_p=NULL;     //网络请求数据包
+    struct conn_type *type=NULL;
 
-    while(1)
-	{
-	    //开辟空间
-        req_pkt_p =(struct request*)malloc(sizeof(struct request));
-        req_pkt_p->pkg=(struct sock_pkt *)malloc(sizeof(struct sock_pkt));
-        //......
+    struct conn_node node;
+    node.conn_fd=event_fd;
 
-        assert(req_pkt_p != NULL);
-        assert(req_pkt_p->pkg != NULL);
-        //接收客户端发送过来的数据
-        int buflen=recv(event_fd,(void *)req_pkt_p,sizeof(struct request),0);
+    type=conn_search(&(server->conn_root),&node);
 
-        if(buflen < 0)
-		{
-			if(errno== EAGAIN || errno == EINTR){ //即当buflen<0且errno=EAGAIN时，表示没有数据了。(读/写都是这样)
-              	log_write(CONF.lf,LOG_INFO,"no data:file:%s,line :%d\n",__FILE__,__LINE__);
-
-            }else{
-              	log_write(CONF.lf,LOG_INFO,"error:file:%s,line :%d\n",__FILE__,__LINE__);              				 //error
-            }
-            free(req_pkt_p->pkg);
-            free(req_pkt_p);
-            return -1;
-		}
-		else if(buflen==0) 				//客户端断开连接
-		{
-
-			/**将文件描述符从epoll队列中移除**/
-			deletefd(server->efd,event_fd);
-
-            /*******删除连接队列中的点*******/
-			struct conn_node node;
-			node.accept_fd=event_fd;
-			conn_delete(&server->conn_root,&node);
-
-            free(req_pkt_p->pkg);
-            free(req_pkt_p);
-            return 0;
-
-		}
-		else if(buflen>0) //客户端发送数据过来了
-		{
-            if(server->handler->handle_readable){
-                server->handler->handle_readable(req_pkt_p);
-            }
-		}
-	}
-
+    if(type!=NULL && server->handler->handle_readable != NULL)
+    {
+        server->handler->handle_readable(type->node);
+    }
 }
 
-/**********************************
-
-	函数功能：处理epoll可写事件
-	函数参数:
-			@param
-			@param
-	函数返回：
-			@return -------  void
-
-	这个函数主要用处理epoll可读事件
-
-**********************************/
-static
-void handle_writeable_event(SERVER *server,struct epoll_event event)
-{
-    int event_fd=event.data.fd;
-    if(server->handler->handle_writeable)
-        server->handler->handle_writeable(event_fd);
-}
 
 static
 void handle_unknown_event(SERVER *server,struct epoll_event event)
@@ -300,10 +233,6 @@ static void server_listener(void *arg){
 			}else if(events[i].events & EPOLLIN){       //efd中有fd可读,
 
 				handle_readable_event(server,events[i]);
-
-			}else if(events[i].events&EPOLLOUT){        //efd中有fd可写
-
-				handle_writeable_event(server,events[i]);
 
 			}else{                                      //其他
 			    handle_unknown_event(server,events[i]);
@@ -387,10 +316,10 @@ void  init_server(SERVER **server,int port,struct server_handler *handler,int th
 void  start_listen(SERVER *server){
 
     //线程实现监听
-    //pthread_t pt;
-	//pthread_create(&pt,NULL,(void *)&server_listener,(void *)server);
-	//pthread_detach(pt);
-	//pthread_join(pt,NULL);
+    /*pthread_t pt;
+	pthread_create(&pt,NULL,(void *)&server_listener,(void *)server);
+	pthread_detach(pt);
+	pthread_join(pt,NULL);*/
 
     //进程实现监听
     pid_t server_id;

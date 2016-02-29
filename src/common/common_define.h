@@ -46,7 +46,7 @@ struct sock_pkt{
   请求队列
 **/
 struct request{
-  struct sock_pkt *pkg;
+ struct sock_pkt *pkg;
 };
 
 #endif
