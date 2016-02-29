@@ -173,9 +173,10 @@ void handle_accept_event(SERVER *server)
        if (errno != EAGAIN && errno != ECONNABORTED
                    && errno != EPROTO && errno != EINTR){
            log_write(CONF.lf,LOG_ERROR,"error,file:%s,line:%d",__FILE__,__LINE__);
-        }
+       }
     }
 }
+
 
 static
 void handle_readable_event(SERVER *server,struct epoll_event event)
@@ -187,11 +188,8 @@ void handle_readable_event(SERVER *server,struct epoll_event event)
     node.conn_fd=event_fd;
 
     type=conn_search(&(server->conn_root),&node);
-
-
     if(type != NULL && server->handler->handle_readable != NULL)
     {
-
         server->handler->handle_readable(type->node);
     }
 }
@@ -274,8 +272,8 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 		close(sfd);
 		return ;
 	}
-	ret=listen(sfd,BACKLOG);               //监听端口
 
+	ret=listen(sfd,BACKLOG);               //监听端口
 	assert(ret != -1);
 
 	server_set_sock(sfd);           	  //服务器套接字文件描述符
@@ -288,12 +286,10 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
     *server=(SERVER *)malloc(sizeof(struct sock_server));
 	(*server)->listenfd=sfd;
 	(*server)->efd=efd;
-    (*server)->lock; //初始化锁
 	(*server)->conn_root=RB_ROOT;
 	(*server)->handler=handler;
 
-
-
+    //初始化锁
     pthread_mutex_init(&(*server)->lock,NULL);
     (*server)->lock_server=&lock;
     (*server)->unlock_server=&unlock;
@@ -308,7 +304,6 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 	log_write(CONF.lf,LOG_INFO,"init server sucesss!\n");
 }
 
-
 /*******************************
 
 	开始监听服务器的连接
@@ -316,13 +311,21 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 ******************************/
 void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
 
-    //线程实现监听
-    /*pthread_t pt;
+
+    /*
+     //初始化线程池
+    if(thread_num ==0 || thread_queue_num == 0){
+      server->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
+    }else{
+      server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
+    }
+    //开启线程监听
+    pthread_t pt;
 	pthread_create(&pt,NULL,(void *)&server_listener,(void *)server);
 	pthread_detach(pt);
 	pthread_join(pt,NULL);*/
 
-    //进程实现监听
+    //开启进程监听
     pid_t server_id;
 
     server_id=fork();
@@ -344,7 +347,6 @@ void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
          //开始监听
 		 server_listener(server);
 	}
-
     else if(server_id > 0) //父进程
 	{
         int status;

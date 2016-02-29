@@ -50,6 +50,7 @@ int master_server_init(int argc,char *argv[])
     handler->handle_sig=&handle_sig;
 
     init_server(&master_server,CONF.master.port,handler);
+
     start_listen(master_server,50,10000); //启动服务器监听子进程
 
     return 0;
