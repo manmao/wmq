@@ -16,7 +16,7 @@ struct loc_file{
 //元数据设计		///
 typedef struct _metadata
 {
-	uint8_t   		   f_id;  	 	   /*  文件编号         */
+	uint8_t   		    f_id;  	 	   /*  文件编号         */
 	uint8_t  		   *fsversion; 	   /*  文件系统版本     */
 	uint8_t  		   *f_name;    	   /*  文件名字         */
 	uint16_t  		   f_size;    	   /*  文件大小         */

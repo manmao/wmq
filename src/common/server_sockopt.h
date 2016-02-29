@@ -12,7 +12,6 @@
 #include "threadpool.h"
 #include "connect.h"
 
-
 #define BACKLOG  	  	5        // 服务器侦听长度
 
 #define MAXCONNS 		65535	  // 服务器最大连接数
@@ -29,12 +28,12 @@ typedef struct sock_server{
 	struct threadpool *tpool;		 //线程池
 	struct rb_root    conn_root; 	 //客户端节点
 	struct server_handler *handler;  //连接处理函数回调
-	pthread_mutex_t lock;     //互斥锁
-    
+
+	pthread_mutex_t lock;            //互斥锁
     //上锁和解锁
     void (*lock_server)(pthread_mutex_t *lock);
     void (*unlock_server)(pthread_mutex_t *lock);
-    
+
 }SERVER;
 
 /**

@@ -28,9 +28,7 @@
 #define CODE_ZLIB  0x02
 
 /****************************
-
  socket 网络传输数据包的定义头部和数据
- 
 ****************************/
 struct sock_pkt{
     uint8_t           version;      //协议版本

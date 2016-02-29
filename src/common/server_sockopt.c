@@ -87,7 +87,6 @@ void modfd(int epollfd,int fd,int ev)
 * 函数返回:
 *		@return  null
 *********************************/
-
 void  server_set_sock(int sfd){
 
 	int optval; 	   //整形的选项值
@@ -104,7 +103,7 @@ void  server_set_sock(int sfd){
 	optlen=sizeof(optval);
 	err=setsockopt(sfd,IPPROTO_TCP,TCP_NODELAY,(char *)&optval,optlen);
 
-     ///设置发送缓冲区大小
+    ///设置发送缓冲区大小
     int iSockBuf = 1024 * 1024;
     while (setsockopt(sfd, SOL_SOCKET, SO_SNDBUF, (void*)&iSockBuf, sizeof(iSockBuf)) < 0)
     {
@@ -149,6 +148,7 @@ void handle_accept_event(SERVER *server)
 	socklen_t addrlen=sizeof(struct sockaddr);  //地址长度
 	int a_fd=-1;
 
+    //读取客户端的连接
     while ((a_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)))>0)
     {
         //往红黑树中插入节点
@@ -298,12 +298,11 @@ void handle_unknown_event(SERVER *server,struct epoll_event event)
 	当断开连接时	删除和释放内存空间
 ***********************************************/
 static void server_listener(void *arg){
-
-	SERVER *server=(SERVER *)arg;
+    SERVER *server=(SERVER *)arg;
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
-
 	while(true){
-		//被改变值时退出循环
+
+        //被改变值时退出循环
 		//等待内核通知，获取可读的fd
 		int number=epoll_wait(server->efd,events,MAXEVENTS,-1);
 		if(number < 0)
@@ -312,11 +311,11 @@ static void server_listener(void *arg){
 			break;
 		}
 
-		int i;
+        int i;
 		for(i=0;i<number;i++){                   //遍历epoll的所有事件
            int sockfd=events[i].data.fd;         //获取fd
 
-           if(sockfd == server->listenfd){       //有客户端建立连接
+           if(sockfd == server->listenfd){          //有客户端建立连接
 
 				handle_accept_event(server);
 
@@ -359,6 +358,7 @@ void unlock(pthread_mutex_t *lock)
 
 ***************************/
 void  init_server(SERVER **server,int port,struct server_handler *handler,int thread_num,int thread_queue_num){
+
     int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
 	addr.sin_family=AF_INET;
@@ -371,7 +371,6 @@ void  init_server(SERVER **server,int port,struct server_handler *handler,int th
 		close(sfd);
 		return ;
 	}
-
 	ret=listen(sfd,BACKLOG);               //监听端口
 
 	assert(ret != -1);
@@ -466,8 +465,6 @@ void  start_listen(SERVER *server){
         }
 	}
 
-
-
 }
 
 /************************
@@ -476,7 +473,7 @@ void  start_listen(SERVER *server){
 *
 *************************/
 
-void  destroy_server(SERVER *server){
+void destroy_server(SERVER *server){
 
 	/****删除所有连接节点****/
 	deletefd(server->efd,server->listenfd);

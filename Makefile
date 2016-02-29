@@ -2,6 +2,12 @@ export MAKEROOT := $(shell pwd)
 
 include ./env.mk
 
+#编译依第三方开源赖库
+define build_dep
+cd deps && make
+endef
+
+
 define build_obj
 for SubDir in $(TARGET_DIRS); do \
     if ! [ -d $$SubDir ]; then \
@@ -34,10 +40,9 @@ endef
 
 all:
 	@$(call build_obj) #调用过程
-	#生成最终目标文件
-	$(CXX) -o $(MAKEROOT)/bin/$(TARGET) $(MAKEROOT)/obj/*.o  $(LIB) $(LIB_DIR)
+	$(CXX) -o $(MAKEROOT)/bin/$(TARGET) $(MAKEROOT)/obj/*.o  $(LIB) $(LIB_DIR) #最终编译
 clean:
-	-rm $(MAKEROOT)/obj/*.o  $(MAKEROOT)/bin/$(TARGET) 
+	-rm $(MAKEROOT)/obj/*.o  $(MAKEROOT)/bin/$(TARGET)
 distclean:
 	@$(call del_obj)
-	-rm $(MAKEROOT)/obj/*.o  $(MAKEROOT)/bin/$(TARGET) 
+	-rm $(MAKEROOT)/obj/*.o  $(MAKEROOT)/bin/$(TARGET)

@@ -99,7 +99,6 @@ void parent_run(int argc,char *argv[])
 	}
 }
 
-
 void  process(int argc , char *argv[])
 {
 	pid_t mainpro;

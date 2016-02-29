@@ -9,7 +9,7 @@ CC  = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
 AR  = $(CROSS_COMPILE)ar
 
- #生成的目标文件名.......
+#生成的目标文件名.......
 TARGET := wfs
 
 
