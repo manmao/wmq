@@ -8,7 +8,7 @@
 struct threadpool* threadpool_init(int thread_num, int queue_max_num)
 {
     struct threadpool *pool = NULL;
-    do 
+    do
     {
         pool = malloc(sizeof(struct threadpool));
         if (NULL == pool)
@@ -16,13 +16,13 @@ struct threadpool* threadpool_init(int thread_num, int queue_max_num)
             printf("failed to malloc threadpool!\n");
             break;
         }
-        
+
         pool->thread_num = thread_num;
         pool->queue_max_num = queue_max_num;
         pool->queue_cur_num = 0;
         pool->head = NULL;
         pool->tail = NULL;
-        
+
         if (pthread_mutex_init(&(pool->mutex), NULL))
         {
             printf("failed to init mutex!\n");
@@ -56,10 +56,10 @@ struct threadpool* threadpool_init(int thread_num, int queue_max_num)
         {
             pthread_create(&(pool->pthreads[i]), NULL, threadpool_function, (void *)pool);
         }
-        
-        return pool;    
+
+        return pool;
     } while (0);
-    
+
     return NULL;
 }
 
@@ -70,6 +70,7 @@ int threadpool_add_job(struct threadpool* pool, void* (*callback_function)(void 
     assert(arg != NULL);
 
     pthread_mutex_lock(&(pool->mutex));
+
     while ((pool->queue_cur_num == pool->queue_max_num) && !(pool->queue_close || pool->pool_close))
     {
         pthread_cond_wait(&(pool->queue_not_full), &(pool->mutex));   //队列满的时候就等待
@@ -84,11 +85,11 @@ int threadpool_add_job(struct threadpool* pool, void* (*callback_function)(void 
     {
         pthread_mutex_unlock(&(pool->mutex));
         return -1;
-    } 
-    pjob->callback_function = callback_function;    
+    }
+    pjob->callback_function = callback_function;
     pjob->arg = arg;
     pjob->next = NULL;
-    if (pool->head == NULL)   
+    if (pool->head == NULL)
     {
         pool->head = pool->tail = pjob;
         pthread_cond_broadcast(&(pool->queue_not_empty));  //队列空的时候，有任务来时就通知线程池中的线程：队列非空
@@ -96,7 +97,7 @@ int threadpool_add_job(struct threadpool* pool, void* (*callback_function)(void 
     else
     {
         pool->tail->next = pjob;
-        pool->tail = pjob;    
+        pool->tail = pjob;
     }
     pool->queue_cur_num++;
     pthread_mutex_unlock(&(pool->mutex));
@@ -125,7 +126,7 @@ void* threadpool_function(void* arg)
         {
             pool->head = pool->tail = NULL;
         }
-        else 
+        else
         {
             pool->head = pjob->next;
         }
@@ -138,11 +139,11 @@ void* threadpool_function(void* arg)
             pthread_cond_broadcast(&(pool->queue_not_full));  //队列非满，就可以通知threadpool_add_job函数，添加新任务
         }
         pthread_mutex_unlock(&(pool->mutex));
-        
+
         (*(pjob->callback_function))(pjob->arg);   //线程真正要做的工作，回调函数的调用
-        //  (*(pjob->callback_function))(pjob); 
+        //  (*(pjob->callback_function))(pjob);
         free(pjob);
-        pjob = NULL;    
+        pjob = NULL;
     }
 }
 
@@ -155,13 +156,13 @@ int threadpool_destroy(struct threadpool *pool)
         pthread_mutex_unlock(&(pool->mutex));
         return -1;
     }
-    
+
     pool->queue_close = 1;        //置队列关闭标志
     while (pool->queue_cur_num != 0)
     {
         pthread_cond_wait(&(pool->queue_empty), &(pool->mutex));  //等待队列为空
-    }    
-    
+    }
+
     pool->pool_close = 1;      //置线程池关闭标志
     pthread_mutex_unlock(&(pool->mutex));
     pthread_cond_broadcast(&(pool->queue_not_empty));  //唤醒线程池中正在阻塞的线程
@@ -171,11 +172,11 @@ int threadpool_destroy(struct threadpool *pool)
     {
         pthread_join(pool->pthreads[i], NULL);    //等待线程池的所有线程执行完毕
     }
-    
+
     pthread_mutex_destroy(&(pool->mutex));          //清理资源
     pthread_cond_destroy(&(pool->queue_empty));
-    pthread_cond_destroy(&(pool->queue_not_empty));   
-    pthread_cond_destroy(&(pool->queue_not_full));    
+    pthread_cond_destroy(&(pool->queue_not_empty));
+    pthread_cond_destroy(&(pool->queue_not_full));
     free(pool->pthreads);
     pool->pthreads=NULL;
     struct job *p;

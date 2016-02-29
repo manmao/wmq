@@ -57,12 +57,12 @@ struct server_handler{
 //初始化服务器
 extern void  init_server(SERVER **server,
                          int port,
-                         struct server_handler *handler,
-                         int thread_num,
-                         int thread_queue_num);	//初始化服务器
+                         struct server_handler *handler);	//初始化服务器
 
 //开启服务
-extern void  start_listen(SERVER *server);  		//开启服务器监听
+extern void  start_listen(SERVER *server,
+                         int thread_num,
+                         int thread_queue_num);  		//开启服务器监听
 
 extern void  destroy_server(SERVER *server);
 

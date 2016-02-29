@@ -15,7 +15,7 @@
 #include "server_sockopt.h"
 
 
-extern void *master_handle_request(void *arg);
+extern void master_handle_request(void *arg);
 
 
 

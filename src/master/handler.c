@@ -1,6 +1,7 @@
 #include "handler.h"
 
-void *master_handle_request(void *arg){
+
+void master_handle_request(void *arg){
 
    struct conn_node *node=(struct conn_node *)arg;
 

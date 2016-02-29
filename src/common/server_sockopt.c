@@ -188,8 +188,10 @@ void handle_readable_event(SERVER *server,struct epoll_event event)
 
     type=conn_search(&(server->conn_root),&node);
 
+
     if(type != NULL && server->handler->handle_readable != NULL)
     {
+
         server->handler->handle_readable(type->node);
     }
 }
@@ -209,9 +211,11 @@ void handle_unknown_event(SERVER *server,struct epoll_event event)
 	当断开连接时	删除和释放内存空间
 ***********************************************/
 static void server_listener(void *arg){
+
     SERVER *server=(SERVER *)arg;
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
-	while(true){
+
+    while(true){
 
         //被改变值时退出循环
 		//等待内核通知，获取可读的fd
@@ -227,13 +231,9 @@ static void server_listener(void *arg){
            int sockfd=events[i].data.fd;         //获取fd
 
            if(sockfd == server->listenfd){          //有客户端建立连接
-
 				handle_accept_event(server);
-
 			}else if(events[i].events & EPOLLIN){       //efd中有fd可读,
-
 				handle_readable_event(server,events[i]);
-
 			}else{                                      //其他
 			    handle_unknown_event(server,events[i]);
 			}
@@ -260,7 +260,7 @@ void unlock(pthread_mutex_t *lock)
      初始化服务器端口
 
 ***************************/
-void  init_server(SERVER **server,int port,struct server_handler *handler,int thread_num,int thread_queue_num){
+void  init_server(SERVER **server,int port,struct server_handler *handler){
 
     int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
@@ -269,7 +269,7 @@ void  init_server(SERVER **server,int port,struct server_handler *handler,int th
 	addr.sin_addr.s_addr=INADDR_ANY;
 
 	int ret=bind(sfd,(struct sockaddr *)&addr,sizeof(addr));  //绑定到服务器的端口
-	if(ret == -1){
+    if(ret == -1){
 		log_write(CONF.lf,LOG_ERROR,"绑定到服务器的端口失败\n");
 		close(sfd);
 		return ;
@@ -292,11 +292,8 @@ void  init_server(SERVER **server,int port,struct server_handler *handler,int th
 	(*server)->conn_root=RB_ROOT;
 	(*server)->handler=handler;
 
-    if(thread_num ==0 || thread_queue_num == 0){
-       (*server)->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
-    }else{
-       (*server)->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
-    }
+
+
     pthread_mutex_init(&(*server)->lock,NULL);
     (*server)->lock_server=&lock;
     (*server)->unlock_server=&unlock;
@@ -307,13 +304,17 @@ void  init_server(SERVER **server,int port,struct server_handler *handler,int th
         signal(SIGINT,handler->handle_sig);
 	    signal(SIGTERM,handler->handle_sig);
     }
+
 	log_write(CONF.lf,LOG_INFO,"init server sucesss!\n");
 }
 
+
 /*******************************
+
 	开始监听服务器的连接
+
 ******************************/
-void  start_listen(SERVER *server){
+void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
 
     //线程实现监听
     /*pthread_t pt;
@@ -323,6 +324,7 @@ void  start_listen(SERVER *server){
 
     //进程实现监听
     pid_t server_id;
+
     server_id=fork();
     if(server_id <= -1)
     {
@@ -332,7 +334,15 @@ void  start_listen(SERVER *server){
 
     if(server_id == 0) //子进程
 	{
-		server_listener(server);
+	     //初始化线程池
+	     if(thread_num ==0 || thread_queue_num == 0){
+            server->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
+         }else{
+            server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
+         }
+
+         //开始监听
+		 server_listener(server);
 	}
 
     else if(server_id > 0) //父进程
