@@ -47,7 +47,6 @@ int master_server_init(int argc,char *argv[])
     handler->handle_accept=NULL;
     handler->handle_unknown=NULL;
     handler->handle_writeable=NULL;
-    handler->handle_urg=NULL;
     handler->handle_sig=&handle_sig;
 
     init_server(&master_server,CONF.master.port,handler,50,10000);

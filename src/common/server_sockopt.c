@@ -87,6 +87,7 @@ void modfd(int epollfd,int fd,int ev)
 * 函数返回:
 *		@return  null
 *********************************/
+
 void  server_set_sock(int sfd){
 
 	int optval; 	   //整形的选项值
@@ -159,8 +160,6 @@ void handle_accept_event(SERVER *server)
 		conn_insert(&server->conn_root,type);
 
         //添加到epoll监听队列
-		server->connect_num++;
-        log_write(CONF.lf,LOG_INFO,"连接数量 -- %d\n",server->connect_num);//用户连接数量
 		addfd(server->efd,type->node->accept_fd);
 		//print_rbtree(&server->conn_root);
 
@@ -211,8 +210,7 @@ void handle_readable_event(SERVER *server,struct epoll_event event)
               	log_write(CONF.lf,LOG_INFO,"no data:file:%s,line :%d\n",__FILE__,__LINE__);
 
             }else{
-              	log_write(CONF.lf,LOG_INFO,"error:file:%s,line :%d\n",__FILE__,__LINE__);
-           	                  				 //error
+              	log_write(CONF.lf,LOG_INFO,"error:file:%s,line :%d\n",__FILE__,__LINE__);              				 //error
             }
             free(req_pkt_p->pkg);
             free(req_pkt_p);
@@ -220,7 +218,6 @@ void handle_readable_event(SERVER *server,struct epoll_event event)
 		}
 		else if(buflen==0) 				//客户端断开连接
 		{
-			server->connect_num--;      //客户端连接数量减1
 
 			/**将文件描述符从epoll队列中移除**/
 			deletefd(server->efd,event_fd);
@@ -229,9 +226,6 @@ void handle_readable_event(SERVER *server,struct epoll_event event)
 			struct conn_node node;
 			node.accept_fd=event_fd;
 			conn_delete(&server->conn_root,&node);
-
-            //调试信息
-			printf("有客户端断开连接了,现在连接数:%d\n",server->connect_num);
 
             free(req_pkt_p->pkg);
             free(req_pkt_p);
@@ -266,22 +260,6 @@ void handle_writeable_event(SERVER *server,struct epoll_event event)
     int event_fd=event.data.fd;
     if(server->handler->handle_writeable)
         server->handler->handle_writeable(event_fd);
-}
-
-/***************************
-函数功能：处理带外数据
-	函数参数:
-			@param
-			@param
-	函数返回：
-			@return -------  void
-****************************/
-static
-void handle_urg_event(SERVER *server,struct epoll_event event)
-{
-    int event_fd=event.data.fd;
-    if(server->handler->handle_urg)
-        server->handler->handle_urg(event_fd);
 }
 
 static
@@ -323,13 +301,9 @@ static void server_listener(void *arg){
 
 				handle_readable_event(server,events[i]);
 
-			}else if(events[i].events&EPOLLOUT){      //efd中有fd可写
+			}else if(events[i].events&EPOLLOUT){        //efd中有fd可写
 
 				handle_writeable_event(server,events[i]);
-
-			}else if(events[i].events&EPOLLPRI){        //带外数据
-
-			    handle_urg_event(server,events[i]);
 
 			}else{                                      //其他
 			    handle_unknown_event(server,events[i]);
@@ -384,19 +358,16 @@ void  init_server(SERVER **server,int port,struct server_handler *handler,int th
     /**初始化客户端连接的数量**/
     *server=(SERVER *)malloc(sizeof(struct sock_server));
 	(*server)->listenfd=sfd;
-	(*server)->connect_num=0;
 	(*server)->efd=efd;
     (*server)->lock; //初始化锁
 	(*server)->conn_root=RB_ROOT;
 	(*server)->handler=handler;
-
 
     if(thread_num ==0 || thread_queue_num == 0){
        (*server)->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
     }else{
        (*server)->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
     }
-
     pthread_mutex_init(&(*server)->lock,NULL);
     (*server)->lock_server=&lock;
     (*server)->unlock_server=&unlock;
@@ -487,6 +458,8 @@ void destroy_server(SERVER *server){
 	free(server);
 	log_write(CONF.lf,LOG_INFO,"销毁监听\n");
 }
+
+
 
 
 
