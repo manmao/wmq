@@ -39,7 +39,6 @@ int slave_server_init(int argnum,char *argv[])
     handler->handle_accept=NULL;
     handler->handle_unknown=NULL;
     handler->handle_writeable=NULL;
-    handler->handle_urg=NULL;
     handler->handle_sig=NULL;
 
 	struct sock_server *slave_server=NULL;

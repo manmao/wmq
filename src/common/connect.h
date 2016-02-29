@@ -1,13 +1,11 @@
 #ifndef __CONNECT_H_
 #define __CONNECT_H_
 
-
 #include <sys/socket.h>
 
 #include "rbtree.h"
 #include "util.h"
 #include "server_sockopt.h"
-
 
 /******保存客户端连接的节点******/
 struct conn_node{
