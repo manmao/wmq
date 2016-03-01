@@ -15,7 +15,6 @@
 #include "test.h"
 
 void  process(int argc , char *argv[]);
-
 /**
    start master:
      ./bin/wfs master 1

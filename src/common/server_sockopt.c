@@ -214,7 +214,6 @@ static void server_listener(void *arg){
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
 
     while(true){
-
         //被改变值时退出循环
 		//等待内核通知，获取可读的fd
 		int number=epoll_wait(server->efd,events,MAXEVENTS,-1);
@@ -226,9 +225,9 @@ static void server_listener(void *arg){
 
         int i;
 		for(i=0;i<number;i++){                   //遍历epoll的所有事件
-           int sockfd=events[i].data.fd;         //获取fd
+            int sockfd=events[i].data.fd;         //获取fd
 
-           if(sockfd == server->listenfd){          //有客户端建立连接
+            if(sockfd == server->listenfd){          //有客户端建立连接
 				handle_accept_event(server);
 			}else if(events[i].events & EPOLLIN){       //efd中有fd可读,
 				handle_readable_event(server,events[i]);
@@ -237,7 +236,6 @@ static void server_listener(void *arg){
 			}
 		}
 	}
-
 	pthread_exit(NULL);
 }
 
@@ -259,7 +257,6 @@ void unlock(pthread_mutex_t *lock)
 
 ***************************/
 void  init_server(SERVER **server,int port,struct server_handler *handler){
-
     int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
 	addr.sin_family=AF_INET;
@@ -304,16 +301,24 @@ void  init_server(SERVER **server,int port,struct server_handler *handler){
 	log_write(CONF.lf,LOG_INFO,"init server sucesss!\n");
 }
 
-/*******************************
-
-	开始监听服务器的连接
-
-******************************/
-void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
 
 
-    /*
-     //初始化线程池
+
+static void child_process(SERVER *server,int thread_num,int thread_queue_num){
+   //初始化线程池
+   if(thread_num ==0 || thread_queue_num == 0){
+     server->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
+   }else{
+        server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
+   }
+   //开始监听
+   server_listener(server);
+}
+
+//线程监听
+static void child_thread(SERVER *server,int thread_num,int thread_queue_num)
+{
+    //初始化线程池
     if(thread_num ==0 || thread_queue_num == 0){
       server->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
     }else{
@@ -323,8 +328,16 @@ void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
     pthread_t pt;
 	pthread_create(&pt,NULL,(void *)&server_listener,(void *)server);
 	pthread_detach(pt);
-	pthread_join(pt,NULL);*/
+	pthread_join(pt,NULL);
+}
 
+
+/*******************************
+
+	开始监听服务器的连接
+
+******************************/
+void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
     //开启进程监听
     pid_t server_id;
 
@@ -334,26 +347,15 @@ void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
          log_write(CONF.lf,LOG_ERROR,"监听失败,file:%s,line:%d",__FILE__,__LINE__);
          errExit("fork失败,file:%s,line:%d",__FILE__,__LINE__);
     }
-
     if(server_id == 0) //子进程
 	{
-	     //初始化线程池
-	     if(thread_num ==0 || thread_queue_num == 0){
-            server->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
-         }else{
-            server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
-         }
-
-         //开始监听
-		 server_listener(server);
+        child_process(server,thread_num,thread_queue_num);
 	}
     else if(server_id > 0) //父进程
 	{
         int status;
 	    pid_t ret;
-
         ret = wait(&status);   //wait
-
         if(ret <0){
 		    perror("wait error");
 		    exit(EXIT_FAILURE);
@@ -371,22 +373,33 @@ void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
                     __FILE__,__LINE__,
                     WTERMSIG(status));
 	    }
-
 	    //exit un normal
 	    else if (WIFSTOPPED(status)){
 		    log_write(CONF.lf,LOG_ERROR,"****Sever Exception Exit!!!!****child stoped signal number=%d \n", WSTOPSIG(status));
-            server_listener(server);
+            //重新开启子进程
+            child_process(server,thread_num,thread_queue_num);
         }
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 /************************
 *
 *   关闭服务器器监听
 *
 *************************/
-
 void destroy_server(SERVER *server){
 
 	/****删除所有连接节点****/
@@ -399,7 +412,7 @@ void destroy_server(SERVER *server){
 	threadpool_destroy(server->tpool);
 
 	free(server);
-	log_write(CONF.lf,LOG_INFO,"销毁监听\n");
+	log_write(CONF.lf,LOG_INFO,"服务器关闭\n");
 }
 
 
