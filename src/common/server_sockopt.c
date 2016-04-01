@@ -168,7 +168,6 @@ void handle_accept_event(SERVER *server)
              server->handler->handle_accept(conn_fd);
         }
 	}
-
     if (conn_fd == -1) {
        if (errno != EAGAIN && errno != ECONNABORTED
                    && errno != EPROTO && errno != EINTR){
@@ -309,7 +308,7 @@ static void child_process(SERVER *server,int thread_num,int thread_queue_num){
    if(thread_num ==0 || thread_queue_num == 0){
      server->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
    }else{
-        server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
+     server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
    }
    //开始监听
    server_listener(server);

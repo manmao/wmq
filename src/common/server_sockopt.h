@@ -27,7 +27,7 @@ typedef struct sock_server{
 	int efd;						 //epoll文件描述符
 
     struct threadpool *tpool;		 //线程池
-	struct rb_root    conn_root; 	 //客户端节点
+	struct rb_root    conn_root; 	 //客户端连接节点
 
     struct server_handler *handler;  //连接处理函数回调
 

@@ -37,7 +37,6 @@ int PrintError(char *buffer, const char *message)
   strcat(buffer, "\n");
   return 1;
 }
-
 int PrintErrorNumber(char *buffer, SRes val)
 {
   sprintf(buffer + strlen(buffer), "\nError code: %x\n", (unsigned)val);
@@ -79,22 +78,22 @@ static SRes Decode2(CLzmaDec *state, ISeqOutStream *outStream, ISeqInStream *inS
         outProcessed = (SizeT)unpackSize;
         finishMode = LZMA_FINISH_END;
       }
-      
+
       res = LzmaDec_DecodeToBuf(state, outBuf + outPos, &outProcessed,
         inBuf + inPos, &inProcessed, finishMode, &status);
       inPos += inProcessed;
       outPos += outProcessed;
       unpackSize -= outProcessed;
-      
+
       if (outStream)
         if (outStream->Write(outStream, outBuf, outPos) != outPos)
           return SZ_ERROR_WRITE;
-        
+
       outPos = 0;
-      
-      if (res != SZ_OK || (thereIsSize && unpackSize == 0))
+
+      if (res != SZ_OK || thereIsSize && unpackSize == 0)
         return res;
-      
+
       if (inProcessed == 0 && outProcessed == 0)
       {
         if (thereIsSize || status != LZMA_STATUS_FINISHED_WITH_MARK)
@@ -110,7 +109,7 @@ static SRes Decode(ISeqOutStream *outStream, ISeqInStream *inStream)
   UInt64 unpackSize;
   int i;
   SRes res = 0;
-  
+
   CLzmaDec state;
 
   /* header: 5 bytes of LZMA properties and 8 bytes of uncompressed size */
@@ -167,54 +166,10 @@ static SRes Encode(ISeqOutStream *outStream, ISeqInStream *inStream, UInt64 file
   return res;
 }
 
-/********************************
-*使用命令行压缩，或者解压文件
-*通过这个函数可以实现文件的压缩或者文件的解压
-*例如：
-*
-*   char rs[800];
-*   EDcode('e',inputfilepath,outputfilepath,rs);  //压缩文件
-*   EDcode('d',inputfilepath,outputfilepath,rs);  //解压文件
-*   
-*函数名称：EDcode
-*函数参数：
-        @param  mode    //使用模式 e 、d
-        @param  *src   //源地址路径
-        @param  *dest   //目标路径
-        @param  *rs      //提示信息
-*函数功能：
-*函数返回：
-        @return 返回结果 通过 fputs(rs, stdout); 将结果打印到终端
-*******************************/
-  /*
-  typedef struct
-  {
-    ISeqInStream s;
-    CSzFile file;
-  } CFileSeqInStream;
-  */
-
-  /**
-    typedef struct
-    {
-    SRes (*Read)(void *p, void *buf, size_t *size);
-      //** if (input(*size) != 0 && output(*size) == 0) means end_of_stream.
-      // (output(*size) < input(*size)) is allowed ****
-    }ISeqInStream;
-  */
-  /*
-  typedef struct
-  {
-   #ifdef USE_WINDOWS_FILE
-    HANDLE handle;
-    #else
-    FILE *file;
-    #endif
-  } CSzFile;
-  */
-int EDCode(const char mode,const char *src,const char *dest, char *rs)
+/*
+int main2(int numArgs, const char *args[], char *rs)
 {
-  CFileSeqInStream inStream;// FILE *file;
+  CFileSeqInStream inStream;
   CFileOutStream outStream;
   char c;
   int res;
@@ -227,8 +182,16 @@ int EDCode(const char mode,const char *src,const char *dest, char *rs)
   FileOutStream_CreateVTable(&outStream);
   File_Construct(&outStream.file);
 
-  c = mode;
-  printf("%c\n",c);
+  if (numArgs == 1)
+  {
+    PrintHelp(rs);
+    return 0;
+  }
+
+  if (numArgs < 3 || numArgs > 4 || strlen(args[1]) != 1)
+    return PrintUserError(rs);
+
+  c = args[1][0];
   encodeMode = (c == 'e' || c == 'E');
   if (!encodeMode && c != 'd' && c != 'D')
     return PrintUserError(rs);
@@ -240,14 +203,17 @@ int EDCode(const char mode,const char *src,const char *dest, char *rs)
       return PrintError(rs, "Incorrect UInt32 or UInt64");
   }
 
-//输入文件流
-  printf("%s\n",src);
-  if (InFile_Open(&inStream.file, src) != 0)
+  if (InFile_Open(&inStream.file, args[2]) != 0)
     return PrintError(rs, "Can not open input file");
-//输出文件流
+
+  if (numArgs > 3)
+  {
     useOutFile = True;
-    if (OutFile_Open(&outStream.file, dest) != 0)
+    if (OutFile_Open(&outStream.file, args[3]) != 0)
       return PrintError(rs, "Can not open output file");
+  }
+  else if (encodeMode)
+    PrintUserError(rs);
 
   if (encodeMode)
   {
@@ -279,8 +245,6 @@ int EDCode(const char mode,const char *src,const char *dest, char *rs)
   return 0;
 }
 
-
-/*  文件压缩测试用例
 int MY_CDECL main(int numArgs, const char *args[])
 {
   char rs[800] = { 0 };

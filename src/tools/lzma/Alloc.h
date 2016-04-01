@@ -17,10 +17,10 @@ void MyFree(void *address);
 
 void SetLargePageSize();
 
-void  *MidAlloc(size_t size);
-void  MidFree(void *address);
-void  *BigAlloc(size_t size);
-void  BigFree(void *address);
+void *MidAlloc(size_t size);
+void MidFree(void *address);
+void *BigAlloc(size_t size);
+void BigFree(void *address);
 
 #else
 

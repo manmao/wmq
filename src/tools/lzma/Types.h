@@ -222,7 +222,7 @@ typedef struct
   SRes (*Progress)(void *p, UInt64 inSize, UInt64 outSize);
     /* Returns: result. (result != SZ_OK) means break.
        Value (UInt64)(Int64)-1 for size means unknown value. */
-} ICompressProgress;
+}ICompressProgress;
 
 typedef struct
 {

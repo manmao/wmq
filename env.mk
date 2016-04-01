@@ -53,7 +53,8 @@ CFLAGS  := $(INCLUDE_DIR)
 CFLAGS  += $(DEFINE)
 
 #优化级别
-CFLAGS += -c -Wall -O2
+CFLAGS += -g -Wall -O2
+
 
 
 #对所有的.o文件以.c文件创建它

@@ -5,12 +5,12 @@
 
 /* #define SHOW_STAT */
 /* #define SHOW_STAT2 */
-
+#include "LzmaEnc.h"
 #if defined(SHOW_STAT) || defined(SHOW_STAT2)
 #include <stdio.h>
 #endif
 
-#include "LzmaEnc.h"
+
 
 #include "LzFind.h"
 #ifndef _7ZIP_ST
@@ -133,6 +133,8 @@ void LzmaEnc_FastPosInit(Byte *g_FastPos)
 #define GetPosSlot(pos, res) { if (pos < kNumFullDistances) res = p->g_FastPos[pos]; else BSR2_RET(pos, res); }
 
 #endif
+
+/*****************************/
 
 
 #define LZMA_NUM_REPS 4
@@ -262,7 +264,7 @@ typedef struct
   #ifndef _7ZIP_ST
   Bool mtMode;
   CMatchFinderMt matchFinderMt;
-  #endif
+   #endif
 
   CMatchFinder matchFinderBase;
 
@@ -335,6 +337,7 @@ typedef struct
 
   CSaveState saveState;
 } CLzmaEnc;
+/*********************************/
 
 void LzmaEnc_SaveState(CLzmaEncHandle pp)
 {

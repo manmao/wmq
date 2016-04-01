@@ -22,7 +22,6 @@ void handle_sig(int sig)
     exit(-1);
 }
 
-
 static
 void on_master_accept(int accept_fd)
 {
@@ -51,7 +50,7 @@ int master_server_init(int argc,char *argv[])
 
     init_server(&master_server,CONF.master.port,handler);
 
-    start_listen(master_server,50,10000); //启动服务器监听子进程
+    start_listen(master_server,10,10000); //启动服务器监听子进程
 
     return 0;
 }
