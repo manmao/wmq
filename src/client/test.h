@@ -11,7 +11,7 @@
 #include <signal.h>
 #include <string.h>
 
-#include "server_sockopt.h"
+#include "server_util.h"
 #include "log.h"
 #include "timer_list.h"
 #include "config.h"

@@ -3,7 +3,6 @@
 #include <stdlib.h>
 
 #include "config.h"
-#include "config.h"
 #include "log.h"
 
 /*************************

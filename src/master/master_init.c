@@ -9,7 +9,7 @@
 #include "config.h"
 #include "log.h"
 
-#include "server_sockopt.h"
+#include "server_util.h"
 #include "master_init.h"
 #include "handler.h"
 

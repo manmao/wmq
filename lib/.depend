@@ -1,4 +1,3 @@
-/mnt/hgfs/share/wfs/obj/timer_lists.o: timer_lists.c \
- /mnt/hgfs/share/wfs/inc/timer_list.h
-/mnt/hgfs/share/wfs/obj/rbtree.o: rbtree.c \
- /mnt/hgfs/share/wfs/inc/rbtree.h
+/data/Coder/wfs/obj/rbtree.o: rbtree.c /data/Coder/wfs/inc/rbtree.h
+/data/Coder/wfs/obj/timer_lists.o: timer_lists.c \
+ /data/Coder/wfs/inc/timer_list.h

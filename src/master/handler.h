@@ -12,7 +12,7 @@
 #include "config.h"
 #include "log.h"
 
-#include "server_sockopt.h"
+#include "server_util.h"
 
 
 extern void master_handle_request(void *arg);

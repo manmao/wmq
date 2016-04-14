@@ -10,7 +10,7 @@
 #include "common_define.h"
 #include "error_hdr.h"
 
-#include "server_sockopt.h"
+#include "server_util.h"
 
 #include "slave_init.h"
 
