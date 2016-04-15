@@ -28,7 +28,7 @@ void  process(int argc , char *argv[]);
 **/
 void child_run(int argc,char *argv[])
 {
-	if(argc<3)
+	if(argc<2)
 	{
 	 	printf("参数有误--请输入参数:\n");
 	 	printf(" master 1 启动master服务器\n");

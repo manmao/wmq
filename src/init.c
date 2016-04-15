@@ -33,9 +33,10 @@ void init_conf(void)
 	get_config_int("config/wfs_config.conf","master","port",&CONF.master.port);
 	log_write(CONF.lf,LOG_INFO,"master: %s:%d\n",CONF.master.ip,CONF.master.port);
 
+	//slave
 	get_config_string("config/wfs_config.conf","slave","ip",CONF.this_slave.ip);
-	get_config_int("config/wfs_config.conf","master","port",&CONF.this_slave.port);
-	log_write(CONF.lf,LOG_INFO,"master: %s:%d\n",CONF.this_slave.ip,CONF.this_slave.port);
+	get_config_int("config/wfs_config.conf","slave","port",&CONF.this_slave.port);
+	log_write(CONF.lf,LOG_INFO,"slave: %s:%d\n",CONF.this_slave.ip,CONF.this_slave.port);
 
 
 	//====//data save path
