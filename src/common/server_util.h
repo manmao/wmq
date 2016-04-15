@@ -56,6 +56,7 @@ struct server_handler{
 
 //初始化服务器
 extern void  init_server(SERVER **server,
+                         char *ip,
                          int port,
                          struct server_handler *handler);	//初始化服务器
 

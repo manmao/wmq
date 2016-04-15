@@ -26,30 +26,19 @@ void init_log()
 *****************************/
 void init_conf(void)
 {
-	int num;
-	get_config_int("config/wfs_config.conf","slave","NUM",&num);
-	printf("%d\n",num);
-
-	CONF.slave_server_num=num;
-	CONF.slave=(struct addr *)malloc(sizeof(struct addr)*num);
-	int i;
-	for(i=1;i<=num;i++){
-
-		char tmp[10];
-		sprintf(tmp,"IP%d",i);
-		get_config_string("config/wfs_config.conf","slave",tmp,CONF.slave[i-1].ip);
-		sprintf(tmp,"PORT%d",i);
-	    get_config_int("config/wfs_config.conf","slave",tmp,&CONF.slave[i-1].port);
-	    log_write(CONF.lf,LOG_INFO,"slave:%s:%d\n",CONF.slave[i-1].ip,CONF.slave[i-1].port);
-	}
-
-	//====master
+	
+	//====//master
 	CONF.master_server_num=1;
-	get_config_string("config/wfs_config.conf","master","IP",CONF.master.ip);
-	get_config_int("config/wfs_config.conf","master","PORT",&CONF.master.port);
+	get_config_string("config/wfs_config.conf","master","ip",CONF.master.ip);
+	get_config_int("config/wfs_config.conf","master","port",&CONF.master.port);
 	log_write(CONF.lf,LOG_INFO,"master: %s:%d\n",CONF.master.ip,CONF.master.port);
 
-	//====data save path
+	get_config_string("config/wfs_config.conf","slave","ip",CONF.this_slave.ip);
+	get_config_int("config/wfs_config.conf","master","port",&CONF.this_slave.port);
+	log_write(CONF.lf,LOG_INFO,"master: %s:%d\n",CONF.this_slave.ip,CONF.this_slave.port);
+
+
+	//====//data save path
 	CONF.data_save_path=(char *)malloc(sizeof(char)*100);
 	get_config_string("config/wfs_config.conf","wfs","dataPath",CONF.data_save_path);
 	printf("%s\n",CONF.data_save_path);

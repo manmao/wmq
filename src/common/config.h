@@ -19,11 +19,8 @@ typedef struct system_conf
 
  	struct addr master;
 
-	//DataNode集群服务器数量
-	int slave_server_num;
-
-	//slave
- 	struct addr *slave;
+ 	//slave
+ 	struct addr this_slave;
 
 	//文件在数据节点上存储的路径
 	char *data_save_path;
@@ -36,6 +33,19 @@ typedef struct system_conf
 
 }SYSTEM_CONF;
 
+
+typedef struct slaves{
+
+	//DataNode集群服务器数量
+	int slave_server_num;
+	
+	//cluster slave
+ 	struct addr *slave;
+
+}SLAVES;
+
+
 SYSTEM_CONF CONF;
+
 
 #endif

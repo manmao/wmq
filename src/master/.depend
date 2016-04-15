@@ -1,1 +1,19 @@
+/data/Coder/wfs/obj/handler.o: handler.c handler.h \
+ /data/Coder/wfs/src/common/common_define.h \
+ /data/Coder/wfs/src/common/util.h /data/Coder/wfs/src/common/config.h \
+ /data/Coder/wfs/src/common/log.h \
+ /data/Coder/wfs/src/common/server_util.h \
+ /data/Coder/wfs/src/common/common_define.h /data/Coder/wfs/inc/rbtree.h \
+ /data/Coder/wfs/src/thread/threadpool.h \
+ /data/Coder/wfs/src/common/connect.h \
+ /data/Coder/wfs/src/common/server_util.h
+/data/Coder/wfs/obj/master_init.o: master_init.c \
+ /data/Coder/wfs/src/common/common_define.h \
+ /data/Coder/wfs/src/common/util.h /data/Coder/wfs/src/common/config.h \
+ /data/Coder/wfs/src/common/log.h \
+ /data/Coder/wfs/src/common/server_util.h \
+ /data/Coder/wfs/src/common/common_define.h /data/Coder/wfs/inc/rbtree.h \
+ /data/Coder/wfs/src/thread/threadpool.h \
+ /data/Coder/wfs/src/common/connect.h \
+ /data/Coder/wfs/src/common/server_util.h master_init.h handler.h
 /data/Coder/wfs/obj/meta_data.o: meta_data.c meta_data.h

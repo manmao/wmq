@@ -256,12 +256,12 @@ void unlock(pthread_mutex_t *lock)
      初始化服务器端口
 
 ***************************/
-void  init_server(SERVER **server,int port,struct server_handler *handler){
+void  init_server(SERVER **server,char *ip,int port,struct server_handler *handler){
     int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
 	addr.sin_family=AF_INET;
 	addr.sin_port=htons(port);
-	addr.sin_addr.s_addr=INADDR_ANY;
+	addr.sin_addr.s_addr=inet_addr(ip);
 
 	int ret=bind(sfd,(struct sockaddr *)&addr,sizeof(addr));  //绑定到服务器的端口
     if(ret == -1){

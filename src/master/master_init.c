@@ -48,9 +48,9 @@ int master_server_init(int argc,char *argv[])
     handler->handle_unknown=NULL;
     handler->handle_sig=&handle_sig;
 
-    init_server(&master_server,CONF.master.port,handler);
+    init_server(&master_server,CONF.master.ip,CONF.master.port,handler);
 
     start_listen(master_server,10,10000); //启动服务器监听子进程
-
+    
     return 0;
 }

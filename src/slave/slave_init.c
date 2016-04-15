@@ -14,7 +14,6 @@
 
 #include "slave_init.h"
 
-
 static
 int on_slave_handle(struct request *req_pkg_p)
 {
@@ -24,16 +23,6 @@ int on_slave_handle(struct request *req_pkg_p)
 //初始化slave服务器
 int slave_server_init(int argnum,char *argv[])
 {
-	int idx;
-	sscanf(argv[2],"%d",&idx);
-	//printf("slave id:%d,total slave server:%d\n",idx,CONF.slave_server_num);
-	if(idx > CONF.slave_server_num)
-	{
-		errExit("slave 服务器编号不存在\n");
-	}
-
-	printf("slave listern port:%d\n",CONF.slave[idx-1].port);
-
 	struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
 	handler->handle_readable=NULL;
     handler->handle_accept=NULL;
@@ -41,9 +30,8 @@ int slave_server_init(int argnum,char *argv[])
     handler->handle_sig=NULL;
 
 	struct sock_server *slave_server=NULL;
-	init_server(&slave_server,CONF.slave[idx-1].port,handler);
-	start_listen(slave_server,0,0);//启动服务器
+	init_server(&slave_server,CONF.this_slave.ip,CONF.this_slave.port,handler);
+	start_listen(slave_server,0,0);  //启动服务器
 
 	return 0;
 }
-

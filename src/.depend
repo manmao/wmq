@@ -1,2 +1,18 @@
 /data/Coder/wfs/obj/init.o: init.c /data/Coder/wfs/src/common/config.h \
  /data/Coder/wfs/src/common/log.h
+/data/Coder/wfs/obj/main.o: main.c /data/Coder/wfs/inc/error_hdr.h \
+ /data/Coder/wfs/inc/error/get_num.h \
+ /data/Coder/wfs/inc/error/error_functions.h init.h \
+ /data/Coder/wfs/src/common/log.h /data/Coder/wfs/src/slave/slave_init.h \
+ /data/Coder/wfs/src/master/master_init.h \
+ /data/Coder/wfs/src/common/config.h /data/Coder/wfs/src/client/test.h \
+ /data/Coder/wfs/src/common/server_util.h \
+ /data/Coder/wfs/src/common/common_define.h \
+ /data/Coder/wfs/src/common/util.h /data/Coder/wfs/inc/rbtree.h \
+ /data/Coder/wfs/src/thread/threadpool.h \
+ /data/Coder/wfs/src/common/connect.h \
+ /data/Coder/wfs/src/common/server_util.h \
+ /data/Coder/wfs/inc/timer_list.h /data/Coder/wfs/src/common/util.h \
+ /data/Coder/wfs/src/client/upload_file.h \
+ /data/Coder/wfs/src/common/common_define.h /data/Coder/wfs/inc/queue.h \
+ /data/Coder/wfs/src/common/md5.h
