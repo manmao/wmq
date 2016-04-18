@@ -54,7 +54,7 @@ CFLAGS  := $(INCLUDE_DIR)
 CFLAGS  += $(DEFINE)
 
 #优化级别
-CFLAGS += -g -Wall -O2 -std=c99
+CFLAGS += -g -Wall -O2 
 
 
 
