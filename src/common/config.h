@@ -14,9 +14,6 @@ struct addr
 
 typedef struct system_conf
 {
-	//master
-	int master_server_num;
-
  	struct addr master;
 
  	//slave
@@ -33,7 +30,7 @@ typedef struct system_conf
 
 }SYSTEM_CONF;
 
-
+/*master mark slave*/
 typedef struct slaves{
 
 	//DataNode集群服务器数量

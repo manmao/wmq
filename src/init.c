@@ -28,7 +28,6 @@ void init_conf(void)
 {
 	
 	//====//master
-	CONF.master_server_num=1;
 	get_config_string("config/wfs_config.conf","master","ip",CONF.master.ip);
 	get_config_int("config/wfs_config.conf","master","port",&CONF.master.port);
 	log_write(CONF.lf,LOG_INFO,"master: %s:%d\n",CONF.master.ip,CONF.master.port);
