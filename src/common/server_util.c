@@ -208,11 +208,11 @@ void handle_unknown_event(SERVER *server,struct epoll_event event)
 	当有数据来 		启动handler线程处理
 	当断开连接时	删除和释放内存空间
 ***********************************************/
-static void server_listener(void *arg){
+static void op_server_listener(void *arg){
 
     SERVER *server=(SERVER *)arg;
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
-
+    
     while(true){
         //被改变值时退出循环
 		//等待内核通知，获取可读的fd
@@ -303,7 +303,6 @@ void  init_server(SERVER **server,char *ip,int port,struct server_handler *handl
 
 
 
-
 static void child_process(SERVER *server,int thread_num,int thread_queue_num){
    //初始化线程池
    if(thread_num ==0 || thread_queue_num == 0){
@@ -312,7 +311,7 @@ static void child_process(SERVER *server,int thread_num,int thread_queue_num){
      server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
    }
    //开始监听
-   server_listener(server);
+   op_server_listener(server);
 }
 
 //线程监听
@@ -326,7 +325,7 @@ static void child_thread(SERVER *server,int thread_num,int thread_queue_num)
     }
     //开启线程监听
     pthread_t pt;
-	pthread_create(&pt,NULL,(void *)&server_listener,(void *)server);
+	pthread_create(&pt,NULL,(void *)&op_server_listener,(void *)server);
 	pthread_detach(pt);
 	pthread_join(pt,NULL);
 }
@@ -382,16 +381,6 @@ void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
