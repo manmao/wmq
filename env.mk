@@ -38,8 +38,8 @@ INCLUDE_DIR := \
 
 
 #lib库搜索路劲
-LIB_DIR := -L$(MAKEROOT)/lib -L$(MAKEROOT)/thirdlib \
-
+LIB_DIR := -L$(MAKEROOT)/lib \
+		   -L$(MAKEROOT)/thirdlib \
 
 #lib库
 LIB =-lpthread  -lz
