@@ -17,6 +17,7 @@ void init_log()
 	get_config_string("config/wfs_config.conf","wfs","logFilePath",KeyVal);
 	CONF.lf=log_file_open(KeyVal);
 	log_write(CONF.lf,LOG_INFO,"log file path : %s\n",KeyVal);
+	
 }
 
 /*****************************
@@ -24,6 +25,8 @@ void init_log()
 * 初始化全局变量，从配置文件中读取
 *
 *****************************/
+
+
 void init_conf(void)
 {
 	
