@@ -11,7 +11,7 @@ struct  file_block_queue{
 
 //数据队列
 TAILQ_HEAD(queue, file_block_queue) file_block_queue;  
-	
+
 //上传文件到分布式存储系统
 extern void upload_file(char *path,char *filename);
 

@@ -1,12 +1,12 @@
-LIBUV_BRANCH=v1.7.1
-
-all: jemalloc libuv
+all: jemalloc
 .PHONY : all
 
 jemalloc:
 	cd jemalloc && ./configure --with-jemalloc-prefix=je_ --enable-cc-silence
 	cd jemalloc && $(MAKE) lib/libjemalloc.a 
 .PHONY : jemalloc
+
+LIBUV_BRANCH=v1.7.1
 
 libuv_build:
 	cd libuv && sh autogen.sh
@@ -25,4 +25,3 @@ libuv_fetch:
 
 libuv: libuv_fetch libuv_build
 .PHONY : libuv
-	

@@ -8,11 +8,6 @@
 
 #include "util.h"
 
-//自定义bool类型
-//#define  bool   int
-//#define  true   1
-//#define  false  0
-
 #define IP_SIZE 20            	    //ip的长度
 #define WFS_FILE_BUFF_SIZE 1024*5   //pkt包数据的大小
 
@@ -28,11 +23,13 @@
 #define CODE_ZLIB  0x02
 #define CODE_GZIP  0x03
 
-/****************************
 
- socket 网络传输数据包的定义头部和数据
- 
-****************************/
+
+
+
+/**
+ * 数据包格式
+ */
 struct sock_pkt{
     uint8_t            version;      //协议版本
 	uint8_t            type;         //传输数据类型  命令/数据(0x01/0x02)

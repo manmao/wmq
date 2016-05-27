@@ -24,7 +24,7 @@ void handle_sig(int sig)
 static
 void on_master_accept(int accept_fd)
 {
-   
+
 }
 
 static
@@ -32,7 +32,7 @@ int on_master_handle(struct conn_node *node)
 {
     //将数据包加入任务队列
     //放入线程池
-    threadpool_add_job(master_server->tpool,(void *)&master_handle_request,node);
+    threadpool_add_job(master_server->tpool,(void *)&handle_request,node);
     return 0;
 }
 
@@ -54,8 +54,7 @@ int master_server_init(int argc,char *argv[])
 }
 
 
-
-void master_handle_request(void *arg){
+void handle_request(void *arg){
    struct conn_node *node=(struct conn_node *)arg;
    struct request *req_pkt_p=NULL;  
    while(1)

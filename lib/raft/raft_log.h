@@ -9,6 +9,8 @@ void log_set_callbacks(log_t* me_, raft_cbs_t* funcs, void* raft);
 
 void log_free(log_t* me_);
 
+void log_clear(log_t* me_);
+
 /**
  * Add entry to log.
  * Don't add entry if we've already added this entry (based off ID)
@@ -33,7 +35,9 @@ void log_empty(log_t * me_);
  * @return oldest entry */
 void *log_poll(log_t * me_);
 
-raft_entry_t* log_get_from_idx(log_t* me_, int idx);
+raft_entry_t* log_get_from_idx(log_t* me_, int idx, int *n_etys);
+
+raft_entry_t* log_get_at_idx(log_t* me_, int idx);
 
 /**
  * @return youngest entry */

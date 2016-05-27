@@ -22,7 +22,9 @@ TARGET_DIRS :=src/ src/common src/tools/lzma src/tools\
 				src/thread  \
 				src/client  src/slave \
 				src/master \
-				lib/  lib/error  lib/raft\
+				lib/  lib/error  \
+				lib/raft  \
+				lib/linked-list-queue 
 
 #.h 头文件目录
 INCLUDE_DIR := \
@@ -34,7 +36,8 @@ INCLUDE_DIR := \
 	-I$(MAKEROOT)/src/master \
 	-I$(MAKEROOT)/src/slave  \
 	-I$(MAKEROOT)/src/client \
-	-I$(MAKEROOT)/lib/raft 
+	-I$(MAKEROOT)/lib/raft   \
+	-I$(MAKEROOT)/lib/linked-list-queue 
 
 
 #lib库搜索路劲
