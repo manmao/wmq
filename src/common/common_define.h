@@ -26,9 +26,12 @@
 //编码类型
 #define CODE_LZMA  0x01
 #define CODE_ZLIB  0x02
+#define CODE_GZIP  0x03
 
 /****************************
+
  socket 网络传输数据包的定义头部和数据
+ 
 ****************************/
 struct sock_pkt{
     uint8_t            version;      //协议版本
@@ -46,9 +49,7 @@ struct sock_pkt{
   请求队列
 **/
 struct request{
- 
  struct sock_pkt *pkg;
-
 };
 
 #endif

@@ -29,7 +29,7 @@ int slave_server_init(int argnum,char *argv[])
     handler->handle_unknown=NULL;
     handler->handle_sig=NULL;
 
-	struct sock_server *slave_server=NULL;
+	struct server *slave_server=NULL;
 	init_server(&slave_server,CONF.this_slave.ip,CONF.this_slave.port,handler);
 	start_listen(slave_server,0,0);  //启动服务器
 

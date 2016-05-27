@@ -137,13 +137,13 @@ void  server_set_sock(int sfd){
 /**********************************
 	函数功能：处理epoll数据连接
 	函数参数:
-			@param  server ------- SERVER参数
+			@param  server ------- server_t参数
 
 	函数返回：
 			@return -------  void
 **********************************/
 static
-void handle_accept_event(SERVER *server)
+void handle_accept_event(server_t *server)
 {
 	struct sockaddr clientaddr;
 	socklen_t addrlen=sizeof(struct sockaddr);  //地址长度
@@ -178,7 +178,7 @@ void handle_accept_event(SERVER *server)
 
 
 static
-void handle_readable_event(SERVER *server,struct epoll_event event)
+void handle_readable_event(server_t *server,struct epoll_event event)
 {
     int event_fd=event.data.fd;
     struct conn_type *type=NULL;
@@ -196,7 +196,7 @@ void handle_readable_event(SERVER *server,struct epoll_event event)
 
 
 static
-void handle_unknown_event(SERVER *server,struct epoll_event event)
+void handle_unknown_event(server_t *server,struct epoll_event event)
 {
     int event_fd=event.data.fd;
     if(server->handler->handle_unknown)
@@ -210,7 +210,7 @@ void handle_unknown_event(SERVER *server,struct epoll_event event)
 ***********************************************/
 static void op_server_listener(void *arg){
 
-    SERVER *server=(SERVER *)arg;
+    server_t *server=(server_t *)arg;
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
     
     while(true){
@@ -256,7 +256,7 @@ void unlock(pthread_mutex_t *lock)
      初始化服务器端口
 
 ***************************/
-void  init_server(SERVER **server,char *ip,int port,struct server_handler *handler){
+void  init_server(server_t **server,char *ip,int port,struct server_handler *handler){
     int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
 	addr.sin_family=AF_INET;
@@ -280,7 +280,7 @@ void  init_server(SERVER **server,char *ip,int port,struct server_handler *handl
     addfd(efd,sfd);         			   //注册TCP socket 上可读事件
 
     /**初始化客户端连接的数量**/
-    *server=(SERVER *)malloc(sizeof(struct sock_server));
+    *server=(server_t *)malloc(sizeof(struct server));
 	(*server)->listenfd=sfd;
 	(*server)->efd=efd;
 	(*server)->conn_root=RB_ROOT;
@@ -303,7 +303,7 @@ void  init_server(SERVER **server,char *ip,int port,struct server_handler *handl
 
 
 
-static void child_process(SERVER *server,int thread_num,int thread_queue_num){
+static void child_process(server_t *server,int thread_num,int thread_queue_num){
    //初始化线程池
    if(thread_num ==0 || thread_queue_num == 0){
      server->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
@@ -315,7 +315,7 @@ static void child_process(SERVER *server,int thread_num,int thread_queue_num){
 }
 
 //线程监听
-static void child_thread(SERVER *server,int thread_num,int thread_queue_num)
+static void child_thread(server_t *server,int thread_num,int thread_queue_num)
 {
     //初始化线程池
     if(thread_num ==0 || thread_queue_num == 0){
@@ -336,7 +336,7 @@ static void child_thread(SERVER *server,int thread_num,int thread_queue_num)
 	开始监听服务器的连接
 
 ******************************/
-void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
+void  start_listen(server_t *server,int thread_num,int thread_queue_num){
     //开启进程监听
     pid_t server_id;
 
@@ -389,7 +389,7 @@ void  start_listen(SERVER *server,int thread_num,int thread_queue_num){
 *   关闭服务器器监听
 *
 *************************/
-void destroy_server(SERVER *server){
+void destroy_server(server_t *server){
 
 	/****删除所有连接节点****/
 	deletefd(server->efd,server->listenfd);

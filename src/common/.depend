@@ -1,16 +1,18 @@
-/data/Coder/wfs/obj/client_util.o: client_util.c common_define.h util.h \
- client_util.h
-/data/Coder/wfs/obj/connect.o: connect.c /data/Coder/wfs/inc/rbtree.h \
- connect.h util.h server_util.h common_define.h \
- /data/Coder/wfs/src/thread/threadpool.h
-/data/Coder/wfs/obj/hash.o: hash.c hash.h
-/data/Coder/wfs/obj/log.o: log.c /data/Coder/wfs/inc/error_hdr.h \
- /data/Coder/wfs/inc/error/get_num.h \
- /data/Coder/wfs/inc/error/error_functions.h util.h log.h
-/data/Coder/wfs/obj/md5.o: md5.c md5.h
-/data/Coder/wfs/obj/server_util.o: server_util.c \
- /data/Coder/wfs/src/common/log.h server_util.h common_define.h util.h \
- /data/Coder/wfs/inc/rbtree.h /data/Coder/wfs/src/thread/threadpool.h \
- connect.h config.h /data/Coder/wfs/src/master/master_init.h \
- /data/Coder/wfs/src/slave/slave_init.h
-/data/Coder/wfs/obj/util.o: util.c util.h
+/mnt/hgfs/share/wfs/obj/connect.o: connect.c \
+ /mnt/hgfs/share/wfs/inc/rbtree.h connect.h util.h server_util.h \
+ common_define.h /mnt/hgfs/share/wfs/src/thread/threadpool.h
+/mnt/hgfs/share/wfs/obj/log.o: log.c /mnt/hgfs/share/wfs/inc/error_hdr.h \
+ /mnt/hgfs/share/wfs/inc/error/get_num.h \
+ /mnt/hgfs/share/wfs/inc/error/error_functions.h util.h log.h
+/mnt/hgfs/share/wfs/obj/server_util.o: server_util.c \
+ /mnt/hgfs/share/wfs/src/common/log.h server_util.h common_define.h \
+ util.h /mnt/hgfs/share/wfs/inc/rbtree.h \
+ /mnt/hgfs/share/wfs/src/thread/threadpool.h connect.h config.h \
+ /mnt/hgfs/share/wfs/src/master/master_init.h \
+ /mnt/hgfs/share/wfs/src/common/server_util.h \
+ /mnt/hgfs/share/wfs/src/slave/slave_init.h
+/mnt/hgfs/share/wfs/obj/util.o: util.c util.h
+/mnt/hgfs/share/wfs/obj/hash.o: hash.c hash.h
+/mnt/hgfs/share/wfs/obj/md5.o: md5.c md5.h
+/mnt/hgfs/share/wfs/obj/client_util.o: client_util.c common_define.h \
+ util.h client_util.h

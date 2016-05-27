@@ -1,18 +1,23 @@
-/data/Coder/wfs/obj/init.o: init.c /data/Coder/wfs/src/common/config.h \
- /data/Coder/wfs/src/common/log.h
-/data/Coder/wfs/obj/main.o: main.c /data/Coder/wfs/inc/error_hdr.h \
- /data/Coder/wfs/inc/error/get_num.h \
- /data/Coder/wfs/inc/error/error_functions.h init.h \
- /data/Coder/wfs/src/common/log.h /data/Coder/wfs/src/slave/slave_init.h \
- /data/Coder/wfs/src/master/master_init.h \
- /data/Coder/wfs/src/common/config.h /data/Coder/wfs/src/client/test.h \
- /data/Coder/wfs/src/common/server_util.h \
- /data/Coder/wfs/src/common/common_define.h \
- /data/Coder/wfs/src/common/util.h /data/Coder/wfs/inc/rbtree.h \
- /data/Coder/wfs/src/thread/threadpool.h \
- /data/Coder/wfs/src/common/connect.h \
- /data/Coder/wfs/src/common/server_util.h \
- /data/Coder/wfs/inc/timer_list.h /data/Coder/wfs/src/common/util.h \
- /data/Coder/wfs/src/client/upload_file.h \
- /data/Coder/wfs/src/common/common_define.h /data/Coder/wfs/inc/queue.h \
- /data/Coder/wfs/src/common/md5.h
+/mnt/hgfs/share/wfs/obj/init.o: init.c \
+ /mnt/hgfs/share/wfs/src/common/config.h \
+ /mnt/hgfs/share/wfs/src/common/log.h
+/mnt/hgfs/share/wfs/obj/main.o: main.c \
+ /mnt/hgfs/share/wfs/inc/error_hdr.h \
+ /mnt/hgfs/share/wfs/inc/error/get_num.h \
+ /mnt/hgfs/share/wfs/inc/error/error_functions.h init.h \
+ /mnt/hgfs/share/wfs/src/common/log.h \
+ /mnt/hgfs/share/wfs/src/slave/slave_init.h \
+ /mnt/hgfs/share/wfs/src/master/master_init.h \
+ /mnt/hgfs/share/wfs/src/common/server_util.h \
+ /mnt/hgfs/share/wfs/src/common/common_define.h \
+ /mnt/hgfs/share/wfs/src/common/util.h /mnt/hgfs/share/wfs/inc/rbtree.h \
+ /mnt/hgfs/share/wfs/src/thread/threadpool.h \
+ /mnt/hgfs/share/wfs/src/common/connect.h \
+ /mnt/hgfs/share/wfs/src/common/server_util.h \
+ /mnt/hgfs/share/wfs/src/common/config.h \
+ /mnt/hgfs/share/wfs/src/client/test.h \
+ /mnt/hgfs/share/wfs/inc/timer_list.h \
+ /mnt/hgfs/share/wfs/src/common/util.h \
+ /mnt/hgfs/share/wfs/src/client/upload_file.h \
+ /mnt/hgfs/share/wfs/src/common/common_define.h \
+ /mnt/hgfs/share/wfs/inc/queue.h /mnt/hgfs/share/wfs/src/common/md5.h

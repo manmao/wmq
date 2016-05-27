@@ -1,5 +1,5 @@
-#ifndef _SERVER_SOCKOPT_H_
-#define _SERVER_SOCKOPT_H_
+#ifndef _server_t_SOCKOPT_H_
+#define _server_t_SOCKOPT_H_
 
 #include <sys/socket.h>
 #include <sys/epoll.h>
@@ -21,7 +21,7 @@
 #define TASK_QUEUE_NUM   10000    // 队列的最大job个数
 
 /****服务器结构****/
-typedef struct sock_server{
+typedef struct server{
 
     int listenfd; 					 //服务端监听listenfd
 	int efd;						 //epoll文件描述符
@@ -36,7 +36,7 @@ typedef struct sock_server{
     void (*lock_server)(pthread_mutex_t *lock);
     void (*unlock_server)(pthread_mutex_t *lock);
 
-}SERVER;
+}server_t;
 
 /**
 *
@@ -55,17 +55,17 @@ struct server_handler{
 };
 
 //初始化服务器
-extern void  init_server(SERVER **server,
+extern void  init_server(server_t **server,
                          char *ip,
                          int port,
                          struct server_handler *handler);	//初始化服务器
 
 //开启服务
-extern void  start_listen(SERVER *server,
+extern void  start_listen(server_t *server,
                          int thread_num,
                          int thread_queue_num);  		//开启服务器监听
 
-extern void  destroy_server(SERVER *server);
+extern void  destroy_server(server_t *server);
 
 extern void  server_set_sock(int sfd);				//设置套接字选项
 

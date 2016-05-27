@@ -1,9 +1,12 @@
-/data/Coder/wfs/obj/test.o: test.c
-/data/Coder/wfs/obj/upload_file.o: upload_file.c upload_file.h \
- /data/Coder/wfs/src/common/common_define.h \
- /data/Coder/wfs/src/common/util.h /data/Coder/wfs/inc/queue.h \
- /data/Coder/wfs/inc/zlib.h /data/Coder/wfs/inc/zconf.h \
- /data/Coder/wfs/inc/error_hdr.h /data/Coder/wfs/inc/error/get_num.h \
- /data/Coder/wfs/inc/error/error_functions.h \
- /data/Coder/wfs/src/common/util.h /data/Coder/wfs/src/common/config.h \
- /data/Coder/wfs/src/common/hash.h /data/Coder/wfs/src/common/md5.h
+/mnt/hgfs/share/wfs/obj/upload_file.o: upload_file.c upload_file.h \
+ /mnt/hgfs/share/wfs/src/common/common_define.h \
+ /mnt/hgfs/share/wfs/src/common/util.h /mnt/hgfs/share/wfs/inc/queue.h \
+ /mnt/hgfs/share/wfs/inc/zlib.h /mnt/hgfs/share/wfs/inc/zconf.h \
+ /mnt/hgfs/share/wfs/inc/error_hdr.h \
+ /mnt/hgfs/share/wfs/inc/error/get_num.h \
+ /mnt/hgfs/share/wfs/inc/error/error_functions.h \
+ /mnt/hgfs/share/wfs/src/common/util.h \
+ /mnt/hgfs/share/wfs/src/common/config.h \
+ /mnt/hgfs/share/wfs/src/common/hash.h \
+ /mnt/hgfs/share/wfs/src/common/md5.h
+/mnt/hgfs/share/wfs/obj/test.o: test.c
