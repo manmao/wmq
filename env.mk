@@ -12,7 +12,6 @@ AR  = $(CROSS_COMPILE)ar
 #生成的目标文件名.......
 TARGET := wfs
 
-
 #顶层目录
 ROOT := $(shell pwd)
 
@@ -20,11 +19,10 @@ ROOT := $(shell pwd)
 #需要扫描的文件
 TARGET_DIRS :=src/ src/common src/tools/lzma src/tools\
 				src/thread  \
-				src/client  src/slave \
-				src/master \
+				src/client  src/server\
 				lib/  lib/error  \
 				lib/raft  \
-				lib/linked-list-queue 
+				lib/linked-list-queue
 
 #.h 头文件目录
 INCLUDE_DIR := \
@@ -33,8 +31,7 @@ INCLUDE_DIR := \
 	-I$(MAKEROOT)/src/tools \
 	-I$(MAKEROOT)/src/tools/lzma \
 	-I$(MAKEROOT)/src/thread \
-	-I$(MAKEROOT)/src/master \
-	-I$(MAKEROOT)/src/slave  \
+	-I$(MAKEROOT)/src/server\
 	-I$(MAKEROOT)/src/client \
 	-I$(MAKEROOT)/lib/raft   \
 	-I$(MAKEROOT)/lib/linked-list-queue 
@@ -51,18 +48,16 @@ LIB =-lpthread  -lz
 #gcc编译时定义宏
 DEFINE := -D_7ZIP_ST
 
-
 #gcc编译参数或者选项
 CFLAGS  := $(INCLUDE_DIR)
 CFLAGS  += $(DEFINE)
+
 
 #优化级别
 CFLAGS += -g -Wall -O2 
 
 
-
 #对所有的.o文件以.c文件创建它
-
 $(MAKEROOT)/obj/%.o :  %.c
 	@echo "Compling: =====> " $(addsuffix .c, $(basename $(notdir $@)))
 	${CC} ${CFLAGS} -c $< -o $@

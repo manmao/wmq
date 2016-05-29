@@ -1,13 +1,11 @@
-/mnt/hgfs/share/wfs/obj/slave_init.o: slave_init.c \
- /mnt/hgfs/share/wfs/src/common/config.h \
+/mnt/hgfs/share/wfs/obj/server_init.o: server_init.c \
  /mnt/hgfs/share/wfs/src/common/common_define.h \
  /mnt/hgfs/share/wfs/src/common/util.h \
- /mnt/hgfs/share/wfs/inc/error_hdr.h \
- /mnt/hgfs/share/wfs/inc/error/get_num.h \
- /mnt/hgfs/share/wfs/inc/error/error_functions.h \
+ /mnt/hgfs/share/wfs/src/common/config.h \
+ /mnt/hgfs/share/wfs/src/common/log.h server_init.h \
  /mnt/hgfs/share/wfs/src/common/server_util.h \
  /mnt/hgfs/share/wfs/src/common/common_define.h \
  /mnt/hgfs/share/wfs/inc/rbtree.h \
  /mnt/hgfs/share/wfs/src/thread/threadpool.h \
  /mnt/hgfs/share/wfs/src/common/connect.h \
- /mnt/hgfs/share/wfs/src/common/server_util.h slave_init.h
+ /mnt/hgfs/share/wfs/src/common/server_util.h

@@ -11,7 +11,7 @@
  * @param  argv [参数]
  * @return      [状态值]
  */
-extern int master_server_init(int argc,char *argv[]);
+extern int server_init(int argc,char *argv[]);
 
 
 /**

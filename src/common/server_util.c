@@ -23,8 +23,6 @@
 #include "util.h"
 #include "config.h"
 
-#include "master_init.h"
-#include "slave_init.h"
 
 /*******************************************
 	当客户端可服务器端建立连接时

@@ -9,7 +9,7 @@
 #include "config.h"
 #include "log.h"
 
-#include "master_init.h"
+#include "server_init.h"
 
 
 server_t *master_server=NULL;
@@ -22,13 +22,13 @@ void handle_sig(int sig)
 }
 
 static
-void on_master_accept(int accept_fd)
+void on_accept(int accept_fd)
 {
 
 }
 
 static
-int on_master_handle(struct conn_node *node)
+int on_handle(struct conn_node *node)
 {
     //将数据包加入任务队列
     //放入线程池
@@ -37,14 +37,14 @@ int on_master_handle(struct conn_node *node)
 }
 
 
-int master_server_init(int argc,char *argv[])
+int server_init(int argc,char *argv[])
 {
     //挂接服务器事件处理函数
     struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
 
     //如果没有相关接口实现的，一定要赋值为空值
-    handler->handle_readable=&on_master_handle;
-    handler->handle_accept=NULL;
+    handler->handle_readable=&on_handle;
+    handler->handle_accept=&on_accept;
     handler->handle_unknown=NULL;
     handler->handle_sig=&handle_sig;
     init_server(&master_server,CONF.master.ip,CONF.master.port,handler);
@@ -91,7 +91,8 @@ void handle_request(void *arg){
        }
        else if(buflen>0)
        {
-            log_write(CONF.lf,LOG_INFO,"%s","data comming....\n");
+          
+          log_write(CONF.lf,LOG_INFO,"%s","data comming....\n");
        }
    }
 }

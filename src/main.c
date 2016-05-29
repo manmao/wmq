@@ -9,10 +9,8 @@
 #include "error_hdr.h"
 #include "init.h"
 #include "log.h"
-#include "slave_init.h"
-#include "master_init.h"
+#include "server_init.h"
 #include "config.h"
-#include "test.h"
 
 void  process(int argc , char *argv[]);
 /**
@@ -28,34 +26,9 @@ void  process(int argc , char *argv[]);
 **/
 void child_run(int argc,char *argv[])
 {
-	if(argc<2)
-	{
-	 	printf("参数有误--请输入参数:\n");
-	 	printf(" master 1 启动master服务器\n");
-	 	printf(" slave  x 启动slave服务器\n");
-	}
 
-	//启动master服务器
-	if(strcmp(argv[1],"master") == 0)
-	{
-	 	master_server_init(0,NULL);
-	 	printf("master_server_init started....\n");
-	}
-
-	//启动slave服务器
-	else if(strcmp(argv[1],"slave") == 0)
-	{
-	 	slave_server_init(argc,argv);
-	 	printf("slave_server_init started....\n");
-	}
-	//参数有误
-	else
-	{
-	 	printf("参数有误--请输入参数:\n");
-	 	printf(" xxx  master 1 启动master服务器\n");
-	 	printf(" xxx  slave  n 启动slave服务器\n");
-	}
-
+	server_init(argc,argv);
+	
 	while(1);
 
 }
