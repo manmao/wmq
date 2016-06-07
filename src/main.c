@@ -26,9 +26,7 @@ void  process(int argc , char *argv[]);
 **/
 void child_run(int argc,char *argv[])
 {
-
 	server_init(argc,argv);
-	
 	while(1);
 
 }
@@ -95,11 +93,8 @@ void  process(int argc , char *argv[])
 }
 
 /*********************************
-
 	整个系统入口
-
 **********************************/
-
 #if 1
 
 int main(int argc , char *argv[])

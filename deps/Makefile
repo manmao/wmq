@@ -1,13 +1,25 @@
-all: jemalloc
+all: gzip
 .PHONY : all
+
 
 jemalloc:
 	cd jemalloc && ./configure --with-jemalloc-prefix=je_ --enable-cc-silence
 	cd jemalloc && $(MAKE) lib/libjemalloc.a 
 .PHONY : jemalloc
 
-LIBUV_BRANCH=v1.7.1
 
+gzip:
+	cd gzip124 &&  ./configure 
+	cd gzip124 &&  $(MAKE)
+
+	if test -e gzip124/lib; \
+	then cd gzip124; \
+	else cd gzip124 && mkdir lib; \
+	fi 
+	cd gzip124 &&  ar cr lib/libgizp.a $(wildcard *.o)
+
+
+LIBUV_BRANCH=v1.7.1
 libuv_build:
 	cd libuv && sh autogen.sh
 	cd libuv && ./configure
