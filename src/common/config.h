@@ -6,21 +6,9 @@
 #ifndef __GLOBAL_CONFIG_H
 #define __GLOBAL_CONFIG_H
 
-struct addr
-{
-	char ip[20];
-	int port;
-};
 
 typedef struct system_conf
 {
- 	struct addr master;
-
- 	//slave
- 	struct addr this_slave;
-
-	//文件在数据节点上存储的路径
-	char *data_save_path;
 
 	// Log file
 	FILE *lf;
@@ -28,21 +16,9 @@ typedef struct system_conf
 	//文件系统存储路径
 	char *logpath;
 
-}SYSTEM_CONF;
+}system_conf_t;
 
-/*master mark slave*/
-typedef struct slaves{
-
-	//DataNode集群服务器数量
-	int slave_server_num;
-	
-	//cluster slave
- 	struct addr *slave;
-
-}SLAVES;
-
-
-SYSTEM_CONF CONF;
+system_conf_t CONF;
 
 
 #endif

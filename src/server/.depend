@@ -1,11 +1,9 @@
-/mnt/hgfs/share/wfs/obj/server_init.o: server_init.c \
- /mnt/hgfs/share/wfs/src/common/common_define.h \
- /mnt/hgfs/share/wfs/src/common/util.h \
- /mnt/hgfs/share/wfs/src/common/config.h \
- /mnt/hgfs/share/wfs/src/common/log.h server_init.h \
- /mnt/hgfs/share/wfs/src/common/server_util.h \
- /mnt/hgfs/share/wfs/src/common/common_define.h \
- /mnt/hgfs/share/wfs/inc/rbtree.h \
- /mnt/hgfs/share/wfs/src/thread/threadpool.h \
- /mnt/hgfs/share/wfs/src/common/connect.h \
- /mnt/hgfs/share/wfs/src/common/server_util.h
+/data/Coder/wmq/obj/server_init.o: server_init.c \
+ /data/Coder/wmq/src/common/common_define.h \
+ /data/Coder/wmq/src/common/util.h /data/Coder/wmq/src/common/config.h \
+ /data/Coder/wmq/src/common/log.h server_init.h \
+ /data/Coder/wmq/src/common/server_util.h \
+ /data/Coder/wmq/src/common/common_define.h /data/Coder/wmq/inc/rbtree.h \
+ /data/Coder/wmq/src/thread/threadpool.h \
+ /data/Coder/wmq/src/common/connect.h \
+ /data/Coder/wmq/src/common/server_util.h

@@ -1,16 +1,14 @@
-/mnt/hgfs/share/wfs/obj/init.o: init.c \
- /mnt/hgfs/share/wfs/src/common/config.h \
- /mnt/hgfs/share/wfs/src/common/log.h
-/mnt/hgfs/share/wfs/obj/main.o: main.c \
- /mnt/hgfs/share/wfs/inc/error_hdr.h \
- /mnt/hgfs/share/wfs/inc/error/get_num.h \
- /mnt/hgfs/share/wfs/inc/error/error_functions.h init.h \
- /mnt/hgfs/share/wfs/src/common/log.h \
- /mnt/hgfs/share/wfs/src/server/server_init.h \
- /mnt/hgfs/share/wfs/src/common/server_util.h \
- /mnt/hgfs/share/wfs/src/common/common_define.h \
- /mnt/hgfs/share/wfs/src/common/util.h /mnt/hgfs/share/wfs/inc/rbtree.h \
- /mnt/hgfs/share/wfs/src/thread/threadpool.h \
- /mnt/hgfs/share/wfs/src/common/connect.h \
- /mnt/hgfs/share/wfs/src/common/server_util.h \
- /mnt/hgfs/share/wfs/src/common/config.h
+/data/Coder/wmq/obj/init.o: init.c /data/Coder/wmq/src/common/config.h \
+ /data/Coder/wmq/src/common/log.h
+/data/Coder/wmq/obj/main.o: main.c /data/Coder/wmq/inc/error_hdr.h \
+ /data/Coder/wmq/inc/error/get_num.h \
+ /data/Coder/wmq/inc/error/error_functions.h init.h \
+ /data/Coder/wmq/src/common/log.h \
+ /data/Coder/wmq/src/server/server_init.h \
+ /data/Coder/wmq/src/common/server_util.h \
+ /data/Coder/wmq/src/common/common_define.h \
+ /data/Coder/wmq/src/common/util.h /data/Coder/wmq/inc/rbtree.h \
+ /data/Coder/wmq/src/thread/threadpool.h \
+ /data/Coder/wmq/src/common/connect.h \
+ /data/Coder/wmq/src/common/server_util.h \
+ /data/Coder/wmq/src/common/config.h

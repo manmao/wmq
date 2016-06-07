@@ -30,21 +30,4 @@ void init_log()
 void init_conf(void)
 {
 	
-	//====//master
-	get_config_string("config/wfs_config.conf","master","ip",CONF.master.ip);
-	get_config_int("config/wfs_config.conf","master","port",&CONF.master.port);
-	log_write(CONF.lf,LOG_INFO,"master: %s:%d\n",CONF.master.ip,CONF.master.port);
-
-	//slave
-	get_config_string("config/wfs_config.conf","slave","ip",CONF.this_slave.ip);
-	get_config_int("config/wfs_config.conf","slave","port",&CONF.this_slave.port);
-	log_write(CONF.lf,LOG_INFO,"slave: %s:%d\n",CONF.this_slave.ip,CONF.this_slave.port);
-
-
-	//====//data save path
-	CONF.data_save_path=(char *)malloc(sizeof(char)*100);
-	get_config_string("config/wfs_config.conf","wfs","dataPath",CONF.data_save_path);
-	printf("%s\n",CONF.data_save_path);
-
-
 }
