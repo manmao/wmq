@@ -10,7 +10,7 @@ CXX = $(CROSS_COMPILE)g++
 AR  = $(CROSS_COMPILE)ar
 
 #生成的目标文件名.......
-TARGET := wfs
+TARGET := wmq
 
 #顶层目录
 ROOT := $(shell pwd)
@@ -22,7 +22,8 @@ TARGET_DIRS :=src/ src/common src/tools/lzma src/tools\
 				src/client  src/server\
 				lib/  lib/error  \
 				lib/raft  \
-				lib/linked-list-queue
+				lib/linked-list-queue \
+				deps/gzip124 deps/jemalloc \
 
 #.h 头文件目录
 INCLUDE_DIR := \

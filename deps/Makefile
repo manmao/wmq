@@ -1,12 +1,14 @@
 all: gzip
-.PHONY : all
+.PHONY : all clean
+clean:
+	cd gzip124 && make clean
+	cd jemalloc && make clean
 
 
 jemalloc:
 	cd jemalloc && ./configure --with-jemalloc-prefix=je_ --enable-cc-silence
 	cd jemalloc && $(MAKE) lib/libjemalloc.a 
 .PHONY : jemalloc
-
 
 gzip:
 	cd gzip124 &&  ./configure 
@@ -37,3 +39,6 @@ libuv_fetch:
 
 libuv: libuv_fetch libuv_build
 .PHONY : libuv
+
+
+
