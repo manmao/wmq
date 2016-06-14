@@ -1,15 +1,19 @@
 all: gzip
 .PHONY : all clean
+
 clean:
 	cd gzip124 && make clean
 	cd jemalloc && make clean
 
 
+#jemalloc
 jemalloc:
 	cd jemalloc && ./configure --with-jemalloc-prefix=je_ --enable-cc-silence
 	cd jemalloc && $(MAKE) lib/libjemalloc.a 
 .PHONY : jemalloc
 
+
+#gzip 
 gzip:
 	cd gzip124 &&  ./configure 
 	cd gzip124 &&  $(MAKE)
@@ -21,6 +25,7 @@ gzip:
 	cd gzip124 &&  ar cr lib/libgizp.a $(wildcard *.o)
 
 
+#libuv
 LIBUV_BRANCH=v1.7.1
 libuv_build:
 	cd libuv && sh autogen.sh

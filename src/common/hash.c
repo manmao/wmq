@@ -86,7 +86,9 @@ unsigned int DJBhash(const char *str)
     {
         hash += (hash<<5)+(*str++);
     }
-    return (hash&0X7FFFFFFF)%MOD;
+    //return (hash&0X7FFFFFFF)%MOD;
+    hash &= ~(1 << 31); /* strip the highest bit */
+    return hash;   
 }
 
 

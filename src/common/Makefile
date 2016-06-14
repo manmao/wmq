@@ -1,7 +1,7 @@
 #
 #当前目录下是C文件
 #
-#
+
 include $(MAKEROOT)/env.mk 			#包括头文件，执行模式规则
 
 C_SRCS := $(wildcard *.c)
@@ -16,9 +16,8 @@ all: $(obj).depend $(C_OBJS)  $(CPP_OBJS)
 
 clean:
 	rm -rf .depend
+
 #########################################################################
 include $(MAKEROOT)/rules.mk
-
 sinclude $(obj).depend
-
 #########################################################################

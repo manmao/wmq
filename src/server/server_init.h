@@ -20,5 +20,4 @@ extern int server_init(int argc,char *argv[]);
  */
 extern void handle_request(void *arg);
 
-
 #endif

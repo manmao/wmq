@@ -9,7 +9,7 @@
 #include "util.h"
 
 #define IP_SIZE 20            	    //ip的长度
-#define WFS_FILE_BUFF_SIZE 1024*5   //pkt包数据的大小
+#define DATA_BUFF_SIZE 1024*5   //pkt包数据的大小
 
 //版本号
 #define VERSION    0x01
@@ -23,14 +23,10 @@
 #define CODE_ZLIB  0x02
 #define CODE_GZIP  0x03
 
-
-
-
-
 /**
- * 数据包格式
+ * 数据包header
  */
-struct sock_pkt{
+struct pkg_header{
     uint8_t            version;      //协议版本
 	uint8_t            type;         //传输数据类型  命令/数据(0x01/0x02)
 	uint8_t	           code;         //数据编码方式  lmza/zlib(0x01/0x02)
@@ -43,10 +39,20 @@ struct sock_pkt{
 };
 
 /**
+*
+*/
+typedef struct message{
+	
+
+}message_t;
+
+/**
   请求队列
 **/
-struct request{
- struct sock_pkt *pkg;
+struct pkg{
+
 };
+
+
 
 #endif

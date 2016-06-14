@@ -1,5 +1,5 @@
-#ifndef _server_t_SOCKOPT_H_
-#define _server_t_SOCKOPT_H_
+#ifndef _SERVER_T_SOCKOPT_H_
+#define _SERVER_T_SOCKOPT_H_
 
 #include <sys/socket.h>
 #include <sys/epoll.h>
