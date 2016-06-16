@@ -1,4 +1,4 @@
-all: gzip
+all: gzip  jemalloc
 .PHONY : all clean
 
 clean:
@@ -12,7 +12,6 @@ jemalloc:
 	cd jemalloc && $(MAKE) lib/libjemalloc.a 
 .PHONY : jemalloc
 
-
 #gzip 
 gzip:
 	cd gzip124 &&  ./configure 
@@ -23,7 +22,7 @@ gzip:
 	else cd gzip124 && mkdir lib; \
 	fi 
 	cd gzip124 &&  ar cr lib/libgizp.a $(wildcard *.o)
-
+.PHONY : gzip
 
 #libuv
 LIBUV_BRANCH=v1.7.1

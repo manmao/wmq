@@ -5,7 +5,7 @@
 #include <errno.h>
 #include <stdlib.h>
 
-#include "common_define.h"
+#include "socket_pkg.h"
 #include "config.h"
 #include "log.h"
 
@@ -55,16 +55,16 @@ int server_init(int argc,char *argv[])
 
 void handle_request(void *arg){
    struct conn_node *node=(struct conn_node *)arg;
-   struct request *req_pkt_p=NULL;  
+   socket_pkg_t *socket_pkt_ptr=NULL;  
    while(1)
    {
-       req_pkt_p =(struct request*)malloc(sizeof(struct request));
-       req_pkt_p->pkg=(struct sock_pkt *)malloc(sizeof(struct sock_pkt));
+       socket_pkt_ptr =(struct socket_pkg*)malloc(sizeof(struct socket_pkg));
+       socket_pkt_ptr->msg=(message_t *)malloc(sizeof(message_t ));
 
-       assert(req_pkt_p != NULL);
-       assert(req_pkt_p->pkg != NULL);
+       assert(socket_pkt_ptr != NULL);
+       assert(socket_pkt_ptr->msg != NULL);
 
-       int buflen=recv(node->conn_fd,(void *)req_pkt_p,sizeof(struct request),0);
+       int buflen=recv(node->conn_fd,(void *)socket_pkt_ptr,sizeof(socket_pkg_t),0);
 
        if(buflen < 0)
        {
@@ -75,22 +75,21 @@ void handle_request(void *arg){
            }else{
                log_write(CONF.lf,LOG_INFO,"error:file:%s,line :%d\n",__FILE__,__LINE__);                            //error
            }
-           free(req_pkt_p->pkg);
-           free(req_pkt_p);
+           free(socket_pkt_ptr->msg);
+           free(socket_pkt_ptr);
            return -1;
        }
        else if(buflen==0)           
        {
-           //删除连接节点
-           conn_delete(&master_server->conn_root,&node);
+          //删除连接节点
+          conn_delete(&master_server->conn_root,&node);
 
-           free(req_pkt_p->pkg);
-           free(req_pkt_p);
-           return 0;
+          free(socket_pkt_ptr->msg);
+          free(socket_pkt_ptr);
+          return ;
        }
        else if(buflen>0)
        {
-          
           log_write(CONF.lf,LOG_INFO,"%s","data comming....\n");
        }
    }

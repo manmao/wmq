@@ -6,19 +6,19 @@
 #ifndef __GLOBAL_CONFIG_H
 #define __GLOBAL_CONFIG_H
 
+#include <stdio.h>
 
 typedef struct system_conf
 {
-
 	// Log file
 	FILE *lf;
 
-	//文件系统存储路径
+	//log file path
 	char *logpath;
 
 }system_conf_t;
 
-system_conf_t CONF;
+extern system_conf_t CONF;
 
 
 #endif

@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include "config_util.h"
 #include "config.h"
 #include "log.h"
 

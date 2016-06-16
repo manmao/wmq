@@ -1,1 +1,1 @@
-/mnt/hgfs/share/wfs/obj/threadpool.o: threadpool.c threadpool.h
+/data/Coder/wmq/obj/threadpool.o: threadpool.c threadpool.h

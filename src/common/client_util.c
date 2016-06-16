@@ -184,7 +184,7 @@ int start_connection(struct sock_client *client){
 *	};
 *
 ****************************************************************/
-int  client_send_data(struct sock_client *client,struct sock_pkt *sendpkt){
+/*int  client_send_data(struct sock_client *client,struct sock_pkt *sendpkt){
 		//发送数
 		int ret=send(client->conn->fd, sendpkt,sizeof(struct sock_pkt), 0);
 		if(ret == -1){
@@ -192,7 +192,7 @@ int  client_send_data(struct sock_client *client,struct sock_pkt *sendpkt){
 			return -1;
 		}
 		return 0;
-}
+}*/
 
 
 /**********************************************************************
@@ -222,7 +222,7 @@ int  client_send_data(struct sock_client *client,struct sock_pkt *sendpkt){
 *	};
 *
 ****************************************************************/
-int client_recv_data(struct sock_client *client,  struct sock_pkt *revpkt){
+/*int client_recv_data(struct sock_client *client,  struct sock_pkt *revpkt){
 	 //接收数据
 	 int ret=recv(client->conn->fd,revpkt,sizeof(struct sock_pkt), 0);
 	 if(ret == -1){
@@ -230,7 +230,7 @@ int client_recv_data(struct sock_client *client,  struct sock_pkt *revpkt){
 			return -1;
 	}
 	return 0;
-}
+}*/
 
 
 

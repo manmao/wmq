@@ -37,15 +37,16 @@ for SubDir in $(TARGET_DIRS); do \
 done
 endef
 
+	
 
 all:
 	@$(call build_obj) #调用过程
 	$(CXX) -o $(MAKEROOT)/bin/$(TARGET) $(MAKEROOT)/obj/*.o  $(LIB) $(LIB_DIR) #最终编译
-depend:
-	@$(call build_dep)
-
 clean:
 	-rm $(MAKEROOT)/obj/*.o  $(MAKEROOT)/bin/$(TARGET)
+
 distclean:
 	@$(call del_obj)
 	-rm $(MAKEROOT)/obj/*.o  $(MAKEROOT)/bin/$(TARGET)
+depend:
+	@$(call build_dep)

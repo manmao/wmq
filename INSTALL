@@ -1,0 +1,12 @@
+
+install follow the step
+
+install
+	#: make depend
+	#: make all
+reinstall:
+	#: make distclean
+	#: make depend
+	#: make all
+clean
+	#: make clean
