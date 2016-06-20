@@ -10,6 +10,7 @@
 #include "log.h"
 
 #include "server_init.h"
+#include "server_dispatch.h"
 
 server_t *master_server=NULL;
 
@@ -46,7 +47,6 @@ int on_handle(struct conn_node *node)
 int server_init(int argc,char *argv[])
 {
   
-
     //挂接服务器事件处理函数
     struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
    
@@ -69,8 +69,7 @@ void handle_request(void *arg){
    socket_pkg_t *socket_pkt_ptr=NULL;  
    while(1)
    {
-       socket_pkt_ptr =(struct socket_pkg*)malloc(sizeof(struct socket_pkg));
-       socket_pkt_ptr->msg=(message_t *)malloc(sizeof(message_t ));
+       socket_pkt_ptr=create_socket_pkg_instance();
 
        assert(socket_pkt_ptr != NULL);
        assert(socket_pkt_ptr->msg != NULL);
@@ -86,8 +85,7 @@ void handle_request(void *arg){
            }else{
                log_write(CONF.lf,LOG_INFO,"error:file:%s,line :%d\n",__FILE__,__LINE__);                            //error
            }
-           free(socket_pkt_ptr->msg);
-           free(socket_pkt_ptr);
+           destroy_socket_pkg_instance(socket_pkt_ptr);
            return -1;
        }
        else if(buflen==0)           
@@ -95,13 +93,13 @@ void handle_request(void *arg){
           //删除连接节点
           conn_delete(&master_server->conn_root,&node);
 
-          free(socket_pkt_ptr->msg);
-          free(socket_pkt_ptr);
+          destroy_socket_pkg_instance(socket_pkt_ptr);
           return ;
        }
        else if(buflen>0)
        {
-        
+        //消息分发
+        handle_socket_pkg(socket_pkt_ptr);
         log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum);
        }
    }

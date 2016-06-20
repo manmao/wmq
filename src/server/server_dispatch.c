@@ -1,5 +1,4 @@
 #include <assert.h>
-
 #include "server_dispatch.h"
 
 
@@ -20,10 +19,10 @@ void handle_socket_pkg(socket_pkg_t *pkg)
 
 	switch(pkg->type){
 		case TYPE_CMD:
-			handle_cmd_pkg();
+			handle_cmd_pkg(pkg);
 			break;
 		case TYPE_DATA:
-			handle_data_pkg();
+			handle_data_pkg(pkg);
 			break;
 		default:
 			break;

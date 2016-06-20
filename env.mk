@@ -23,7 +23,7 @@ TARGET_DIRS :=src/ src/common src/tools/lzma src/tools\
 				lib/  lib/error  \
 				lib/raft  \
 				lib/linked-list-queue \
-				deps/gzip124 deps/jemalloc \
+			
 
 #.h 头文件目录
 INCLUDE_DIR := \
@@ -35,7 +35,9 @@ INCLUDE_DIR := \
 	-I$(MAKEROOT)/src/server\
 	-I$(MAKEROOT)/src/client \
 	-I$(MAKEROOT)/lib/raft   \
-	-I$(MAKEROOT)/lib/linked-list-queue 
+	-I$(MAKEROOT)/lib/linked-list-queue \
+	-I$(MAKEROOT)deps/gzip124 \
+	-I$(MAKEROOT)deps/jemalloc/include \
 
 
 #lib库搜索路劲

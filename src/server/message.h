@@ -8,7 +8,7 @@
 *message
 */
 typedef struct message{
-	int id;
+	long id;
 	char topic[256];
 	char from[64];
 	char msg_buff[DATA_BUFF_SIZE];
