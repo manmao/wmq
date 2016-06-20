@@ -5,11 +5,22 @@
 
 #include "linked_list_queue.h"
 
+//全局消息队列
 extern linked_list_queue_t *msg_queue;
 
-
+/**
+ * 发送消息到消息队列中
+ * @param msg_queue [description]
+ * @param item      [description]
+ */
 extern void push_msg_tail(linked_list_queue_t *msg_queue,void *item);
 
+
+/**
+ * 从消息队列中取数据
+ * @param  msg_queue [description]
+ * @return           [description]
+ */
 extern void *pop_msg_head(linked_list_queue_t *msg_queue);
 
 
