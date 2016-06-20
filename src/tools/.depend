@@ -1,3 +1,6 @@
+/data/Coder/wmq/obj/config.o: config.c /data/Coder/wmq/src/common/log.h \
+ /data/Coder/wmq/inc/error_hdr.h /data/Coder/wmq/inc/error/get_num.h \
+ /data/Coder/wmq/inc/error/error_functions.h config.h
 /data/Coder/wmq/obj/config_util.o: config_util.c \
  /data/Coder/wmq/src/common/log.h /data/Coder/wmq/inc/error_hdr.h \
  /data/Coder/wmq/inc/error/get_num.h \

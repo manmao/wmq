@@ -1,5 +1,4 @@
 /data/Coder/wmq/obj/message.o: message.c
-/data/Coder/wmq/obj/server_dispatch.o: server_dispatch.c
 /data/Coder/wmq/obj/server_init.o: server_init.c socket_pkg.h message.h \
  /data/Coder/wmq/src/common/config.h /data/Coder/wmq/src/common/log.h \
  server_init.h /data/Coder/wmq/src/common/server_util.h \
