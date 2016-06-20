@@ -41,7 +41,7 @@ endef
 
 all:
 	@$(call build_obj) #调用过程
-	$(CXX) ${CFLAGS} -o $(MAKEROOT)/bin/$(TARGET) $(MAKEROOT)/obj/*.o  $(LIB) $(LIB_DIR) #最终编译
+	$(CXX) ${CFLAGS} -o $(MAKEROOT)/bin/$(TARGET) $(MAKEROOT)/obj/*.o  $(LIB_DIR)  $(LIB)#最终编译
 clean:
 	-rm $(MAKEROOT)/obj/*.o  $(MAKEROOT)/bin/$(TARGET)
 

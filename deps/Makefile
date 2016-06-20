@@ -21,7 +21,7 @@ gzip:
 	then cd gzip124; \
 	else cd gzip124 && mkdir lib; \
 	fi 
-	cd gzip124 &&  ar cr lib/libgizp.a $(wildcard *.o)
+	cd gzip124 &&  ar cr lib/libgzip.a $(wildcard *.o)
 .PHONY : gzip
 
 

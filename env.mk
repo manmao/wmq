@@ -36,16 +36,16 @@ INCLUDE_DIR := \
 	-I$(MAKEROOT)/src/client \
 	-I$(MAKEROOT)/lib/raft   \
 	-I$(MAKEROOT)/lib/linked-list-queue \
-	-I$(MAKEROOT)deps/gzip124 \
-	-I$(MAKEROOT)deps/jemalloc/include \
-
+	-I$(MAKEROOT)/deps/gzip124 \
+	-I$(MAKEROOT)/deps/jemalloc/include \
 
 #lib库搜索路劲
 LIB_DIR := -L$(MAKEROOT)/lib \
 		   -L$(MAKEROOT)/thirdlib \
-
+		   -L$(MAKEROOT)/deps/gzip124/lib \
+		   -L$(MAKEROOT)/deps/jemalloc/lib
 #lib库
-LIB =-lpthread  -lz
+LIB =-lgzip -ljemalloc -lpthread  -lz 
 
 
 #gcc编译时定义宏
@@ -57,7 +57,7 @@ CFLAGS  += $(DEFINE)
 
 
 #优化级别 -rdynamic 打印堆栈信息中包含函数名
-CFLAGS += -g -Wall -O2   -rdynamic
+CFLAGS += -g -Wall -O2  -rdynamic
 
 
 #对所有的.o文件以.c文件创建它
