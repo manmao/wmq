@@ -18,6 +18,7 @@ typedef struct system_conf
 
 }system_conf_t;
 
+//
 extern system_conf_t CONF;
 
 

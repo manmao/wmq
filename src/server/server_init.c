@@ -21,6 +21,7 @@ void handle_sig(int sig)
     exit(-1);
 }
 
+
 static
 void on_accept(int accept_fd)
 {
@@ -90,7 +91,8 @@ void handle_request(void *arg){
        }
        else if(buflen>0)
        {
-          log_write(CONF.lf,LOG_INFO,"%s","data comming....\n");
+        
+        log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum);
        }
    }
 }

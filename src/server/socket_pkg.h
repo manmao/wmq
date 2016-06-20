@@ -28,9 +28,9 @@ typedef struct socket_pkg{
 	uint8_t			   bak;		     //bak
 	uint32_t           data_len;     //数据长度
 	uint16_t           checksum;     //数据校验和
-	uint16_t           pkt_id;       //数据包的编号(一个时间戳值)
+	uint16_t           union_id;     //数据包的编号(一个时间戳值)
     unsigned  long     cmd;          //命令
-    struct message     *msg;		 //msg
+    struct message     *msg;		 //
 }socket_pkg_t;
 
 
