@@ -47,7 +47,6 @@ LIB_DIR := -L$(MAKEROOT)/lib \
 #lib库
 LIB =-lgzip -ljemalloc -lpthread  -lz 
 
-
 #gcc编译时定义宏
 DEFINE := -D_7ZIP_ST
 
