@@ -11,4 +11,6 @@
  /data/Coder/wmq/src/common/log.h server_util.h common_define.h \
  /data/Coder/wmq/inc/rbtree.h /data/Coder/wmq/src/thread/threadpool.h \
  connect.h util.h config.h
+/data/Coder/wmq/obj/sig_handler.o: sig_handler.c config.h sig_handler.h \
+ log.h
 /data/Coder/wmq/obj/util.o: util.c util.h

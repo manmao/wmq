@@ -2,11 +2,20 @@
 install follow the step
 
 install
-	#: make depend
-	#: make all
+	# make depend
+	# make all
 reinstall:
-	#: make distclean
-	#: make depend
-	#: make all
+	# make distclean
+	# make depend
+	# make all
 clean
-	#: make clean
+	# make clean
+
+run 
+	系统默认配置文件路径：./config/wfs_config.conf
+	# cd wmq
+	# ./bin/wmq 
+
+	自定义配置文件路径
+	# cd wmq
+	# ./bin/wmq config_path

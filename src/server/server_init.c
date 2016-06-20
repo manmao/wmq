@@ -11,7 +11,6 @@
 
 #include "server_init.h"
 
-
 server_t *master_server=NULL;
 
 static
@@ -21,6 +20,11 @@ void handle_sig(int sig)
     exit(-1);
 }
 
+static 
+void handle_unknown(int event_fd)
+{
+  
+}
 
 static
 void on_accept(int accept_fd)
@@ -38,20 +42,26 @@ int on_handle(struct conn_node *node)
 }
 
 
+
 int server_init(int argc,char *argv[])
 {
+  
+
     //挂接服务器事件处理函数
     struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
-
+   
     //如果没有相关接口实现的，一定要赋值为空值
     handler->handle_readable=&on_handle;
     handler->handle_accept=&on_accept;
-    handler->handle_unknown=NULL;
+    handler->handle_unknown=&handle_unknown;
     handler->handle_sig=&handle_sig;
+    
+    init_server(&master_server,NET_CONF.ip,NET_CONF.port,handler);
 
-    start_listen(master_server,10,10000); //启动服务器监听子进程
+    start_listen(master_server,8,10000); //启动服务器监听子进程
     return 0;
 }
+
 
 
 void handle_request(void *arg){

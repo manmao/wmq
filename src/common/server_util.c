@@ -329,12 +329,18 @@ static void child_thread(server_t *server,int thread_num,int thread_queue_num)
 }
 
 
-/*******************************
 
-	开始监听服务器的连接
 
-******************************/
+/**
+ * 
+ * @param 
+ * @param
+ * @param
+ * @return
+ */
 void  start_listen(server_t *server,int thread_num,int thread_queue_num){
+    
+    assert(server!=NULL);
     //开启进程监听
     pid_t server_id;
 

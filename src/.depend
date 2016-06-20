@@ -11,4 +11,5 @@
  /data/Coder/wmq/src/thread/threadpool.h \
  /data/Coder/wmq/src/common/connect.h /data/Coder/wmq/src/common/util.h \
  /data/Coder/wmq/src/common/server_util.h \
- /data/Coder/wmq/src/common/config.h
+ /data/Coder/wmq/src/common/config.h \
+ /data/Coder/wmq/src/common/sig_handler.h

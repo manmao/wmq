@@ -54,8 +54,8 @@ CFLAGS  := $(INCLUDE_DIR)
 CFLAGS  += $(DEFINE)
 
 
-#优化级别
-CFLAGS += -g -Wall -O2 
+#优化级别 -rdynamic 打印堆栈信息中包含函数名
+CFLAGS += -g -Wall -O2   -rdynamic
 
 
 #对所有的.o文件以.c文件创建它

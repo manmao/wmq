@@ -11,19 +11,10 @@
 #include "log.h"
 #include "server_init.h"
 #include "config.h"
+#include "sig_handler.h"
 
-void  process(int argc , char *argv[]);
-/**
-   start master:
-     ./bin/wfs master 1
+void  process_init(int argc , char *argv[]);
 
-   start slave:
-     ./bin/wfs slave  1
-     ./bin/wfs slave  2
-     ./bin/wfs slave  3
-     ...
-     ./bin/wfs slave  n
-**/
 void child_run(int argc,char *argv[])
 {
 	server_init(argc,argv);
@@ -33,11 +24,10 @@ void child_run(int argc,char *argv[])
 
 
 /**
-*
-*
-*
-*
-*/
+ * [parent_run description]
+ * @param argc [description]
+ * @param argv [description]
+ */
 void parent_run(int argc,char *argv[])
 {
 	int status;
@@ -63,20 +53,37 @@ void parent_run(int argc,char *argv[])
 	//exit un normal
 	else if (WIFSTOPPED(status)){
 		log_write(CONF.lf,LOG_ERROR,"child stoped signal number=%d\n", WSTOPSIG(status));
-		log_write(CONF.lf,LOG_ERROR,"********************Server Exception Exit!!!!**************\n");
+		log_write(CONF.lf,LOG_ERROR,"**************Server Exception Exit!!!!********\n");
 		log_write(CONF.lf,LOG_ERROR,"File:%s ,Line:%d\n",__FILE__,__LINE__);
 		//child_run(argc,argv);
-		process(argc,argv);
+		process_init(argc,argv);
 	}
 }
 
-void  process(int argc , char *argv[])
+/**
+ * 系统进程初始化
+ * @param  argc [description]
+ * @param  argv [description]
+ * @return      [description]
+ */
+void  process_init(int argc , char *argv[])
 {
 	pid_t mainpro;
+	char config_path[512];
+	if(argc<2)
+		strcpy(config_path,"./config/wfs_config.conf");
+	else
+		strcpy(config_path,argv[1]);
+	
 
 	/*init*/
-	init_log();
-	init_conf();
+	init_log(config_path);
+
+	//注册信号处理函数，当程序异常退出时，打印堆栈信息
+	registe_sig_handler(); 
+	
+	//init config
+  	init_conf(config_path);
 
 	mainpro = fork();
 	if(mainpro <= -1)
@@ -89,6 +96,7 @@ void  process(int argc , char *argv[])
 	}
 	else if(mainpro == 0) //子进程
 	{
+		
 		child_run(argc,argv);
 	}
 }
@@ -100,7 +108,7 @@ void  process(int argc , char *argv[])
 
 int main(int argc , char *argv[])
 {
-	process(argc,argv);
+	process_init(argc,argv);
 	return 0;
 }
 

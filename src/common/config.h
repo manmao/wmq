@@ -18,8 +18,16 @@ typedef struct system_conf
 
 }system_conf_t;
 
+typedef struct system_net_conf{
+	char *ip;
+	int port;
+}system_net_conf_t;
+
 //
 extern system_conf_t CONF;
+
+//
+extern system_net_conf_t NET_CONF;
 
 
 #endif
