@@ -1,2 +1,2 @@
 #/bin/sh
-kill -9 $( ps -e|grep wfs |awk '{print $1}')
+kill -9 $( ps -e|grep wmq |awk '{print $1}')

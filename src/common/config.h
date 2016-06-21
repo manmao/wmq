@@ -12,7 +12,6 @@ typedef struct system_conf
 {
 	// Log file
 	FILE *lf;
-
 	//log file path
 	char *logpath;
 
@@ -23,11 +22,12 @@ typedef struct system_net_conf{
 	int port;
 }system_net_conf_t;
 
-//
+
+//系统配置全局变量
 extern system_conf_t CONF;
 
-//
-extern system_net_conf_t NET_CONF;
 
+//网络配置全局变量
+extern system_net_conf_t NET_CONF;
 
 #endif

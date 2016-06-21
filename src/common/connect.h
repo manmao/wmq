@@ -9,9 +9,9 @@
 
 /******保存客户端连接的节点******/
 struct conn_node{
-	int conn_fd;           							 	//和客户端连接的文件描述符
+	int conn_fd;          //和客户端连接的文件描述符
     int epoll_fd;       //epoll内核事件表指针
-    struct sockaddr clientaddr;  					 	 //客户端地址
+    struct sockaddr clientaddr;  	//客户端地址
 };
 
 /****** rbtree 节点******/

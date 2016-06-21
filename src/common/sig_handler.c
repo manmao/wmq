@@ -47,9 +47,9 @@ void blackbox_handler(int sig)
     _exit(EXIT_SUCCESS);
 }
 
+
 void registe_sig_handler(){
 	int i=0;
-
 	struct  sigaction   sa;
     memset(&sa, 0, sizeof(sa));
 

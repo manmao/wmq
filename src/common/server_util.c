@@ -150,20 +150,20 @@ void handle_accept_event(server_t *server)
     //读取客户端的连接
     while ((conn_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)))>0)
     {
-        //往红黑树中插入节点
+      /* //往红黑树中插入节点
 		struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
 		type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
         type->node->conn_fd = conn_fd;
         type->node->epoll_fd = server->efd;
 		type->node->clientaddr = clientaddr;
-        conn_insert(&server->conn_root,type);
+        conn_insert(&server->conn_root,type);*/
 
         //添加到epoll监听队列
 		addfd(server->efd,conn_fd);
 
 		//回调函数调用
         if(server->handler->handle_accept){
-             server->handler->handle_accept(conn_fd);
+             server->handler->handle_accept(conn_fd,clientaddr);
         }
 	}
     if (conn_fd == -1) {
@@ -186,7 +186,6 @@ void handle_readable_event(server_t *server,struct epoll_event event)
 
     type=conn_search(&(server->conn_root),&node);
     if(type != NULL && server->handler->handle_readable != NULL)
-
     {
         server->handler->handle_readable(type->node);
     }

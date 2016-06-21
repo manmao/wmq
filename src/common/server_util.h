@@ -45,7 +45,7 @@ typedef struct server{
 */
 struct server_handler{
     //客户端连接事件
-	int (*handle_accept)(int accept_fd);
+	int (*handle_accept)(int client_conn_fd,struct sockaddr clientaddr);
     //可读事件
     int (*handle_readable)(struct conn_node *node);
     //未知事件
