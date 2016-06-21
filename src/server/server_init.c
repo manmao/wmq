@@ -37,7 +37,6 @@ void on_accept(int client_conn_fd,struct sockaddr clientaddr)
     type->node->epoll_fd = master_server->efd;
     type->node->clientaddr = clientaddr;
     conn_insert(&(master_server->conn_root),type);
-
 }
 
 static
@@ -85,7 +84,6 @@ void handle_request(void *arg){
            //读取完成
            if(errno== EAGAIN || errno == EINTR){ 
                log_write(CONF.lf,LOG_INFO,"no data:file:%s,line :%d\n",__FILE__,__LINE__);
-
            }else{
                log_write(CONF.lf,LOG_INFO,"error:file:%s,line :%d\n",__FILE__,__LINE__);                            //error
            }
