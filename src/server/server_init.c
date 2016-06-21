@@ -37,7 +37,7 @@ void on_accept(int client_conn_fd,struct sockaddr clientaddr)
     type->node->epoll_fd = master_server->efd;
     type->node->clientaddr = clientaddr;
     conn_insert(&(master_server->conn_root),type);
-    
+
 }
 
 static
@@ -54,10 +54,8 @@ int on_readable(struct conn_node *node)
 int server_init(int argc,char *argv[])
 {
 
-
     //挂接服务器事件处理函数
     struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
-   
     //如果没有相关接口实现的，一定要赋值为空值
     handler->handle_readable=&on_readable;
     handler->handle_accept=&on_accept;

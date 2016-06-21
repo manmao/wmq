@@ -299,7 +299,7 @@ void  init_server(server_t **server,char *ip,int port,struct server_handler *han
 }
 
 
-
+//
 static void child_process(server_t *server,int thread_num,int thread_queue_num){
    //初始化线程池
    if(thread_num ==0 || thread_queue_num == 0){
@@ -371,13 +371,14 @@ void  start_listen(server_t *server,int thread_num,int thread_queue_num){
 	    //exit signal
 	    else if (WIFSIGNALED(status)){
 		    log_write(CONF.lf,LOG_ERROR,
-                    "****Sever Exception Exit!!!!**child exited abnormal signal number=%d\n file:%s,line:%d\n",
-                    __FILE__,__LINE__,
-                    WTERMSIG(status));
+                    "****Sever Exception Exit!!!!**\n \
+                    child exited abnormal signal number=%d\n file:%s,line:%d\n",
+                    __FILE__,__LINE__,WTERMSIG(status));
 	    }
 	    //exit un normal
 	    else if (WIFSTOPPED(status)){
-		    log_write(CONF.lf,LOG_ERROR,"****Sever Exception Exit!!!!****child stoped signal number=%d \n", WSTOPSIG(status));
+		    log_write(CONF.lf,LOG_ERROR,"****Sever Exception Exit!!!!**** \
+                child stoped signal number=%d \n", WSTOPSIG(status));
             //重新开启子进程
             child_process(server,thread_num,thread_queue_num);
         }
