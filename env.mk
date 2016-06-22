@@ -34,6 +34,7 @@ INCLUDE_DIR := \
 	-I$(MAKEROOT)/src/thread \
 	-I$(MAKEROOT)/src/server\
 	-I$(MAKEROOT)/src/client \
+	-I$(MAKEROOT)/lib   	 \
 	-I$(MAKEROOT)/lib/raft   \
 	-I$(MAKEROOT)/lib/linked-list-queue \
 	-I$(MAKEROOT)/deps/gzip124 \
