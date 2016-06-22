@@ -11,9 +11,10 @@ void push_msg_tail(linked_list_queue_t *msg_queue,void *item)
 	if(msg_queue == NULL)
 		msg_queue=(linked_list_queue_t *)llqueue_new();
 
-    pthread_mutex_lock(&mutex);
+    pthread_mutex_lock(&mutex); //未获取锁则一直等待,阻塞
     llqueue_offer(msg_queue,item);
     pthread_mutex_unlock(&mutex);
+    
 }
 
 

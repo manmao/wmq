@@ -52,7 +52,6 @@ int on_readable(struct conn_node *node)
 
 int server_init(int argc,char *argv[])
 {
-
     //挂接服务器事件处理函数
     struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
     //如果没有相关接口实现的，一定要赋值为空值
@@ -73,7 +72,7 @@ void handle_request(void *arg){
    while(1)
    {
        socket_pkt_ptr=create_socket_pkg_instance();
-
+       
        assert(socket_pkt_ptr != NULL);
        assert(socket_pkt_ptr->msg != NULL);
 

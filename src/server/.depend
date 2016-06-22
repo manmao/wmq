@@ -2,7 +2,8 @@
 /data/Coder/wmq/obj/msg_queue.o: msg_queue.c msg_queue.h \
  /data/Coder/wmq/lib/linked-list-queue/linked_list_queue.h
 /data/Coder/wmq/obj/server_dispatch.o: server_dispatch.c \
- server_dispatch.h socket_pkg.h message.h
+ server_dispatch.h socket_pkg.h message.h msg_queue.h \
+ /data/Coder/wmq/lib/linked-list-queue/linked_list_queue.h
 /data/Coder/wmq/obj/server_init.o: server_init.c socket_pkg.h message.h \
  /data/Coder/wmq/src/common/config.h /data/Coder/wmq/src/common/log.h \
  server_init.h /data/Coder/wmq/src/common/server_util.h \
