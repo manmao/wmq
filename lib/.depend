@@ -1,3 +1,2 @@
-/data/Coder/wmq/obj/rbtree.o: rbtree.c /data/Coder/wmq/inc/rbtree.h
-/data/Coder/wmq/obj/timer_lists.o: timer_lists.c \
- /data/Coder/wmq/inc/timer_list.h
+/data/Coder/wmq/obj/rbtree.o: rbtree.c rbtree.h
+/data/Coder/wmq/obj/timer_lists.o: timer_lists.c timer_list.h

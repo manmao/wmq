@@ -34,6 +34,7 @@ typedef struct server{
     pthread_mutex_t lock;            //互斥锁
     //上锁和解锁
     void (*lock_server)(pthread_mutex_t *lock);
+    
     void (*unlock_server)(pthread_mutex_t *lock);
 
 }server_t;
