@@ -24,14 +24,17 @@
 typedef struct server{
 
     int listenfd; 					 //服务端监听listenfd
-	int efd;						 //epoll文件描述符
 
+	int efd;						 //epoll文件描述符
+    
     struct threadpool *tpool;		 //线程池
+
 	struct rb_root    conn_root; 	 //客户端连接节点
 
     struct server_handler *handler;  //连接处理函数回调
 
     pthread_mutex_t lock;            //互斥锁
+    
     //上锁和解锁
     void (*lock_server)(pthread_mutex_t *lock);
     void (*unlock_server)(pthread_mutex_t *lock);

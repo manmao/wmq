@@ -12,15 +12,16 @@
 #define VERSION    0x01
 
 //数据包类型
-#define TYPE_CMD   0X01
+#define TYPE_CMD   0X01 
 #define TYPE_DATA  0x02
+#define TYPE_CMD_DATA 0x03
 
 //编码类型
 #define CODE_LZMA  0x01
 #define CODE_ZLIB  0x02
 #define CODE_GZIP  0x03
 
-
+//CMD
 //打开消息通道
 #define MQ_OPEN  0x0001  
 //关闭消息通道

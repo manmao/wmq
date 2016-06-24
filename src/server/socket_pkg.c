@@ -14,10 +14,14 @@ struct socket_pkg* create_socket_pkg_instance(){
     return socket_pkt_ptr;
 }
 
+
 /**
  * 销毁一个实例
  */
 void destroy_socket_pkg_instance(socket_pkg_t *socket_pkt_ptr){
-	 free(socket_pkt_ptr->msg);
-     free(socket_pkt_ptr);
+	if(socket_pkt_ptr !=NULL && socket_pkt_ptr->msg !=NULL)
+		free(socket_pkt_ptr->msg);
+	if(socket_pkt_ptr !=NULL )
+     	free(socket_pkt_ptr);
+
 }
