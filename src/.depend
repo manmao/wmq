@@ -7,7 +7,7 @@
  /data/Coder/wmq/src/common/log.h \
  /data/Coder/wmq/src/server/server_init.h \
  /data/Coder/wmq/src/common/server_util.h \
- /data/Coder/wmq/src/common/common_define.h /data/Coder/wmq/inc/rbtree.h \
+ /data/Coder/wmq/src/common/common_define.h /data/Coder/wmq/lib/rbtree.h \
  /data/Coder/wmq/src/thread/threadpool.h \
  /data/Coder/wmq/src/common/connect.h /data/Coder/wmq/src/common/util.h \
  /data/Coder/wmq/src/common/server_util.h \

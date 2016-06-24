@@ -21,7 +21,7 @@
 #define CODE_ZLIB  0x02
 #define CODE_GZIP  0x03
 
-//CMD
+
 //打开消息通道
 #define MQ_OPEN  0x0001  
 //关闭消息通道
@@ -30,6 +30,8 @@
 #define MQ_SUBTOPIC 0x0003
 //发布消息
 #define MQ_PUBMSG 0x0004
+ 
+
 
 typedef struct socket_pkg{
 	uint8_t            version;      //协议版本

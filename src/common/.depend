@@ -1,5 +1,5 @@
 /data/Coder/wmq/obj/config.o: config.c config.h
-/data/Coder/wmq/obj/connect.o: connect.c /data/Coder/wmq/inc/rbtree.h \
+/data/Coder/wmq/obj/connect.o: connect.c /data/Coder/wmq/lib/rbtree.h \
  connect.h util.h server_util.h common_define.h \
  /data/Coder/wmq/src/thread/threadpool.h
 /data/Coder/wmq/obj/hash.o: hash.c hash.h
@@ -9,7 +9,7 @@
 /data/Coder/wmq/obj/md5.o: md5.c md5.h
 /data/Coder/wmq/obj/server_util.o: server_util.c \
  /data/Coder/wmq/src/common/log.h server_util.h common_define.h \
- /data/Coder/wmq/inc/rbtree.h /data/Coder/wmq/src/thread/threadpool.h \
+ /data/Coder/wmq/lib/rbtree.h /data/Coder/wmq/src/thread/threadpool.h \
  connect.h util.h config.h
 /data/Coder/wmq/obj/sig_handler.o: sig_handler.c config.h sig_handler.h \
  log.h
