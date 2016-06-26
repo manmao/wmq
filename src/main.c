@@ -9,7 +9,7 @@
 #include "error_hdr.h"
 #include "init.h"
 #include "log.h"
-#include "server_init.h"
+#include "server.h"
 #include "config.h"
 #include "sig_handler.h"
 
