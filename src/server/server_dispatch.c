@@ -16,7 +16,6 @@ void handle_data_pkg(socket_pkg_t *pkg){
 	push_msg_tail(msg_queue,msg);
 }
 
-
 static 
 void handle_cmd_data_pkg(socket_pkg_t *pkg){
 	switch(pkg->cmd){
@@ -26,15 +25,11 @@ void handle_cmd_data_pkg(socket_pkg_t *pkg){
 		case MQ_CLOSE:
 
 			break;
-		case MQ_SUBTOPIC:	// 注册消息
-			int fd=pkg->fd;
-			struct conn_node conn;
-			conn.conn_fd=fd;
-			struct conn_type *type=conn_search(&(master_server->conn_root),&conn);
-			struct conn_node* node=type->node;
-			assert(node!=NULL);
-			node->topic=pkg->msg->topic;
-
+		case MQ_SUBTOPIC:	// 注册主题
+			int fd=pkg->fd;	//推送消息的文件描述符
+			char *topic=pkg->msg->topic; //主题 
+			
+			
 			break;
 		case MQ_PUBMSG:
 			message_t *msg=pkg->msg;
