@@ -1,10 +1,9 @@
 #ifndef __TOP_FD_MAP_H_
 #define __TOP_FD_MAP_H_
 
-#include <limit.h>
 
 #include "hashtable.h"
-#include "list.h"
+#include "lists.h"
 
 struct list_entry{  //entry / elem
 	char *topic;
