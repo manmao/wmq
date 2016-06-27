@@ -22,9 +22,11 @@ extern HashTable *ht;
 
 extern HashTable *create_fdtopic_hashtable();
 
-extern void add_topic(char *topic,int fd);
+extern void add_topic(HashTable *ht,char *topic,int fd);
 
-extern void delete_fd(char *topic,int fd);
+extern struct hash_node *find_topic_fdlist(HashTable *ht,char *topic);
+
+extern void delete_fd(HashTable *ht,char *topic,int fd);
 
 extern void destroy_fdtopic_hashtable(HashTable *ht);
 

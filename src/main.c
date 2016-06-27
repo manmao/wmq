@@ -70,6 +70,7 @@ void  process_init(int argc , char *argv[])
 {
 	pid_t mainpro;
 	char config_path[512];
+	
 	if(argc<2)
 		strcpy(config_path,"./config/wfs_config.conf");
 	else
