@@ -13,8 +13,7 @@ struct list_entry{  //entry / elem
 };
 
 // TGAP_LIST_HEAD(FD_LIST,list_entry) fd_list; //声明一个头结点
-// TGAP_LIST_HEAD_INIT(&fd_list);	 		  //初始化头结点
-
+// TGAP_LIST_HEAD_INIT(&fd_list);	 		   //初始化头结点
 struct hash_node{ 
 	//head 
 	TGAP_LIST_HEAD(FD_LIST,list_entry) fd_list; //声明一个头结点
@@ -22,5 +21,12 @@ struct hash_node{
 
 extern HashTable *ht;
 
+extern HashTable *create_fdtopic_hashtable();
+
+extern void add_topic(char *topic,int fd);
+
+extern void delete_fd(char *topic,int fd);
+
+extern void destroy_fdtopic_hashtable(HashTable *ht);
 
 #endif
