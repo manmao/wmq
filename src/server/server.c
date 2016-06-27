@@ -99,7 +99,7 @@ void handle_request(void *arg){
        else if(buflen>0)
        {
         //消息分发
-        socket_pkt_ptr->fd=conn_fd;
+        socket_pkt_ptr->fd=node->conn_fd;
         handle_socket_pkg(socket_pkt_ptr);
         log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum);
        }

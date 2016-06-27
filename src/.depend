@@ -4,8 +4,7 @@
 /data/Coder/wmq/obj/main.o: main.c /data/Coder/wmq/inc/error_hdr.h \
  /data/Coder/wmq/inc/error/get_num.h \
  /data/Coder/wmq/inc/error/error_functions.h init.h \
- /data/Coder/wmq/src/common/log.h \
- /data/Coder/wmq/src/server/server_init.h \
+ /data/Coder/wmq/src/common/log.h /data/Coder/wmq/src/server/server.h \
  /data/Coder/wmq/src/common/server_util.h \
  /data/Coder/wmq/src/common/common_define.h /data/Coder/wmq/lib/rbtree.h \
  /data/Coder/wmq/src/thread/threadpool.h \

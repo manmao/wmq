@@ -19,21 +19,26 @@ void handle_data_pkg(socket_pkg_t *pkg){
 static 
 void handle_cmd_data_pkg(socket_pkg_t *pkg){
 	switch(pkg->cmd){
-		case MQ_OPEN:
+		case MQ_OPEN:{
+			
+			break;
+		}
+		case MQ_CLOSE:{
 
 			break;
-		case MQ_CLOSE:
-
-			break;
-		case MQ_SUBTOPIC:	// 注册主题
-			int fd=pkg->fd;	//推送消息的文件描述符
+		}
+		case MQ_SUBTOPIC:{
+			// 注册主题
+			int fd=pkg->fd;			//推送消息的文件描述符
 			char *topic=pkg->msg->topic; //主题 
-			
-			
 			break;
-		case MQ_PUBMSG:
+		}		
+		case MQ_PUBMSG:{
 			message_t *msg=pkg->msg;
 			push_msg_tail(msg_queue,msg); //插入消息队列
+			break;
+		}
+		default:
 			break;
 	}
 }
