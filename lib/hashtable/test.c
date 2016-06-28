@@ -102,7 +102,32 @@ int test_hashtable(){
     }
     hash_free(ht3);
     ht3 = NULL;
+
+
+    //<int-struct>
+    struct test{
+        int ax;
+        char *str;
+    };
+
+    struct test *a;
+    a=(struct test *)malloc(sizeof(struct test));
+    a->ax=100;
+    a->str=(char *)malloc(sizeof(char)*5);
+    a->str="ads";
+
+
+    HashTable *ht = create_hashtable(100,int,long);
+    
+    hash_add(ht,100,a);
+    hash_add(ht,20,a);
+
+    struct test *b=NULL;
+    hash_find(ht,20,&b);
+    if(b == NULL)
+        printf("NULL");
+    else
+        printf("%s\n",b->str);
+
     return 0;
 }
-
-#endif

@@ -18,7 +18,7 @@ void add_topic(HashTable *ht,char *topic,int fd){
 	strcpy(entry->topic,topic);
 
 	struct hash_node *node=NULL;
-	hash_find(ht,topic,node);//查询topic相关的fd列表
+	hash_find(ht,topic,&node);//查询topic相关的fd列表
 	if(node == NULL){//没有注册fd链表
 		
 		node=(struct hash_node *)malloc(sizeof(struct hash_node));
@@ -39,14 +39,15 @@ void add_topic(HashTable *ht,char *topic,int fd){
 
 struct hash_node *find_topic_fdlist(HashTable *ht,char *topic){
 	struct hash_node *node=NULL;
-	hash_find(ht,topic,node);//查询topic相关的fd列表
+	hash_find(ht,topic,&node);//查询topic相关的fd列表
 	return node;
 }
+
 
 void delete_fd(HashTable *ht,char *topic,int fd){
 
 	struct hash_node *node=NULL;
-	hash_find(ht,topic,node);//查询topic相关的fd列表
+	hash_find(ht,topic,&node);//查询topic相关的fd列表
 
 	if(node == NULL) return;
 
@@ -61,11 +62,12 @@ void delete_fd(HashTable *ht,char *topic,int fd){
 		}
 	}
 	TGAP_LIST_TRAVERSE_SAFE_END
-
 }
+
 
 void destroy_fdtopic_hashtable(HashTable *ht){
 	assert(ht!=NULL);
+	
 	for(reset(ht);isnotend(ht);next(ht)){
         char *t_key = skey(ht);
         long v_tmp = *(long *)value(ht);
