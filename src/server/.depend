@@ -19,3 +19,5 @@
  /data/Coder/wmq/src/common/connect.h server.h \
  /data/Coder/wmq/src/common/server_util.h
 /data/Coder/wmq/obj/socket_pkg.o: socket_pkg.c socket_pkg.h message.h
+/data/Coder/wmq/obj/topic_fd_map.o: topic_fd_map.c topic_fd_map.h \
+ /data/Coder/wmq/lib/hashtable/hashtable.h /data/Coder/wmq/inc/lists.h
