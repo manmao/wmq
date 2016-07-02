@@ -2,7 +2,7 @@
 #include <assert.h>
 #include "topic_fd_map.h"
 
-HashTable *ht;
+HashTable *ht=NULL;
 
 
 HashTable *create_fdtopic_hashtable(){

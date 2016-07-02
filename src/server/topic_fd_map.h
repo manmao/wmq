@@ -18,6 +18,7 @@ struct hash_node{
 	TGAP_LIST_HEAD(FD_LIST,list_entry) fd_list_head; //声明一个头结点
 };
 
+//全局hash表，topic到fd list的映射
 extern HashTable *ht;
 
 /**
