@@ -20,8 +20,18 @@ struct hash_node{
 
 extern HashTable *ht;
 
+/**
+ * 创建一个hashtable
+ * @return [description]
+ */
 extern HashTable *create_fdtopic_hashtable();
 
+/**
+ * 添加topic和fd
+ * @param ht    [hashtable]
+ * @param topic [主题]
+ * @param fd    [文件描述符]
+ */
 extern void add_topic(HashTable *ht,char *topic,int fd);
 
 extern struct hash_node *find_topic_fdlist(HashTable *ht,char *topic);

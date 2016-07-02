@@ -105,6 +105,7 @@ int test_hashtable(){
 
 
     //<int-struct>
+    //
     struct test{
         int ax;
         char *str;
@@ -118,7 +119,7 @@ int test_hashtable(){
 
 
     HashTable *ht = create_hashtable(100,int,long);
-    
+    //添加
     hash_add(ht,100,a);
     hash_add(ht,20,a);
 
@@ -131,3 +132,5 @@ int test_hashtable(){
 
     return 0;
 }
+
+#endif
