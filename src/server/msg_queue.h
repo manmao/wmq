@@ -8,6 +8,9 @@
 //全局消息队列
 extern linked_list_queue_t *msg_queue;
 
+extern pthread_mutex_t msg_queue_mutex;
+extern pthread_cond_t  msg_queue_cond;	
+
 /**
  * 发送消息到消息队列中
  * @param msg_queue [description]

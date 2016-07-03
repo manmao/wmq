@@ -35,9 +35,23 @@ extern HashTable *create_fdtopic_hashtable();
  */
 extern void add_topic(HashTable *ht,char *topic,int fd);
 
+/**
+ * 根据topic找到对应的fd list
+ * @param  ht    [description]
+ * @param  topic [description]
+ * @return       [description]
+ */
 extern struct hash_node *find_topic_fdlist(HashTable *ht,char *topic);
 
+/**
+ * 删除topic中对应的fd
+ * @param ht    [description]
+ * @param topic [description]
+ * @param fd    [description]
+ */
 extern void delete_fd(HashTable *ht,char *topic,int fd);
+
+
 
 extern void destroy_fdtopic_hashtable(HashTable *ht);
 

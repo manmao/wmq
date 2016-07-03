@@ -1,21 +1,18 @@
 #include <assert.h>
-
 #include "server_dispatch.h"
-#include "msg_queue.h"
+
 #include "topic_fd_map.h"
 
-#include "connect.h"
-#include "server.h"
+#include "mq_sender.h"
 
 static
 void handle_cmd_pkg(socket_pkg_t *pkg){
-
+	send_msg_mq(pkg->msg);
 }
 
 static 
 void handle_data_pkg(socket_pkg_t *pkg){
-	message_t *msg=pkg->msg;
-	push_msg_tail(msg_queue,msg);
+	send_msg_mq(pkg->msg);
 }
 
 static 
@@ -29,16 +26,14 @@ void handle_cmd_data_pkg(socket_pkg_t *pkg){
 
 			break;
 		}
-		case MQ_SUBTOPIC:{
-			// 注册主题
-			int fd=pkg->fd;			//推送消息的文件描述符
+		case MQ_SUBTOPIC:{// 注册主题
+			int fd=pkg->fd;	//推送消息的文件描述符
 			char *topic=pkg->msg->topic; //主题 
 			add_topic(ht,topic,fd);
 			break;
 		}		
-		case MQ_PUBMSG:{
-			message_t *msg=pkg->msg;
-			push_msg_tail(msg_queue,msg); //插入消息队列
+		case MQ_PUBMSG:{//发送消息到消息队列
+			send_msg_mq(pkg->msg);
 			break;
 		}
 		default:

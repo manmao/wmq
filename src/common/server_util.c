@@ -233,7 +233,7 @@ static void op_server_listener(void *arg){
 			}
 		}
 	}
-	pthread_exit(NULL);
+	//pthread_exit(NULL); 线程退出返回值NULL
 }
 
 static
@@ -324,7 +324,7 @@ static void child_thread(server_t *server,int thread_num,int thread_queue_num)
     pthread_t pt;
 	pthread_create(&pt,NULL,(void *)&op_server_listener,(void *)server);
 	pthread_detach(pt);
-	pthread_join(pt,NULL);
+	//pthread_join(pt,NULL);
 }
 
 
