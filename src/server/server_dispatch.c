@@ -2,7 +2,6 @@
 #include "server_dispatch.h"
 
 #include "topic_fd_map.h"
-
 #include "mq_sender.h"
 
 static

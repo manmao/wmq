@@ -108,6 +108,3 @@ void handle_request(void *arg){
    }
 }
 
-void  msg_queue_receiver(void *arg){
-  
-}
