@@ -17,8 +17,8 @@
 #define MAXCONNS 		65535	  // 服务器最大连接数
 #define MAXEVENTS       100		  // 最大事件数
 
-#define THREAD_NUM       20	      // 线程池开启的线程个数
-#define TASK_QUEUE_NUM   10000    // 队列的最大job个数
+#define THREAD_NUM       4	      // 线程池默认开启的线程个数
+#define TASK_QUEUE_NUM   5000    // 默认队列的最大job个数
 
 /****服务器结构****/
 typedef struct server{

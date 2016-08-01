@@ -47,7 +47,7 @@ void handle_socket_pkg(socket_pkg_t *pkg)
 	if(ht==NULL){
 		ht=create_fdtopic_hashtable();
 	}
-
+	
 	assert(ht!=NULL);
 	assert(pkg);
 	switch(pkg->type){

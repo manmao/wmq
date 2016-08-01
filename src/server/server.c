@@ -63,6 +63,7 @@ int server_init(int argc,char *argv[])
     init_server(&master_server,NET_CONF.ip,NET_CONF.port,handler);
     start_listen(master_server,8,10000); //启动服务器监听子进程
     
+    
     return 0;
 }
 
@@ -106,8 +107,4 @@ void handle_request(void *arg){
         log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum);
        }
    }
-}
-
-void  msg_queue_receiver(void *arg){
-  
 }

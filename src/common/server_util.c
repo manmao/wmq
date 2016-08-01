@@ -331,11 +331,11 @@ static void child_thread(server_t *server,int thread_num,int thread_queue_num)
 
 
 /**
- * 
- * @param 
- * @param
- * @param
- * @return
+ * 去掉那个进程监听
+ * @param  server           [服务器对象]
+ * @param  thread_num       [线程个数]
+ * @param  thread_queue_num [线程池队列长度]
+ * @return                  [空]
  */
 void  start_listen(server_t *server,int thread_num,int thread_queue_num){
     

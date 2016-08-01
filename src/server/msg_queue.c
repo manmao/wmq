@@ -1,5 +1,6 @@
 #include "msg_queue.h"
 
+//全局消息队列
 linked_list_queue_t *msg_queue;
 
 //初始化互斥锁

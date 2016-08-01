@@ -5,6 +5,9 @@
 #include "hashtable.h"
 #include "lists.h"
 
+
+
+
 struct list_entry{  //entry / elem
 	char *topic;
 	int  fd;
@@ -17,6 +20,7 @@ struct hash_node{
 	//head 
 	TGAP_LIST_HEAD(FD_LIST,list_entry) fd_list_head; //声明一个头结点
 };
+
 
 //全局hash表，topic到fd list的映射
 extern HashTable *ht;

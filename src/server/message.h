@@ -12,7 +12,6 @@ typedef unsigned long int uint32_t
 typedef signed long long int int64_t
 typedef unsigned long long int uint64_t*/
 
-
 #define DATA_BUFF_SIZE 1024*5   //pkt包数据的大小
 
 
