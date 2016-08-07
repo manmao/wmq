@@ -328,32 +328,30 @@ static void child_thread(server_t *server,int thread_num,int thread_queue_num)
 }
 
 
-
-
 /**
- * 去掉那个进程监听
+ * 那个进程监听
  * @param  server           [服务器对象]
  * @param  thread_num       [线程个数]
  * @param  thread_queue_num [线程池队列长度]
- * @return                  [空]
+ * @return pid              [监听进程的pid]
  */
-void  start_listen(server_t *server,int thread_num,int thread_queue_num){
+int start_listen(server_t *server,int thread_num,int thread_queue_num){
     
     assert(server!=NULL);
     //开启进程监听
-    pid_t server_id;
+    pid_t server_pid;
 
-    server_id=fork();
-    if(server_id <= -1)
+    server_pid=fork();
+    if(server_pid <= -1)
     {
          log_write(CONF.lf,LOG_ERROR,"监听失败,file:%s,line:%d",__FILE__,__LINE__);
          errExit("fork失败,file:%s,line:%d",__FILE__,__LINE__);
     }
-    if(server_id == 0) //子进程
+    if(server_pid == 0) //子进程
 	{
         child_process(server,thread_num,thread_queue_num);
 	}
-    else if(server_id > 0) //父进程
+    else if(server_pid > 0) //父进程
 	{
         int status;
 	    pid_t ret;
@@ -384,6 +382,7 @@ void  start_listen(server_t *server,int thread_num,int thread_queue_num){
         }
 	}
 
+    return server_pid;
 }
 
 

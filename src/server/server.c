@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 #include "socket_pkg.h"
 #include "config.h"
@@ -11,6 +12,7 @@
 
 #include "server.h"
 #include "server_dispatch.h"
+#include "mq_receiver.h"
 
 server_t *master_server;
 
@@ -61,9 +63,14 @@ int server_init(int argc,char *argv[])
     handler->handle_sig=&handle_sig;
     
     init_server(&master_server,NET_CONF.ip,NET_CONF.port,handler);
-    start_listen(master_server,8,10000); //启动服务器监听子进程
-    
-    
+    int ret=start_listen(master_server,8,10000); //启动服务器监听子进程
+    if(ret == 0){  //子进程
+        int receiver_tid;
+        //开启线程监听消息队列
+        pthread_create(&receiver_tid,NULL,&msg_queue_receiver,NULL);
+        pthread_join(receiver_tid,NULL);
+    }
+
     return 0;
 }
 

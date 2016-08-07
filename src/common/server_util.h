@@ -65,7 +65,7 @@ extern void  init_server(server_t **server,
                          struct server_handler *handler);	//初始化服务器
 
 //开启服务
-extern void  start_listen(server_t *server,
+extern int  start_listen(server_t *server,
                          int thread_num,
                          int thread_queue_num);  		//开启服务器监听
 
