@@ -1,10 +1,8 @@
-all: gzip  jemalloc
+all:  jemalloc
 .PHONY : all clean
 
 clean:
-	cd gzip124 && make clean
 	cd jemalloc && make clean
-
 
 #jemalloc
 jemalloc:

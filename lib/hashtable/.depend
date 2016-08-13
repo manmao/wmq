@@ -1,3 +1,3 @@
-/data/Coder/wmq/obj/hashtable.o: hashtable.c str.h hashtable.h
-/data/Coder/wmq/obj/str.o: str.c str.h
-/data/Coder/wmq/obj/test.o: test.c
+/mnt/hgfs/share/wmq/obj/str.o: str.c str.h
+/mnt/hgfs/share/wmq/obj/test.o: test.c
+/mnt/hgfs/share/wmq/obj/hashtable.o: hashtable.c str.h hashtable.h

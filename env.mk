@@ -39,16 +39,12 @@ INCLUDE_DIR := \
 	-I$(MAKEROOT)/lib/raft   \
 	-I$(MAKEROOT)/lib/linked-list-queue \
 	-I$(MAKEROOT)/lib/hashtable \
-	-I$(MAKEROOT)/deps/gzip124 \
-	-I$(MAKEROOT)/deps/jemalloc/include \
 
 #lib库搜索路劲
 LIB_DIR := -L$(MAKEROOT)/lib \
-		   -L$(MAKEROOT)/thirdlib \
-		   -L$(MAKEROOT)/deps/gzip124/lib \
-		   -L$(MAKEROOT)/deps/jemalloc/lib
+		   -L$(MAKEROOT)/thirdlib 
 #lib库
-LIB =-lgzip -ljemalloc -lpthread  -lz 
+LIB =-lz -lpthread   
 
 #gcc编译时定义宏
 DEFINE := -D_7ZIP_ST

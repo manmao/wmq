@@ -1,19 +1,26 @@
-/data/Coder/wmq/obj/message.o: message.c
-/data/Coder/wmq/obj/mq_receiver.o: mq_receiver.c mq_receiver.h
-/data/Coder/wmq/obj/msg_queue.o: msg_queue.c msg_queue.h \
- /data/Coder/wmq/lib/linked-list-queue/linked_list_queue.h
-/data/Coder/wmq/obj/server.o: server.c socket_pkg.h message.h \
- /data/Coder/wmq/src/common/config.h /data/Coder/wmq/src/common/log.h \
- server.h /data/Coder/wmq/src/common/server_util.h \
- /data/Coder/wmq/src/common/common_define.h /data/Coder/wmq/lib/rbtree.h \
- /data/Coder/wmq/src/thread/threadpool.h \
- /data/Coder/wmq/src/common/connect.h /data/Coder/wmq/src/common/util.h \
- /data/Coder/wmq/src/common/server_util.h server_dispatch.h
-/data/Coder/wmq/obj/server_dispatch.o: server_dispatch.c \
+/mnt/hgfs/share/wmq/obj/message.o: message.c
+/mnt/hgfs/share/wmq/obj/topic_fd_map.o: topic_fd_map.c topic_fd_map.h \
+ /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
+ /mnt/hgfs/share/wmq/inc/lists.h
+/mnt/hgfs/share/wmq/obj/socket_pkg.o: socket_pkg.c socket_pkg.h message.h
+/mnt/hgfs/share/wmq/obj/server_dispatch.o: server_dispatch.c \
  server_dispatch.h socket_pkg.h message.h topic_fd_map.h \
- /data/Coder/wmq/lib/hashtable/hashtable.h /data/Coder/wmq/inc/lists.h \
- mq_sender.h msg_queue.h \
- /data/Coder/wmq/lib/linked-list-queue/linked_list_queue.h
-/data/Coder/wmq/obj/socket_pkg.o: socket_pkg.c socket_pkg.h message.h
-/data/Coder/wmq/obj/topic_fd_map.o: topic_fd_map.c topic_fd_map.h \
- /data/Coder/wmq/lib/hashtable/hashtable.h /data/Coder/wmq/inc/lists.h
+ /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
+ /mnt/hgfs/share/wmq/inc/lists.h mq_sender.h msg_queue.h \
+ /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h
+/mnt/hgfs/share/wmq/obj/msg_queue.o: msg_queue.c msg_queue.h \
+ /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h
+/mnt/hgfs/share/wmq/obj/server.o: server.c socket_pkg.h message.h \
+ /mnt/hgfs/share/wmq/src/common/config.h \
+ /mnt/hgfs/share/wmq/src/common/log.h server.h \
+ /mnt/hgfs/share/wmq/src/common/server_util.h \
+ /mnt/hgfs/share/wmq/src/common/common_define.h \
+ /mnt/hgfs/share/wmq/lib/rbtree.h \
+ /mnt/hgfs/share/wmq/src/thread/threadpool.h \
+ /mnt/hgfs/share/wmq/src/common/connect.h \
+ /mnt/hgfs/share/wmq/src/common/util.h \
+ /mnt/hgfs/share/wmq/src/common/server_util.h server_dispatch.h \
+ mq_receiver.h
+/mnt/hgfs/share/wmq/obj/mq_receiver.o: mq_receiver.c mq_receiver.h \
+ msg_queue.h \
+ /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h message.h

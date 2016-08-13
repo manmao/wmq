@@ -1,5 +1,6 @@
 #include "mq_receiver.h"
 #include "msg_queue.h"
+#include "message.h"
 
 void  msg_queue_receiver(void *arg){
 	message_t *msg=(message_t *)pop_msg_head(msg_queue);

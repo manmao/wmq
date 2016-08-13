@@ -1,4 +1,5 @@
-/data/Coder/wmq/obj/client_util.o: client_util.c \
- /data/Coder/wmq/src/common/common_define.h client_util.h \
- /data/Coder/wmq/src/server/socket_pkg.h \
- /data/Coder/wmq/src/server/message.h /data/Coder/wmq/src/common/util.h
+/mnt/hgfs/share/wmq/obj/client_util.o: client_util.c \
+ /mnt/hgfs/share/wmq/src/common/common_define.h client_util.h \
+ /mnt/hgfs/share/wmq/src/server/socket_pkg.h \
+ /mnt/hgfs/share/wmq/src/server/message.h \
+ /mnt/hgfs/share/wmq/src/common/util.h
