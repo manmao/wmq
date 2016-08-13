@@ -10,18 +10,6 @@ jemalloc:
 	cd jemalloc && $(MAKE) lib/libjemalloc.a 
 .PHONY : jemalloc
 
-#gzip 
-gzip:
-	cd gzip124 &&  ./configure 
-	cd gzip124 &&  $(MAKE)
-
-	if test -e gzip124/lib; \
-	then cd gzip124; \
-	else cd gzip124 && mkdir lib; \
-	fi 
-	cd gzip124 &&  ar cr lib/libgzip.a $(wildcard *.o)
-.PHONY : gzip
-
 
 #libuv
 LIBUV_BRANCH=v1.7.1
