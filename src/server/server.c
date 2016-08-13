@@ -15,6 +15,7 @@
 #include "mq_receiver.h"
 
 server_t *master_server;
+void handle_request(void *arg);
 
 static
 void handle_sig(int sig)
