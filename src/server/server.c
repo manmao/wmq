@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <pthread.h>
 
 #include "socket_pkg.h"
@@ -15,6 +18,7 @@
 #include "mq_receiver.h"
 
 server_t *master_server;
+
 void handle_request(void *arg);
 
 static
@@ -25,13 +29,13 @@ void handle_sig(int sig)
 }
 
 static 
-void handle_unknown(int event_fd)
+int handle_unknown(int event_fd)
 {
-
+  return 0;
 }
 
 static
-void on_accept(int client_conn_fd,struct sockaddr clientaddr)
+int on_accept(int client_conn_fd,struct sockaddr clientaddr)
 {
    //往红黑树中插入节点
     struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
@@ -40,6 +44,7 @@ void on_accept(int client_conn_fd,struct sockaddr clientaddr)
     type->node->epoll_fd = master_server->efd;
     type->node->clientaddr = clientaddr;
     conn_insert(&(master_server->conn_root),type);
+    return 0;
 }
 
 static
@@ -49,6 +54,16 @@ int on_readable(struct conn_node *node)
     //放入线程池
     threadpool_add_job(master_server->tpool,(void *)&handle_request,node);
     return 0;
+}
+
+static
+int handle_listenmq()
+{
+   //开启线程监听消息队列
+   pthread_t receiver_tid;
+   pthread_create(&receiver_tid,NULL,(void *)&msg_queue_receiver,NULL);
+   pthread_detach(receiver_tid);
+   return 0;
 }
 
 
@@ -62,15 +77,10 @@ int server_init(int argc,char *argv[])
     handler->handle_accept=&on_accept;
     handler->handle_unknown=&handle_unknown;
     handler->handle_sig=&handle_sig;
+    handler->handle_listenmq=&handle_listenmq;
     
     init_server(&master_server,NET_CONF.ip,NET_CONF.port,handler);
-    int ret=start_listen(master_server,8,10000); //启动服务器监听子进程
-    if(ret == 0){  //子进程
-        int receiver_tid;
-        //开启线程监听消息队列
-        pthread_create(&receiver_tid,NULL,&msg_queue_receiver,NULL);
-        pthread_join(receiver_tid,NULL);
-    }
+    start_listen(master_server,8,10000); //启动服务器监听子进程
 
     return 0;
 }
@@ -97,12 +107,12 @@ void handle_request(void *arg){
                log_write(CONF.lf,LOG_INFO,"error:file:%s,line :%d\n",__FILE__,__LINE__);                            //error
            }
            destroy_socket_pkg_instance(socket_pkt_ptr);
-           return -1;
+           return ;
        }
        else if(buflen==0)           
        {
           //删除连接节点
-          conn_delete(&master_server->conn_root,&node);
+          conn_delete(&master_server->conn_root,node);
           destroy_socket_pkg_instance(socket_pkt_ptr);
           return ;
        }

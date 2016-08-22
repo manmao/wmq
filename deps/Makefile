@@ -1,8 +1,8 @@
 all:  jemalloc
 .PHONY : all clean
-
 clean:
 	cd jemalloc && make clean
+
 
 #jemalloc
 jemalloc:

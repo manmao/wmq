@@ -1,6 +1,7 @@
 ﻿#include <sys/epoll.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <error.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -22,6 +23,7 @@
 
 #include "util.h"
 #include "config.h"
+#include "error_hdr.h"
 
 
 /*******************************************
@@ -335,7 +337,7 @@ static void child_thread(server_t *server,int thread_num,int thread_queue_num)
  * @param  thread_queue_num [线程池队列长度]
  * @return pid              [监听进程的pid]
  */
-int start_listen(server_t *server,int thread_num,int thread_queue_num){
+void start_listen(server_t *server,int thread_num,int thread_queue_num){
     
     assert(server!=NULL);
     //开启进程监听
@@ -349,7 +351,9 @@ int start_listen(server_t *server,int thread_num,int thread_queue_num){
     }
     if(server_pid == 0) //子进程
 	{
+        server->handler->handle_listenmq();
         child_process(server,thread_num,thread_queue_num);
+        
 	}
     else if(server_pid > 0) //父进程
 	{
@@ -380,9 +384,9 @@ int start_listen(server_t *server,int thread_num,int thread_queue_num){
             //重新开启子进程
             child_process(server,thread_num,thread_queue_num);
         }
+
 	}
 
-    return server_pid;
 }
 
 

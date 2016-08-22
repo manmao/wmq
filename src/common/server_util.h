@@ -56,6 +56,8 @@ struct server_handler{
     int (*handle_unknown)(int event_fd);
     //信号处理
     void (*handle_sig)(int sig);
+
+    int (*handle_listenmq)();
 };
 
 //初始化服务器
@@ -65,7 +67,7 @@ extern void  init_server(server_t **server,
                          struct server_handler *handler);	//初始化服务器
 
 //开启服务
-extern int  start_listen(server_t *server,
+extern void  start_listen(server_t *server,
                          int thread_num,
                          int thread_queue_num);  		//开启服务器监听
 
