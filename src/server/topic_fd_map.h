@@ -22,8 +22,7 @@ struct hash_node{
 };
 
 
-//全局hash表，topic到fd list的映射
-extern HashTable *ht;
+
 
 /**
  * 创建一个hashtable

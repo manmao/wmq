@@ -4,7 +4,7 @@
 #include "msg_queue.h"
 
 
-void send_msg_mq(message_t *msg){
+void send_msg_mq(linked_list_queue_t *msg_queue,message_t *msg){
 	push_msg_tail(msg_queue,msg); //插入消息队列
 }
 

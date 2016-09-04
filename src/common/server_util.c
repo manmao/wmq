@@ -262,6 +262,9 @@ void  init_server(server_t **server,char *ip,int port,struct server_handler *han
 	addr.sin_port=htons(port);
 	addr.sin_addr.s_addr=inet_addr(ip);
 
+    server_set_sock(sfd);                 //服务器套接字文件描述符
+
+
 	int ret=bind(sfd,(struct sockaddr *)&addr,sizeof(addr));  //绑定到服务器的端口
     if(ret == -1){
 		log_write(CONF.lf,LOG_ERROR,"绑定到服务器的端口失败\n");
@@ -272,7 +275,7 @@ void  init_server(server_t **server,char *ip,int port,struct server_handler *han
 	ret=listen(sfd,BACKLOG);               //监听端口
 	assert(ret != -1);
 
-	server_set_sock(sfd);           	  //服务器套接字文件描述符
+
 
     int efd=epoll_create(MAXCONNS);        //创建epoll事件监听
 

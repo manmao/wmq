@@ -108,13 +108,13 @@ int client_init(struct sock_client **client,char *server_ip,int port){
 	(*client)->conn->protocol=0x01;   //协议类型
 	(*client)->conn->is_conn=false;   //没有连接
 
-	struct sockaddr_in *saddr=(struct sockaddr_in *)malloc(sizeof(struct sockaddr_in));
+	struct sockaddr_in saddr;
 	memset(&saddr,0,sizeof(saddr));  //
-	saddr->sin_family=AF_INET;        //设置协议族
-	saddr->sin_port=htons(port);  //设置端口
-	saddr->sin_addr.s_addr=inet_addr(server_ip); //设置ip地址
+	saddr.sin_family=AF_INET;        //设置协议族
+	saddr.sin_port=htons(port);  //设置端口
+	saddr.sin_addr.s_addr=inet_addr(server_ip); //设置ip地址
 
-	(*client)->conn->saddr=(struct sockaddr *)saddr;
+	(*client)->conn->saddr=saddr;
 
 }
 
@@ -143,7 +143,7 @@ int start_connection(struct sock_client *client){
 	client->conn->is_conn=true;   //建立连接
 
 	//连接服务器
-	int ret=connect(client->conn->fd,(struct sockaddr *)client->conn->saddr,sizeof(struct sockaddr));
+	int ret=connect(client->conn->fd,(struct sockaddr *)&client->conn->saddr,sizeof(struct sockaddr));
 	if(ret == -1)
 	{
 		printf("连接服务器失败\n");

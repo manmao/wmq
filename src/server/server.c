@@ -17,9 +17,13 @@
 #include "server_dispatch.h"
 #include "mq_receiver.h"
 
+#include "msg_queue.h"
+
 server_t *master_server;
+mq_t *mq;
 
 void handle_request(void *arg);
+
 
 static
 void handle_sig(int sig)
@@ -56,33 +60,15 @@ int on_readable(struct conn_node *node)
     return 0;
 }
 
+//子进程中启动监听线程,用于不断的从MQ中读取数据
 static
 int handle_listenmq()
 {
    //开启线程监听消息队列
    pthread_t receiver_tid;
-   pthread_create(&receiver_tid,NULL,(void *)&msg_queue_receiver,NULL);
+   pthread_create(&receiver_tid,NULL,(void *)&msg_queue_receiver,mq);
    pthread_detach(receiver_tid);
    return 0;
-}
-
-
-
-int server_init(int argc,char *argv[])
-{
-    //挂接服务器事件处理函数
-    struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
-    //如果没有相关接口实现的，一定要赋值为空值
-    handler->handle_readable=&on_readable;
-    handler->handle_accept=&on_accept;
-    handler->handle_unknown=&handle_unknown;
-    handler->handle_sig=&handle_sig;
-    handler->handle_listenmq=&handle_listenmq;
-    
-    init_server(&master_server,NET_CONF.ip,NET_CONF.port,handler);
-    start_listen(master_server,8,10000); //启动服务器监听子进程
-
-    return 0;
 }
 
 
@@ -94,7 +80,6 @@ void handle_request(void *arg){
        socket_pkt_ptr=create_socket_pkg_instance();
        
        assert(socket_pkt_ptr != NULL);
-       assert(socket_pkt_ptr->msg != NULL);
 
        int buflen=recv(node->conn_fd,(void *)socket_pkt_ptr,sizeof(socket_pkg_t),0);
 
@@ -120,9 +105,29 @@ void handle_request(void *arg){
        {
         //消息分发
         socket_pkt_ptr->fd=node->conn_fd;
-        handle_socket_pkg(socket_pkt_ptr);
-        
-        log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum);
+        handle_socket_pkg(mq,socket_pkt_ptr);
+        log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d\n",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum);
        }
    }
+}
+
+int server_init(int argc,char *argv[])
+{
+    
+
+    mq=init_meesage_queue();
+
+    //挂接服务器事件处理函数
+    struct server_handler *handler=(struct server_handler *)malloc(sizeof(struct server_handler));
+    //如果没有相关接口实现的，一定要赋值为空值
+    handler->handle_readable=&on_readable;
+    handler->handle_accept=&on_accept;
+    handler->handle_unknown=&handle_unknown;
+    handler->handle_sig=&handle_sig;
+    handler->handle_listenmq=&handle_listenmq;
+    
+    init_server(&master_server,NET_CONF.ip,NET_CONF.port,handler);
+    start_listen(master_server,8,10000); //启动服务器监听子进程
+
+    return 0;
 }

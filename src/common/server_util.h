@@ -33,6 +33,7 @@ typedef struct server{
 
     struct server_handler *handler;  //连接处理函数回调
 
+
     pthread_mutex_t lock;            //互斥锁
     
     //上锁和解锁

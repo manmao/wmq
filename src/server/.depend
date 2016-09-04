@@ -4,12 +4,14 @@
  /mnt/hgfs/share/wmq/inc/lists.h
 /mnt/hgfs/share/wmq/obj/socket_pkg.o: socket_pkg.c socket_pkg.h message.h
 /mnt/hgfs/share/wmq/obj/server_dispatch.o: server_dispatch.c \
- server_dispatch.h socket_pkg.h message.h topic_fd_map.h \
- /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
- /mnt/hgfs/share/wmq/inc/lists.h mq_sender.h msg_queue.h \
- /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h
+ server_dispatch.h msg_queue.h \
+ /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h \
+ topic_fd_map.h /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
+ /mnt/hgfs/share/wmq/inc/lists.h socket_pkg.h message.h mq_sender.h
 /mnt/hgfs/share/wmq/obj/msg_queue.o: msg_queue.c msg_queue.h \
- /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h
+ /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h \
+ topic_fd_map.h /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
+ /mnt/hgfs/share/wmq/inc/lists.h
 /mnt/hgfs/share/wmq/obj/server.o: server.c socket_pkg.h message.h \
  /mnt/hgfs/share/wmq/src/common/config.h \
  /mnt/hgfs/share/wmq/src/common/log.h server.h \
@@ -20,7 +22,12 @@
  /mnt/hgfs/share/wmq/src/common/connect.h \
  /mnt/hgfs/share/wmq/src/common/util.h \
  /mnt/hgfs/share/wmq/src/common/server_util.h server_dispatch.h \
- mq_receiver.h
+ msg_queue.h \
+ /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h \
+ topic_fd_map.h /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
+ /mnt/hgfs/share/wmq/inc/lists.h mq_receiver.h
 /mnt/hgfs/share/wmq/obj/mq_receiver.o: mq_receiver.c mq_receiver.h \
  msg_queue.h \
- /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h message.h
+ /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h \
+ topic_fd_map.h /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
+ /mnt/hgfs/share/wmq/inc/lists.h message.h

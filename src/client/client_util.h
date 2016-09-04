@@ -15,7 +15,7 @@ struct connection{
 	int fd;								//文件描述符
 	uint16_t protocol; 					//连接协议
 	bool is_conn;						//连接是否关闭
-	struct sockaddr *saddr;
+	struct sockaddr_in saddr;
 
 };
 

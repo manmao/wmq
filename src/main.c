@@ -13,6 +13,8 @@
 #include "config.h"
 #include "sig_handler.h"
 
+
+
 void  process_init(int argc , char *argv[]);
 
 void child_run(int argc,char *argv[])

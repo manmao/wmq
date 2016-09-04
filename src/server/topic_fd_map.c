@@ -2,7 +2,6 @@
 #include <assert.h>
 #include "topic_fd_map.h"
 
-HashTable *ht=NULL;
 
 
 HashTable *create_fdtopic_hashtable(){
@@ -24,8 +23,11 @@ void add_topic(HashTable *ht,char *topic,int fd){
 		node=(struct hash_node *)malloc(sizeof(struct hash_node));
 		//初始链表
 		TGAP_LIST_HEAD_INIT(&(node->fd_list_head));
+		
 		//在链表尾部插入节点
+		TGAP_LIST_LOCK(&(node->fd_list_head));
 		TGAP_LIST_INSERT_TAIL(&(node->fd_list_head),entry,field);
+		TGAP_LIST_UNLOCK(&(node->fd_list_head));
 		
 		//添加到hashtable
 		hash_add(ht,topic,node); //添加到hash
