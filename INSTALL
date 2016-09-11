@@ -10,7 +10,7 @@ reinstall:
 	# make all
 clean
 	# make clean
-
+	
 run 
 	系统默认配置文件路径：./config/wfs_config.conf
 	# cd wmq

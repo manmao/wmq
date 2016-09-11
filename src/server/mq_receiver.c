@@ -5,8 +5,8 @@
 
 /**
  * 发送消息给对应的客户端
- * @param node [description]
- * @param msg  [description]
+ * @param node [hash值指向地址]
+ * @param msg  [消息]
  */
 static void send_message_to_list(struct hash_node *node,message_t *msg){
 	//delete fd
@@ -16,7 +16,6 @@ static void send_message_to_list(struct hash_node *node,message_t *msg){
 	}
 	TGAP_LIST_TRAVERSE_SAFE_END
 }
-
 
 void  msg_queue_receiver(void *arg){
 	mq_t *msgq=(mq_t *)arg;

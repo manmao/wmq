@@ -9,10 +9,7 @@ void handle_cmd_pkg(linked_list_queue_t *msg_queue,socket_pkg_t *pkg){
 	send_msg_mq(msg_queue,&(pkg->msg));
 }
 
-static 
-void handle_data_pkg(linked_list_queue_t *msg_queue,socket_pkg_t *pkg){
-	send_msg_mq(msg_queue,&(pkg->msg));
-}
+
 
 static 
 void handle_cmd_data_pkg(mq_t *mq,socket_pkg_t *pkg){
@@ -40,7 +37,6 @@ void handle_cmd_data_pkg(mq_t *mq,socket_pkg_t *pkg){
 	}
 }
 
-
 void handle_socket_pkg(mq_t *mq,socket_pkg_t *pkg)
 {
 
@@ -49,9 +45,6 @@ void handle_socket_pkg(mq_t *mq,socket_pkg_t *pkg)
 	switch(pkg->type){
 		case TYPE_CMD:
 			handle_cmd_pkg(mq->msg_queue,pkg);
-			break;
-		case TYPE_DATA:
-			handle_data_pkg(mq->msg_queue,pkg);
 			break;
 		case TYPE_CMD_DATA:
 			handle_cmd_data_pkg(mq,pkg);
