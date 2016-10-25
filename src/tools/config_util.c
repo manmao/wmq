@@ -8,8 +8,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "log.h"
-#include "error_hdr.h"
+//#include "log.h"
+//#include "error_hdr.h"
 
 #include "config_util.h"
 
