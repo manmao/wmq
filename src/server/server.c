@@ -14,16 +14,15 @@
 #include "log.h"
 
 #include "server.h"
-#include "server_dispatch.h"
+#include "service_dispatch.h"
 #include "mq_receiver.h"
 
 #include "msg_queue.h"
 
 server_t *master_server;
-mq_t *mq;
+msg_queue_t *mq;
 
 void handle_request(void *arg);
-
 
 static
 void handle_sig(int sig)
@@ -105,7 +104,7 @@ void handle_request(void *arg){
        {
         //消息分发
         socket_pkt_ptr->fd=node->conn_fd;
-        handle_socket_pkg(mq,socket_pkt_ptr);
+        handle_socket_pkg(master_server,socket_pkt_ptr);
         log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d\n",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum);
        }
    }
@@ -125,8 +124,16 @@ int server_init(int argc,char *argv[])
     handler->handle_unknown=&handle_unknown;
     handler->handle_sig=&handle_sig;
     handler->handle_listenmq=&handle_listenmq;
-    
+
     init_server(&master_server,NET_CONF.ip,NET_CONF.port,handler);
+
+    //初始化MQ群组
+    *(master_server->mq)=(struct msg_queue_t **)malloc(sizeof(struct msg_queue_t*)*(CONF.queue_num))
+    for(int i=0;i<CONF.queue_num;i++){
+      (master_server->mq)[i]=init_meesage_queue();
+    }
+    
+    //开始监听
     start_listen(master_server,8,10000); //启动服务器监听子进程
 
     return 0;

@@ -297,6 +297,8 @@ void  init_server(server_t **server,char *ip,int port,struct server_handler *han
 	    signal(SIGTERM,handler->handle_sig);
     }
 
+
+    
 	log_write(CONF.lf,LOG_INFO,"init server sucesss!\n");
 }
 

@@ -12,13 +12,15 @@
 #include "threadpool.h"
 #include "connect.h"
 
-#define BACKLOG  	  	5        // 服务器侦听长度
+#include "msg_queue.h"
+
+#define BACKLOG  	  	65535        // 服务器侦听长度
 
 #define MAXCONNS 		65535	  // 服务器最大连接数
 #define MAXEVENTS       100		  // 最大事件数
 
-#define THREAD_NUM       4	      // 线程池默认开启的线程个数
-#define TASK_QUEUE_NUM   5000    // 默认队列的最大job个数
+#define DEFAULT_THREAD_NUM       4	      // 线程池默认开启的线程个数
+#define DEFAULT_TASK_QUEUE_NUM   50000    // 默认队列的最大job个数
 
 /****服务器结构****/
 typedef struct server{
@@ -26,20 +28,22 @@ typedef struct server{
     int listenfd; 					 //服务端监听listenfd
 
 	int efd;						 //epoll文件描述符
-    
+
     struct threadpool *tpool;		 //线程池
 
-	struct rb_root    conn_root; 	 //客户端连接节点
+	struct rb_root   conn_root; 	 //客户端连接节点
 
     struct server_handler *handler;  //连接处理函数回调
 
-
     pthread_mutex_t lock;            //互斥锁
-    
+
     //上锁和解锁
     void (*lock_server)(pthread_mutex_t *lock);
-    
+
     void (*unlock_server)(pthread_mutex_t *lock);
+
+    //mq群组 
+    struct msg_queue_t **mq; 
 
 }server_t;
 

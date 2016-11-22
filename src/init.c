@@ -15,7 +15,7 @@
 void init_log(char *config_path)
 {
 	char KeyVal[100];
-	get_config_string(config_path,"wfs","logFilePath",KeyVal);
+	get_config_string(config_path,"wmq","logFilePath",KeyVal);
 	CONF.lf=log_file_open(KeyVal);
 	log_write(CONF.lf,LOG_INFO,"log file path : %s\n",KeyVal);
 }
@@ -34,4 +34,7 @@ void init_conf(char *config_path)
 	get_config_string(config_path,"network","ip",NET_CONF.ip);
 	get_config_int(config_path,"network","port",&(NET_CONF.port));
 	
+	//获取消息队列个数
+	get_config_int(config_path,"wmq","queueNum",&(CONF.queue_num));
+
 }

@@ -6,10 +6,10 @@ pthread_mutex_t msg_queue_mutex= PTHREAD_MUTEX_INITIALIZER;
 //初始化条件变量
 pthread_cond_t  msg_queue_cond= PTHREAD_COND_INITIALIZER;
 
-mq_t* init_meesage_queue(){
+msg_queue_t* init_meesage_queue(){
     
-    mq_t *mq_ptr;
-    mq_ptr=(mq_t *)malloc(sizeof(mq_t));
+    msg_queue_t *mq_ptr;
+    mq_ptr=(msg_queue_t *)malloc(sizeof(msg_queue_t));
     
     mq_ptr->msg_queue=(linked_list_queue_t *)llqueue_new();
     mq_ptr->ht=create_fdtopic_hashtable();

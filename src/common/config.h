@@ -14,6 +14,10 @@ typedef struct system_conf
 	FILE *lf;
 	//log file path
 	char *logpath;
+	//消息队列个数
+	int queue_num;
+
+	
 
 }system_conf_t;
 

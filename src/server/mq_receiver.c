@@ -14,11 +14,11 @@ static void send_message_to_list(struct hash_node *node,message_t *msg){
 	TGAP_LIST_TRAVERSE_SAFE_BEGIN( &(node->fd_list_head), current, field){
 		write(current->fd,msg->msg_buff,strlen(msg->msg_buff));		
 	}
-	TGAP_LIST_TRAVERSE_SAFE_END
+	TGAP_LST_TRAVERSE_SAFE_END
 }
 
 void  msg_queue_receiver(void *arg){
-	mq_t *msgq=(mq_t *)arg;
+	msg_queue_t *msgq=(msg_queue_t*)arg;
 	while(1){
 		message_t *msg=(message_t *)pop_msg_head(msgq->msg_queue);
 		//msg->topic查找到对应的消费者列表，遍历列表，依次发送数据;

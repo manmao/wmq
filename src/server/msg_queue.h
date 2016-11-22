@@ -6,18 +6,17 @@
 #include "linked_list_queue.h"
 #include "topic_fd_map.h"
 
-typedef struct mq{
+typedef struct msg_queue{
 	//消息队列
 	linked_list_queue_t *msg_queue;
 	//全局hash表，topic到fd list的映射
 	HashTable *ht;
-}mq_t;
+}msg_queue_t;
 
 extern pthread_mutex_t msg_queue_mutex;
 extern pthread_cond_t  msg_queue_cond;
 
-
-extern mq_t* init_meesage_queue();
+extern msg_queue_t* init_meesage_queue();
 
 /**
  * 发送消息到消息队列中

@@ -30,20 +30,20 @@
 #define MQ_SUBTOPIC 0x0003
 //发布消息
 #define MQ_PUBMSG 0x0004
- 
+
 
 typedef struct socket_pkg{
 	uint8_t            version;      //协议版本
 	uint8_t            type;         //传输数据类型  命令/数据(0x01/0x02)
 	uint8_t	           code;         //数据编码方式  lmza/zlib/gzip(0x01/0x02/0x03)
 	uint8_t			   bak;		     //bak
-	int32_t		  	   fd;			 //包对应的文件描述符
 	uint32_t           data_len;     //数据长度
 	uint16_t           checksum;     //数据校验和
 	uint16_t           union_id;     //数据包的编号
     uint32_t     	   cmd;          //命令
     struct message     msg;		 //
 }socket_pkg_t;
+
 
 /**
  * 创建一个实例

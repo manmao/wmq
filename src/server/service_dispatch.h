@@ -4,7 +4,6 @@
 #include "msg_queue.h"
 #include "socket_pkg.h"
 
-extern void handle_socket_pkg(mq_t *mq,socket_pkg_t *pkg);
-
+extern void handle_socket_pkg(server_t *master_server,socket_pkg_t *pkg);
 
 #endif
