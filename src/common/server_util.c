@@ -150,30 +150,27 @@ void handle_accept_event(server_t *server)
 
     int conn_fd=-1;
     //读取客户端的连接
-    while ((conn_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)))>0)
+    while (1)
     {
-      /* //往红黑树中插入节点
-		struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
-		type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
-        type->node->conn_fd = conn_fd;
-        type->node->epoll_fd = server->efd;
-		type->node->clientaddr = clientaddr;
-        conn_insert(&server->conn_root,type);*/
-
-        //添加到epoll监听队列
-		addfd(server->efd,conn_fd);
-
+	 conn_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)); 
+         if(conn_fd>0){
+	        //添加到epoll监听队列
+	       addfd(server->efd,conn_fd);
 		//回调函数调用
-        if(server->handler->handle_accept){
-             server->handler->handle_accept(conn_fd,clientaddr);
-        }
-	}
-    if (conn_fd == -1) {
-       if (errno != EAGAIN && errno != ECONNABORTED
-                   && errno != EPROTO && errno != EINTR){
+               if(server->handler->handle_accept){
+            	   server->handler->handle_accept(conn_fd,clientaddr);
+       	       }
+	 }else{
+	   if(errno == EAGAIN){ break;}
+	 }
+        
+     } //end while
+	
+     if (conn_fd == -1) {
+       	  if (errno != EAGAIN && errno != ECONNABORTED
+                  	 && errno != EPROTO && errno != EINTR){
            log_write(CONF.lf,LOG_ERROR,"error,file:%s,line:%d",__FILE__,__LINE__);
-       }
-    }
+     } //end if
 }
 
 
