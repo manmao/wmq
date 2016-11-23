@@ -128,7 +128,8 @@ int server_init(int argc,char *argv[])
     init_server(&master_server,NET_CONF.ip,NET_CONF.port,handler);
 
     //初始化MQ群组
-    *(master_server->mq)=(struct msg_queue_t **)malloc(sizeof(struct msg_queue_t*)*(CONF.queue_num))
+    *(master_server->mq)=(struct msg_queue_t *)malloc(sizeof(struct msg_queue_t));
+      master_server->mq=(struct msg_queue_t **)malloc(sizeof(struct msg_queue_t*)*(CONF.queue_num));
     for(int i=0;i<CONF.queue_num;i++){
       (master_server->mq)[i]=init_meesage_queue();
     }
