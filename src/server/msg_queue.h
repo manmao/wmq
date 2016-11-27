@@ -16,6 +16,7 @@ typedef struct msg_queue{
 extern pthread_mutex_t msg_queue_mutex;
 extern pthread_cond_t  msg_queue_cond;
 
+
 extern msg_queue_t* init_meesage_queue();
 
 /**
@@ -33,5 +34,7 @@ extern void push_msg_tail(linked_list_queue_t *msg_queue,void *item);
  */
 extern void *pop_msg_head(linked_list_queue_t *msg_queue);
 
+
+extern int count_queue(linked_list_queue_t *msg_queue);
 
 #endif

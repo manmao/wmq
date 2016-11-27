@@ -14,7 +14,9 @@
 
 #include "msg_queue.h"
 
-#define BACKLOG  	  	65535        // 服务器侦听长度
+#include "topic_fd_map.h"
+
+#define LISTEN_BACKLOG  	  	65535      // 服务器侦听长度
 
 #define MAXCONNS 		65535	  // 服务器最大连接数
 #define MAXEVENTS       100		  // 最大事件数
@@ -22,28 +24,29 @@
 #define DEFAULT_THREAD_NUM       4	      // 线程池默认开启的线程个数
 #define DEFAULT_TASK_QUEUE_NUM   50000    // 默认队列的最大job个数
 
+#define DEFAULT_MESSAGE_QUEUE_NUM 4      //消息队列的个数
+
 /****服务器结构****/
 typedef struct server{
-
+    
     int listenfd; 					 //服务端监听listenfd
 
 	int efd;						 //epoll文件描述符
 
     struct threadpool *tpool;		 //线程池
-
+    
 	struct rb_root   conn_root; 	 //客户端连接节点
 
     struct server_handler *handler;  //连接处理函数回调
 
-    pthread_mutex_t lock;            //互斥锁
-
-    //上锁和解锁
-    void (*lock_server)(pthread_mutex_t *lock);
-
-    void (*unlock_server)(pthread_mutex_t *lock);
-
+    int queues;                  //消息队列的个数
+    
     //mq群组 
     struct msg_queue_t **mq; 
+
+    HashTable *ht;                  //hash表，保存 topic-fd 列表的映射
+
+    pthread_mutex_t lock;           //互斥锁
 
 }server_t;
 
@@ -53,20 +56,22 @@ typedef struct server{
 *
 */
 struct server_handler{
+
     //客户端连接事件
 	int (*handle_accept)(int client_conn_fd,struct sockaddr clientaddr);
     //可读事件
-    int (*handle_readable)(struct conn_node *node);
+    int (*handle_readable)(int readalbe_fd);
     //未知事件
     int (*handle_unknown)(int event_fd);
     //信号处理
     void (*handle_sig)(int sig);
 
+    //启动监听
     int (*handle_listenmq)();
 };
 
 //初始化服务器
-extern void  init_server(server_t **server,
+extern void  init_server(server_t *server,
                          char *ip,
                          int port,
                          struct server_handler *handler);	//初始化服务器

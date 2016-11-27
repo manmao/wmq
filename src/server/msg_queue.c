@@ -9,10 +9,11 @@ pthread_cond_t  msg_queue_cond= PTHREAD_COND_INITIALIZER;
 msg_queue_t* init_meesage_queue(){
     
     msg_queue_t *mq_ptr;
-    mq_ptr=(msg_queue_t *)malloc(sizeof(msg_queue_t));
-    
+    mq_ptr=(msg_queue_t *)malloc(sizeof(msg_queue_t)); 
     mq_ptr->msg_queue=(linked_list_queue_t *)llqueue_new();
-    mq_ptr->ht=create_fdtopic_hashtable();
+
+    //mq_ptr->ht=create_fdtopic_hashtable();
+    mq_ptr->ht=NULL;
     
     return mq_ptr;
 }
@@ -54,6 +55,9 @@ void* pop_msg_head(linked_list_queue_t *msg_queue)
     return item;
 }
 
+int count_queue(linked_list_queue_t *msg_queue){
+    return llqueue_count(msg_queue);
+}
 
 
 

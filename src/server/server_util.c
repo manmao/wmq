@@ -25,6 +25,8 @@
 #include "config.h"
 #include "error_hdr.h"
 
+#include "topic_fd_map.h"
+
 
 /*******************************************
 	当客户端可服务器端建立连接时
@@ -121,7 +123,7 @@ void  server_set_sock(int sfd){
     }
 
     //设置linger,关闭close后的延迟，不进入TIME_WAIT状态
-    //struct linger{#1:开关 0关1开,#2:时间值，毫秒}
+    //struct linger{#1:开关 0关 1开,#2:时间值，毫秒}
     //strcut linger设置socket close后是否进入WAIT状态
     struct linger ling= {0, 0};
     if (setsockopt(sfd, SOL_SOCKET, SO_LINGER, (void *)&ling, sizeof(ling))!= 0)
@@ -130,7 +132,7 @@ void  server_set_sock(int sfd){
     }
 
     /*******设置文件描述符非阻塞*********/
-	setnonblock(sfd);
+	   setnonblock(sfd);
 }
 
 
@@ -152,17 +154,17 @@ void handle_accept_event(server_t *server)
     //读取客户端的连接
     while (1)
     {
-	 conn_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)); 
-         if(conn_fd>0){
-	        //添加到epoll监听队列
-	       addfd(server->efd,conn_fd);
-		//回调函数调用
-               if(server->handler->handle_accept){
-            	   server->handler->handle_accept(conn_fd,clientaddr);
-       	       }
-	 }else{
-	   if(errno == EAGAIN){ break;}
-	 }
+	      conn_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)); 
+        if(conn_fd>0){
+	         //添加到epoll监听队列
+	         addfd(server->efd,conn_fd);
+		       //回调函数调用
+           if(server->handler->handle_accept){
+            	server->handler->handle_accept(conn_fd,clientaddr);
+       	   }
+	      }else{
+	         if(errno == EAGAIN){ break;}
+	     }
         
      } //end while
 	
@@ -178,15 +180,10 @@ static
 void handle_readable_event(server_t *server,struct epoll_event event)
 {
     int event_fd=event.data.fd;
-    struct conn_type *type=NULL;
 
-    struct conn_node node;
-    node.conn_fd=event_fd;
-
-    type=conn_search(&(server->conn_root),&node);
-    if(type != NULL && server->handler->handle_readable != NULL)
+    if(server->handler->handle_readable != NULL)
     {
-        server->handler->handle_readable(type->node);
+        server->handler->handle_readable(event_fd);
     }
 }
 
@@ -204,14 +201,15 @@ void handle_unknown_event(server_t *server,struct epoll_event event)
 	当有数据来 		启动handler线程处理
 	当断开连接时	删除和释放内存空间
 ***********************************************/
-static void op_server_listener(void *arg){
+static 
+void op_server_listener(void *arg){
 
     server_t *server=(server_t *)arg;
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
     
     while(true){
-        //被改变值时退出循环
-		//等待内核通知，获取可读的fd
+      //被改变值时退出循环
+		  //等待内核通知，获取可读的fd
 		int number=epoll_wait(server->efd,events,MAXEVENTS,-1);
 		if(number < 0)
 		{
@@ -219,14 +217,13 @@ static void op_server_listener(void *arg){
 			break;
 		}
 
-        int i;
+    int i;
 		for(i=0;i<number;i++){                   //遍历epoll的所有事件
-            int sockfd=events[i].data.fd;         //获取fd
-
-            if(sockfd == server->listenfd){          //有客户端建立连接
-				handle_accept_event(server);
+      int sockfd=events[i].data.fd;          //获取fd
+      if(sockfd == server->listenfd){          //有客户端建立连接
+				  handle_accept_event(server);
 			}else if(events[i].events & EPOLLIN){       //efd中有fd可读,
-				handle_readable_event(server,events[i]);
+				  handle_readable_event(server,events[i]);
 			}else{                                      //其他
 			    handle_unknown_event(server,events[i]);
 			}
@@ -235,32 +232,21 @@ static void op_server_listener(void *arg){
 	//pthread_exit(NULL); 线程退出返回值NULL
 }
 
-static
-void lock(pthread_mutex_t *lock)
-{
-    pthread_mutex_lock(lock);
-}
 
-static
-void unlock(pthread_mutex_t *lock)
-{
-    pthread_mutex_unlock(lock);
-}
 
 /**************************
 
      初始化服务器端口
 
 ***************************/
-void  init_server(server_t **server,char *ip,int port,struct server_handler *handler){
-    int sfd=socket(AF_INET,SOCK_STREAM,0);
+void  init_server(server_t *server,char *ip,int port,struct server_handler *handler){
+  int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
 	addr.sin_family=AF_INET;
 	addr.sin_port=htons(port);
 	addr.sin_addr.s_addr=inet_addr(ip);
 
-    server_set_sock(sfd);                 //服务器套接字文件描述符
-
+  server_set_sock(sfd);                 //服务器套接字文件描述符
 
 	int ret=bind(sfd,(struct sockaddr *)&addr,sizeof(addr));  //绑定到服务器的端口
     if(ret == -1){
@@ -269,36 +255,39 @@ void  init_server(server_t **server,char *ip,int port,struct server_handler *han
 		return ;
 	}
 
-	ret=listen(sfd,BACKLOG);               //监听端口
-	assert(ret != -1);
-
-
+	  ret=listen(sfd,LISTEN_BACKLOG);               //监听端口
+	  assert(ret != -1);
 
     int efd=epoll_create(MAXCONNS);        //创建epoll事件监听
 
     addfd(efd,sfd);         			   //注册TCP socket 上可读事件
 
     /**初始化客户端连接的数量**/
-    *server=(server_t *)malloc(sizeof(struct server));
-	(*server)->listenfd=sfd;
-	(*server)->efd=efd;
-	(*server)->conn_root=RB_ROOT;
-	(*server)->handler=handler;
+	server->listenfd=sfd;
+	server->efd=efd;
+	server->conn_root=RB_ROOT;
+	server->handler=handler;
 
+	  //初始化MQ群组
+    server->mq=(struct msg_queue_t *)malloc(sizeof(struct msg_queue_t*)*(CONF.queue_num));
+    for(int i=0;i<CONF.queue_num;i++){
+       (server->mq)[i]=init_meesage_queue();
+    }
+    server->queues=CONF.queue_num;
+
+    //初始化hash表
+    server->ht=create_fdtopic_hashtable();
+    
     //初始化锁
-    pthread_mutex_init(&(*server)->lock,NULL);
-    (*server)->lock_server=&lock;
-    (*server)->unlock_server=&unlock;
+    pthread_mutex_init(&(server->lock),NULL);
 
-    /**注册监听信号进程**/
+    /** 注册监听信号进程 **/
     if(handler->handle_sig){
         signal(SIGKILL,handler->handle_sig);
         signal(SIGINT,handler->handle_sig);
 	    signal(SIGTERM,handler->handle_sig);
     }
 
-
-    
 	log_write(CONF.lf,LOG_INFO,"init server sucesss!\n");
 }
 
@@ -326,8 +315,8 @@ static void child_thread(server_t *server,int thread_num,int thread_queue_num)
     }
     //开启线程监听
     pthread_t pt;
-	pthread_create(&pt,NULL,(void *)&op_server_listener,(void *)server);
-	pthread_detach(pt);
+	  pthread_create(&pt,NULL,(void *)&op_server_listener,(void *)server);
+	  pthread_detach(pt);
 	//pthread_join(pt,NULL);
 }
 
@@ -352,15 +341,15 @@ void start_listen(server_t *server,int thread_num,int thread_queue_num){
          errExit("fork失败,file:%s,line:%d",__FILE__,__LINE__);
     }
     if(server_pid == 0) //子进程
-	{
+	  {
         server->handler->handle_listenmq();
         child_process(server,thread_num,thread_queue_num);
         
-	}
+	  }
     else if(server_pid > 0) //父进程
-	{
+	  {
         int status;
-	    pid_t ret;
+	      pid_t ret;
         ret = wait(&status);   //wait
         if(ret <0){
 		    perror("wait error");

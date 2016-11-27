@@ -1,8 +1,11 @@
-#include<string.h>
+#include <string.h>
 #include <assert.h>
+#include <pthread.h>
+
 #include "topic_fd_map.h"
 
 
+static pthread_mutex_t hash_mutext=PTHREAD_MUTEX_INITIALIZER;
 
 HashTable *create_fdtopic_hashtable(){
 	 HashTable *ht = create_hashtable(100,char*,long);
@@ -21,16 +24,19 @@ void add_topic(HashTable *ht,char *topic,int fd){
 	if(node == NULL){//没有注册fd链表
 		
 		node=(struct hash_node *)malloc(sizeof(struct hash_node));
+
 		//初始链表
 		TGAP_LIST_HEAD_INIT(&(node->fd_list_head));
-		
+
 		//在链表尾部插入节点
 		TGAP_LIST_LOCK(&(node->fd_list_head));
 		TGAP_LIST_INSERT_TAIL(&(node->fd_list_head),entry,field);
 		TGAP_LIST_UNLOCK(&(node->fd_list_head));
-		
-		//添加到hashtable
+
+		pthread_mutex_lock(&msg_queue_mutex); //阻塞,全局加锁
+
 		hash_add(ht,topic,node); //添加到hash
+		pthread_mutex_unlock(&msg_queue_mutex);
 
 	}else{//有注册fd得链表
 		TGAP_LIST_LOCK(&(node->fd_list_head));

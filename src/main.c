@@ -24,7 +24,6 @@ void child_run(int argc,char *argv[])
 
 }
 
-
 /**
  * [parent_run description]
  * @param argc [description]
@@ -72,13 +71,12 @@ void  process_init(int argc , char *argv[])
 {
 	pid_t mainpro;
 	char config_path[512];
-	
+
 	if(argc<2)
 		strcpy(config_path,"./config/wfs_config.conf");
 	else
 		strcpy(config_path,argv[1]);
 	
-
 	/*init*/
 	init_log(config_path);
 
@@ -108,7 +106,7 @@ void  process_init(int argc , char *argv[])
 	整个系统入口
 **********************************/
 #if 1
-
+	
 int main(int argc , char *argv[])
 {
 	process_init(argc,argv);

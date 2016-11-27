@@ -28,12 +28,10 @@ void init_log(char *config_path)
 *****************************/
 void init_conf(char *config_path)
 {
-
 	NET_CONF.ip=(char *)calloc(sizeof(char)*20,'0');
 	assert(NET_CONF.ip!=NULL);
 	get_config_string(config_path,"network","ip",NET_CONF.ip);
 	get_config_int(config_path,"network","port",&(NET_CONF.port));
-	
 	//获取消息队列个数
 	get_config_int(config_path,"wmq","queueNum",&(CONF.queue_num));
 
