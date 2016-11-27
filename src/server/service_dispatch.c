@@ -70,7 +70,6 @@ static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
 			break;
 		}
 		case MQ_SUBTOPIC:{    // 注册topic
-			
 			add_topic(master_server->ht,pkg->topic,pkg->fd);
 			break;
 		}

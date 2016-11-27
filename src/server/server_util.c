@@ -268,7 +268,7 @@ void  init_server(server_t *server,char *ip,int port,struct server_handler *hand
 	server->conn_root=RB_ROOT;
 	server->handler=handler;
 
-	  //初始化MQ群组
+	//初始化MQ群组
     server->mq=(struct msg_queue_t *)malloc(sizeof(struct msg_queue_t*)*(CONF.queue_num));
     for(int i=0;i<CONF.queue_num;i++){
        (server->mq)[i]=init_meesage_queue();
