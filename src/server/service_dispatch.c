@@ -17,7 +17,7 @@ int select_message_qeueue(server_t *master_server){
 	int queue_no=0;
 	
 	for(i=0;i<master_server->queue_count;i++){
-		int count=count_queue(master_server->mq[i]);
+		int count=count_queue(master_server->mq[i]->list_queue);
 		if(count<=min_len){
 			queue_no=i;
 			min_len=count;

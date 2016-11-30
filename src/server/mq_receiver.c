@@ -20,7 +20,7 @@ static void send_message_to_list(struct hash_node *node,message_t *msg){
 void  msg_queue_receiver(void *arg){
 	msg_queue_t *msgq=(msg_queue_t*)arg;
 	while(1){
-		message_t *msg=(message_t *)pop_msg_head(msgq->msg_queue);
+		message_t *msg=(message_t *)pop_msg_head(msgq);
 		//msg->topic查找到对应的消费者列表，遍历列表，依次发送数据;
 		if(msg->topic != NULL){
 			printf("topic :%s ,reciver message:%s\n",msg->topic,msg->msg_buff);
@@ -31,6 +31,5 @@ void  msg_queue_receiver(void *arg){
 			}
 			
 		}
-		
    	}
 }

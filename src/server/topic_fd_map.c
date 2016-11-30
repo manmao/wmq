@@ -5,6 +5,7 @@
 #include "topic_fd_map.h"
 
 
+//hash表互斥锁
 static pthread_mutex_t hash_mutext=PTHREAD_MUTEX_INITIALIZER;
 
 HashTable *create_fdtopic_hashtable(){
@@ -33,10 +34,9 @@ void add_topic(HashTable *ht,char *topic,int fd){
 		TGAP_LIST_INSERT_TAIL(&(node->fd_list_head),entry,field);
 		TGAP_LIST_UNLOCK(&(node->fd_list_head));
 
-		pthread_mutex_lock(&msg_queue_mutex); //阻塞,全局加锁
-
+		pthread_mutex_lock(&hash_mutext); //阻塞,全局加锁
 		hash_add(ht,topic,node); //添加到hash
-		pthread_mutex_unlock(&msg_queue_mutex);
+		pthread_mutex_unlock(&hash_mutext);
 
 	}else{//有注册fd得链表
 		TGAP_LIST_LOCK(&(node->fd_list_head));

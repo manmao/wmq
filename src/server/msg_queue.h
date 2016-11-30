@@ -8,13 +8,16 @@
 
 typedef struct msg_queue{
 	//消息队列
-	linked_list_queue_t *msg_queue;
+	linked_list_queue_t *list_queue;
 	//全局hash表，topic到fd list的映射
 	HashTable *ht;
+	//互斥锁
+    pthread_mutex_t msg_queue_mutex;
+    //条件变量
+    pthread_cond_t  msg_queue_cond;
+
 }msg_queue_t;
 
-extern pthread_mutex_t msg_queue_mutex;
-extern pthread_cond_t  msg_queue_cond;
 
 
 extern msg_queue_t* init_meesage_queue();
@@ -24,7 +27,7 @@ extern msg_queue_t* init_meesage_queue();
  * @param msg_queue [description]
  * @param item      [description]
  */
-extern void push_msg_tail(linked_list_queue_t *msg_queue,void *item);
+extern void push_msg_tail(msg_queue_t *msg_queue,void *item);
 
 
 /**
@@ -32,9 +35,9 @@ extern void push_msg_tail(linked_list_queue_t *msg_queue,void *item);
  * @param  msg_queue [description]
  * @return           [description]
  */
-extern void *pop_msg_head(linked_list_queue_t *msg_queue);
+extern void *pop_msg_head(msg_queue_t *msg_queue);
 
 
-extern int count_queue(linked_list_queue_t *msg_queue);
+extern int count_queue(msg_queue_t *msg_queue);
 
 #endif
