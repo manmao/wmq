@@ -1,7 +1,0 @@
-/mnt/hgfs/share/wmq/obj/raft_log.o: raft_log.c raft.h raft_private.h \
- raft_log.h
-/mnt/hgfs/share/wmq/obj/raft_node.o: raft_node.c raft.h
-/mnt/hgfs/share/wmq/obj/raft_server_properties.o: \
- raft_server_properties.c raft.h raft_log.h raft_private.h
-/mnt/hgfs/share/wmq/obj/raft_server.o: raft_server.c raft.h raft_log.h \
- raft_private.h
