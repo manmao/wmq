@@ -1,19 +1,21 @@
-/mnt/hgfs/share/wmq/obj/connect.o: connect.c \
- /mnt/hgfs/share/wmq/lib/rbtree.h connect.h util.h server_util.h \
- common_define.h /mnt/hgfs/share/wmq/src/thread/threadpool.h
-/mnt/hgfs/share/wmq/obj/log.o: log.c /mnt/hgfs/share/wmq/inc/error_hdr.h \
- /mnt/hgfs/share/wmq/inc/error/get_num.h \
- /mnt/hgfs/share/wmq/inc/error/error_functions.h util.h log.h
-/mnt/hgfs/share/wmq/obj/config.o: config.c config.h
-/mnt/hgfs/share/wmq/obj/server_util.o: server_util.c \
- /mnt/hgfs/share/wmq/src/common/log.h server_util.h common_define.h \
- /mnt/hgfs/share/wmq/lib/rbtree.h \
- /mnt/hgfs/share/wmq/src/thread/threadpool.h connect.h util.h config.h \
- /mnt/hgfs/share/wmq/inc/error_hdr.h \
- /mnt/hgfs/share/wmq/inc/error/get_num.h \
- /mnt/hgfs/share/wmq/inc/error/error_functions.h
-/mnt/hgfs/share/wmq/obj/util.o: util.c util.h
-/mnt/hgfs/share/wmq/obj/hash.o: hash.c hash.h
-/mnt/hgfs/share/wmq/obj/md5.o: md5.c md5.h
-/mnt/hgfs/share/wmq/obj/sig_handler.o: sig_handler.c config.h \
+/home/linux/Desktop/wmq/obj/config.o: config.c config.h
+/home/linux/Desktop/wmq/obj/connect.o: connect.c \
+ /home/linux/Desktop/wmq/lib/rbtree.h connect.h util.h \
+ /home/linux/Desktop/wmq/src/server/server_util.h \
+ /home/linux/Desktop/wmq/src/common/common_define.h \
+ /home/linux/Desktop/wmq/src/thread/threadpool.h \
+ /home/linux/Desktop/wmq/src/common/connect.h \
+ /home/linux/Desktop/wmq/src/server/msg_queue.h \
+ /home/linux/Desktop/wmq/lib/linked-list-queue/linked_list_queue.h \
+ /home/linux/Desktop/wmq/src/server/topic_fd_map.h \
+ /home/linux/Desktop/wmq/lib/hashtable/hashtable.h \
+ /home/linux/Desktop/wmq/inc/lists.h
+/home/linux/Desktop/wmq/obj/hash.o: hash.c hash.h
+/home/linux/Desktop/wmq/obj/log.o: log.c \
+ /home/linux/Desktop/wmq/inc/error_hdr.h \
+ /home/linux/Desktop/wmq/inc/error/get_num.h \
+ /home/linux/Desktop/wmq/inc/error/error_functions.h util.h log.h
+/home/linux/Desktop/wmq/obj/md5.o: md5.c md5.h
+/home/linux/Desktop/wmq/obj/sig_handler.o: sig_handler.c config.h \
  sig_handler.h log.h
+/home/linux/Desktop/wmq/obj/util.o: util.c util.h

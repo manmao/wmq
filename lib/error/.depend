@@ -1,4 +1,4 @@
-/mnt/hgfs/share/wmq/obj/error_functions.o: error_functions.c \
- /mnt/hgfs/share/wmq/inc/error/error_functions.h ename.inc
-/mnt/hgfs/share/wmq/obj/get_num.o: get_num.c \
- /mnt/hgfs/share/wmq/inc/error/get_num.h
+/home/linux/Desktop/wmq/obj/error_functions.o: error_functions.c \
+ /home/linux/Desktop/wmq/inc/error/error_functions.h ename.inc
+/home/linux/Desktop/wmq/obj/get_num.o: get_num.c \
+ /home/linux/Desktop/wmq/inc/error/get_num.h

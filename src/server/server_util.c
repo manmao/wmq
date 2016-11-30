@@ -156,29 +156,29 @@ void handle_accept_event(server_t *server)
     {
 	      conn_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)); 
         if(conn_fd>0){
-	         //添加到epoll监听队列
-	         addfd(server->efd,conn_fd);
-		       //回调函数调用
+	        //添加到epoll监听队列
+	        addfd(server->efd,conn_fd);
+		    //回调函数调用
            if(server->handler->handle_accept){
             	server->handler->handle_accept(conn_fd,clientaddr);
        	   }
-	      }else{
+	    }else{
 	         if(errno == EAGAIN){ break;}
-	     }
+	    }
         
      } //end while
 	
      if (conn_fd == -1) {
        	  if (errno != EAGAIN && errno != ECONNABORTED
                   	 && errno != EPROTO && errno != EINTR){
-           log_write(CONF.lf,LOG_ERROR,"error,file:%s,line:%d",__FILE__,__LINE__);
+            log_write(CONF.lf,LOG_ERROR,"error,file:%s,line:%d",__FILE__,__LINE__);
+  		  }
      } //end if
 }
 
 
 static
-void handle_readable_event(server_t *server,struct epoll_event event)
-{
+void handle_readable_event(server_t *server,struct epoll_event event){
     int event_fd=event.data.fd;
 
     if(server->handler->handle_readable != NULL)
@@ -267,9 +267,8 @@ void  init_server(server_t *server,char *ip,int port,struct server_handler *hand
 	server->efd=efd;
 	server->conn_root=RB_ROOT;
 	server->handler=handler;
-
+	
 	//初始化MQ群组
-    server->mq=(struct msg_queue_t *)malloc(sizeof(struct msg_queue_t*)*(CONF.queue_num));
     for(int i=0;i<CONF.queue_num;i++){
        (server->mq)[i]=init_meesage_queue();
     }
@@ -296,7 +295,7 @@ void  init_server(server_t *server,char *ip,int port,struct server_handler *hand
 static void child_process(server_t *server,int thread_num,int thread_queue_num){
    //初始化线程池
    if(thread_num ==0 || thread_queue_num == 0){
-     server->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
+     server->tpool=threadpool_init(DEFAULT_THREAD_NUM,DEFAULT_TASK_QUEUE_NUM); //初始化线程池,默认配置
    }else{
      server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
    }
@@ -309,7 +308,7 @@ static void child_thread(server_t *server,int thread_num,int thread_queue_num)
 {
     //初始化线程池
     if(thread_num ==0 || thread_queue_num == 0){
-      server->tpool=threadpool_init(THREAD_NUM,TASK_QUEUE_NUM); //初始化线程池,默认配置
+      server->tpool=threadpool_init(DEFAULT_THREAD_NUM,DEFAULT_TASK_QUEUE_NUM); //初始化线程池,默认配置
     }else{
       server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
     }

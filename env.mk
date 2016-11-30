@@ -21,7 +21,6 @@ TARGET_DIRS :=src/ src/common src/tools/lzma src/tools\
 				src/thread  \
 				src/client  src/server\
 				lib/  lib/error  \
-				lib/raft  \
 				lib/linked-list-queue \
 				lib/hashtable
 			
@@ -36,7 +35,6 @@ INCLUDE_DIR := \
 	-I$(MAKEROOT)/src/server\
 	-I$(MAKEROOT)/src/client \
 	-I$(MAKEROOT)/lib   	 \
-	-I$(MAKEROOT)/lib/raft   \
 	-I$(MAKEROOT)/lib/linked-list-queue \
 	-I$(MAKEROOT)/lib/hashtable \
 

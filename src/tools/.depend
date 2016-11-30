@@ -1,8 +1,6 @@
-/mnt/hgfs/share/wmq/obj/config.o: config.c \
- /mnt/hgfs/share/wmq/src/common/log.h /mnt/hgfs/share/wmq/inc/error_hdr.h \
- /mnt/hgfs/share/wmq/inc/error/get_num.h \
- /mnt/hgfs/share/wmq/inc/error/error_functions.h config.h
-/mnt/hgfs/share/wmq/obj/config_util.o: config_util.c \
- /mnt/hgfs/share/wmq/src/common/log.h /mnt/hgfs/share/wmq/inc/error_hdr.h \
- /mnt/hgfs/share/wmq/inc/error/get_num.h \
- /mnt/hgfs/share/wmq/inc/error/error_functions.h config_util.h
+/home/linux/Desktop/wmq/obj/config_util.o: config_util.c config_util.h
+/home/linux/Desktop/wmq/obj/config.o: config.cpp config.h file_utils.h
+/home/linux/Desktop/wmq/obj/file_utils.o: file_utils.cpp file_utils.h \
+ log_utils.h
+/home/linux/Desktop/wmq/obj/log_utils.o: log_utils.cpp log_utils.h
+/home/linux/Desktop/wmq/obj/opt_map.o: opt_map.cpp opt_map.h

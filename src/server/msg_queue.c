@@ -1,17 +1,17 @@
+#include <stdlib.h>
 #include "msg_queue.h"
 
-
 msg_queue_t* init_meesage_queue(){
-    
     msg_queue_t *mq_ptr;
     mq_ptr=(msg_queue_t *)malloc(sizeof(msg_queue_t)); 
     mq_ptr->list_queue=(linked_list_queue_t *)llqueue_new();
 
+    pthread_mutex_init(&(mq_ptr->msg_queue_mutex),NULL);
+    pthread_cond_init(&(mq_ptr->msg_queue_cond),NULL);
     //初始化互斥锁
-    mq_ptr->msg_queue_mutex= PTHREAD_MUTEX_INITIALIZER;
+    //mq_ptr->msg_queue_mutex = PTHREAD_MUTEX_INITIALIZER;
     //初始化条件变量
-    mq_ptr->msg_queue_cond= PTHREAD_COND_INITIALIZER;
-
+    //mq_ptr->msg_queue_cond = PTHREAD_COND_INITIALIZER;
     //mq_ptr->ht=create_fdtopic_hashtable();
     mq_ptr->ht=NULL;
 
