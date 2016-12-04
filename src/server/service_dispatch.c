@@ -7,11 +7,13 @@
 #include "mq_sender.h"
 #include "message.h"
 
+static int queue_idx=0;
+
 /**
  * 根据消息队列的负载，选在消息队列
  */
 static
-int select_message_qeueue(server_t *master_server){
+int select_qeueue_default(server_t *master_server){
 	int i;
 	int min_len=100000000;
 	int queue_no=0;
@@ -25,6 +27,23 @@ int select_message_qeueue(server_t *master_server){
 	}
 	return queue_no;
 }
+
+/**
+ * 轮询消息队列
+ * @return [description]
+ */
+static 
+int select_queue_round(server_t *master_server){
+	/** 采用Round Robin方式将其分配给一个消息队列处理 **/
+	int i=queue_idx;
+	do
+	{
+		i=(i+1)%master_server->queues;
+	}while(i != queue_idx);
+	queue_idx=(i+1)%master_server->queues;
+}
+
+
 
 /**
  * 反序列化消息体，根据编码模式反序列化消息体
@@ -74,7 +93,7 @@ static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
 			break;
 		}
 		case MQ_PUBMSG:{	//发送消息到消息队列
-			int idx=select_message_qeueue(master_server);
+			int idx=select_qeueue_default(master_server);
 			msg_queue_t *mq=master_server->mq[idx]; //选择负载最小的队列
 			message_t *msg=deserialize_message(pkg);
 			send_msg_mq(mq,msg);
