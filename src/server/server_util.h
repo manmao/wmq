@@ -24,7 +24,7 @@
 #define DEFAULT_THREAD_NUM       4	      // 线程池默认开启的线程个数
 #define DEFAULT_TASK_QUEUE_NUM   50000    // 默认队列的最大job个数
 
-#define DEFAULT_MESSAGE_QUEUE_NUM 4      //消息队列的个数
+#define DEFAULT_MESSAGE_QUEUE_NUM 20      //消息队列的个数
 
 /****服务器结构****/
 typedef struct server{
@@ -42,7 +42,7 @@ typedef struct server{
     int queues;                  //消息队列的个数
     
     //mq群组 
-    struct msg_queue_t **mq; 
+    struct msg_queue *mq[DEFAULT_MESSAGE_QUEUE_NUM]; 
 
     HashTable *ht;                  //hash表，保存 topic-fd 列表的映射
 

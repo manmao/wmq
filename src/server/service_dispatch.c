@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <assert.h>
-#include "server_dispatch.h"
+
+#include "service_dispatch.h"
 
 #include "msg_queue.h"
 #include "topic_fd_map.h"
@@ -18,7 +19,7 @@ int select_qeueue_default(server_t *master_server){
 	int min_len=100000000;
 	int queue_no=0;
 	
-	for(i=0;i<master_server->queue_count;i++){
+	for(i=0;i<master_server->queues;i++){
 		int count=count_queue(master_server->mq[i]->list_queue);
 		if(count<=min_len){
 			queue_no=i;

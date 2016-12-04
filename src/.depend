@@ -1,19 +1,24 @@
-/mnt/hgfs/share/wmq/obj/init.o: init.c \
- /mnt/hgfs/share/wmq/src/tools/config_util.h \
- /mnt/hgfs/share/wmq/src/common/config.h \
- /mnt/hgfs/share/wmq/src/common/log.h
-/mnt/hgfs/share/wmq/obj/main.o: main.c \
- /mnt/hgfs/share/wmq/inc/error_hdr.h \
- /mnt/hgfs/share/wmq/inc/error/get_num.h \
- /mnt/hgfs/share/wmq/inc/error/error_functions.h init.h \
- /mnt/hgfs/share/wmq/src/common/log.h \
- /mnt/hgfs/share/wmq/src/server/server.h \
- /mnt/hgfs/share/wmq/src/common/server_util.h \
- /mnt/hgfs/share/wmq/src/common/common_define.h \
- /mnt/hgfs/share/wmq/lib/rbtree.h \
- /mnt/hgfs/share/wmq/src/thread/threadpool.h \
- /mnt/hgfs/share/wmq/src/common/connect.h \
- /mnt/hgfs/share/wmq/src/common/util.h \
- /mnt/hgfs/share/wmq/src/common/server_util.h \
- /mnt/hgfs/share/wmq/src/common/config.h \
- /mnt/hgfs/share/wmq/src/common/sig_handler.h
+/home/linux/Desktop/wmq/obj/init.o: init.c \
+ /home/linux/Desktop/wmq/src/tools/config_util.h \
+ /home/linux/Desktop/wmq/src/common/config.h \
+ /home/linux/Desktop/wmq/src/common/log.h
+/home/linux/Desktop/wmq/obj/main.o: main.c \
+ /home/linux/Desktop/wmq/inc/error_hdr.h \
+ /home/linux/Desktop/wmq/inc/error/get_num.h \
+ /home/linux/Desktop/wmq/inc/error/error_functions.h init.h \
+ /home/linux/Desktop/wmq/src/common/log.h \
+ /home/linux/Desktop/wmq/src/server/server.h \
+ /home/linux/Desktop/wmq/src/server/server_util.h \
+ /home/linux/Desktop/wmq/src/common/common_define.h \
+ /home/linux/Desktop/wmq/lib/rbtree.h \
+ /home/linux/Desktop/wmq/src/thread/threadpool.h \
+ /home/linux/Desktop/wmq/src/common/connect.h \
+ /home/linux/Desktop/wmq/src/common/util.h \
+ /home/linux/Desktop/wmq/src/server/server_util.h \
+ /home/linux/Desktop/wmq/src/server/msg_queue.h \
+ /home/linux/Desktop/wmq/lib/linked-list-queue/linked_list_queue.h \
+ /home/linux/Desktop/wmq/src/server/topic_fd_map.h \
+ /home/linux/Desktop/wmq/lib/hashtable/hashtable.h \
+ /home/linux/Desktop/wmq/inc/lists.h \
+ /home/linux/Desktop/wmq/src/common/config.h \
+ /home/linux/Desktop/wmq/src/common/sig_handler.h

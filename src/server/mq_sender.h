@@ -1,6 +1,7 @@
 #ifndef _MQ_SENDER_H_
 #define _MQ_SENDER_H_
 
+#include "message.h"
 #include "msg_queue.h"
 
 static

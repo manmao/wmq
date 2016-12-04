@@ -1,2 +1,2 @@
-/mnt/hgfs/share/wmq/obj/timer_lists.o: timer_lists.c timer_list.h
-/mnt/hgfs/share/wmq/obj/rbtree.o: rbtree.c rbtree.h
+/home/linux/Desktop/wmq/obj/rbtree.o: rbtree.c rbtree.h
+/home/linux/Desktop/wmq/obj/timer_lists.o: timer_lists.c timer_list.h

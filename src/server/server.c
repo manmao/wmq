@@ -57,8 +57,8 @@ int on_readable(int readable_fd)
     struct conn_type *type=NULL;
 
     struct conn_node node;
-    node.conn_fd=event_fd;
-    type=conn_search(&(server->conn_root),&node);
+    node.conn_fd=readable_fd;
+    type=conn_search(&(master_server->conn_root),&node);
 
     //将数据包加入任务队列
     //放入线程池
@@ -74,9 +74,9 @@ int handle_listenmq()
    //开启县城组，监听对应的消息队列
    pthread_t receiver_tid[10];
    int i;
-   for(i = 0; i < master_server->queue_count; i++){
+   for(i = 0; i < master_server->queues; i++){
       master_server->mq[i]->ht=master_server->ht;
-      pthread_create(&receiver_tid,NULL,(void *)&msg_queue_receiver,master_server->mq[i]);
+      pthread_create(&receiver_tid,NULL,&msg_queue_receiver,master_server->mq[i]);
    }
 
    return 0;

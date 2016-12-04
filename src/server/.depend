@@ -1,33 +1,52 @@
-/mnt/hgfs/share/wmq/obj/message.o: message.c
-/mnt/hgfs/share/wmq/obj/topic_fd_map.o: topic_fd_map.c topic_fd_map.h \
- /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
- /mnt/hgfs/share/wmq/inc/lists.h
-/mnt/hgfs/share/wmq/obj/socket_pkg.o: socket_pkg.c socket_pkg.h message.h
-/mnt/hgfs/share/wmq/obj/server_dispatch.o: server_dispatch.c \
- server_dispatch.h msg_queue.h \
- /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h \
- topic_fd_map.h /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
- /mnt/hgfs/share/wmq/inc/lists.h socket_pkg.h message.h mq_sender.h
-/mnt/hgfs/share/wmq/obj/msg_queue.o: msg_queue.c msg_queue.h \
- /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h \
- topic_fd_map.h /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
- /mnt/hgfs/share/wmq/inc/lists.h
-/mnt/hgfs/share/wmq/obj/server.o: server.c socket_pkg.h message.h \
- /mnt/hgfs/share/wmq/src/common/config.h \
- /mnt/hgfs/share/wmq/src/common/log.h server.h \
- /mnt/hgfs/share/wmq/src/common/server_util.h \
- /mnt/hgfs/share/wmq/src/common/common_define.h \
- /mnt/hgfs/share/wmq/lib/rbtree.h \
- /mnt/hgfs/share/wmq/src/thread/threadpool.h \
- /mnt/hgfs/share/wmq/src/common/connect.h \
- /mnt/hgfs/share/wmq/src/common/util.h \
- /mnt/hgfs/share/wmq/src/common/server_util.h server_dispatch.h \
+/home/linux/Desktop/wmq/obj/mq_receiver.o: mq_receiver.c mq_receiver.h \
  msg_queue.h \
- /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h \
- topic_fd_map.h /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
- /mnt/hgfs/share/wmq/inc/lists.h mq_receiver.h
-/mnt/hgfs/share/wmq/obj/mq_receiver.o: mq_receiver.c mq_receiver.h \
- msg_queue.h \
- /mnt/hgfs/share/wmq/lib/linked-list-queue/linked_list_queue.h \
- topic_fd_map.h /mnt/hgfs/share/wmq/lib/hashtable/hashtable.h \
- /mnt/hgfs/share/wmq/inc/lists.h message.h
+ /home/linux/Desktop/wmq/lib/linked-list-queue/linked_list_queue.h \
+ topic_fd_map.h /home/linux/Desktop/wmq/lib/hashtable/hashtable.h \
+ /home/linux/Desktop/wmq/inc/lists.h message.h
+/home/linux/Desktop/wmq/obj/msg_queue.o: msg_queue.c msg_queue.h \
+ /home/linux/Desktop/wmq/lib/linked-list-queue/linked_list_queue.h \
+ topic_fd_map.h /home/linux/Desktop/wmq/lib/hashtable/hashtable.h \
+ /home/linux/Desktop/wmq/inc/lists.h
+/home/linux/Desktop/wmq/obj/server.o: server.c socket_pkg.h \
+ /home/linux/Desktop/wmq/src/common/config.h \
+ /home/linux/Desktop/wmq/src/common/log.h server.h server_util.h \
+ /home/linux/Desktop/wmq/src/common/common_define.h \
+ /home/linux/Desktop/wmq/lib/rbtree.h \
+ /home/linux/Desktop/wmq/src/thread/threadpool.h \
+ /home/linux/Desktop/wmq/src/common/connect.h \
+ /home/linux/Desktop/wmq/src/common/util.h \
+ /home/linux/Desktop/wmq/src/server/server_util.h msg_queue.h \
+ /home/linux/Desktop/wmq/lib/linked-list-queue/linked_list_queue.h \
+ topic_fd_map.h /home/linux/Desktop/wmq/lib/hashtable/hashtable.h \
+ /home/linux/Desktop/wmq/inc/lists.h service_dispatch.h mq_receiver.h
+/home/linux/Desktop/wmq/obj/server_util.o: server_util.c \
+ /home/linux/Desktop/wmq/src/common/log.h server_util.h \
+ /home/linux/Desktop/wmq/src/common/common_define.h \
+ /home/linux/Desktop/wmq/lib/rbtree.h \
+ /home/linux/Desktop/wmq/src/thread/threadpool.h \
+ /home/linux/Desktop/wmq/src/common/connect.h \
+ /home/linux/Desktop/wmq/src/common/util.h \
+ /home/linux/Desktop/wmq/src/server/server_util.h msg_queue.h \
+ /home/linux/Desktop/wmq/lib/linked-list-queue/linked_list_queue.h \
+ topic_fd_map.h /home/linux/Desktop/wmq/lib/hashtable/hashtable.h \
+ /home/linux/Desktop/wmq/inc/lists.h \
+ /home/linux/Desktop/wmq/src/common/util.h \
+ /home/linux/Desktop/wmq/src/common/config.h \
+ /home/linux/Desktop/wmq/inc/error_hdr.h \
+ /home/linux/Desktop/wmq/inc/error/get_num.h \
+ /home/linux/Desktop/wmq/inc/error/error_functions.h
+/home/linux/Desktop/wmq/obj/service_dispatch.o: service_dispatch.c \
+ service_dispatch.h server_util.h \
+ /home/linux/Desktop/wmq/src/common/common_define.h \
+ /home/linux/Desktop/wmq/lib/rbtree.h \
+ /home/linux/Desktop/wmq/src/thread/threadpool.h \
+ /home/linux/Desktop/wmq/src/common/connect.h \
+ /home/linux/Desktop/wmq/src/common/util.h \
+ /home/linux/Desktop/wmq/src/server/server_util.h msg_queue.h \
+ /home/linux/Desktop/wmq/lib/linked-list-queue/linked_list_queue.h \
+ topic_fd_map.h /home/linux/Desktop/wmq/lib/hashtable/hashtable.h \
+ /home/linux/Desktop/wmq/inc/lists.h socket_pkg.h mq_sender.h message.h
+/home/linux/Desktop/wmq/obj/socket_pkg.o: socket_pkg.c socket_pkg.h
+/home/linux/Desktop/wmq/obj/topic_fd_map.o: topic_fd_map.c topic_fd_map.h \
+ /home/linux/Desktop/wmq/lib/hashtable/hashtable.h \
+ /home/linux/Desktop/wmq/inc/lists.h

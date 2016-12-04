@@ -1,6 +1,10 @@
+#include <string.h>
+#include <stdio.h>
+
 #include "mq_receiver.h"
 #include "msg_queue.h"
 #include "message.h"
+#include "lists.h"
 
 
 /**
@@ -8,13 +12,14 @@
  * @param node [hash值指向地址]
  * @param msg  [消息]
  */
-static void send_message_to_list(struct hash_node *node,message_t *msg){
+static void send_message_to_list(struct hash_node *node,message_t* msg){
 	//delete fd
 	struct list_entry *current;
 	TGAP_LIST_TRAVERSE_SAFE_BEGIN( &(node->fd_list_head), current, field){
-		write(current->fd,msg->msg_buff,strlen(msg->msg_buff));		
+		size_t size=strlen(msg->msg_buff);
+		write(current->fd,msg->msg_buff,size);		
 	}
-	TGAP_LST_TRAVERSE_SAFE_END
+	TGAP_LIST_TRAVERSE_SAFE_END;
 }
 
 void  msg_queue_receiver(void *arg){
@@ -29,7 +34,6 @@ void  msg_queue_receiver(void *arg){
 				printf("send message\n");
 				send_message_to_list(node,msg);
 			}
-			
 		}
    	}
 }

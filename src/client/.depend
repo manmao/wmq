@@ -1,5 +1,4 @@
-/mnt/hgfs/share/wmq/obj/client_util.o: client_util.c \
- /mnt/hgfs/share/wmq/src/common/common_define.h client_util.h \
- /mnt/hgfs/share/wmq/src/server/socket_pkg.h \
- /mnt/hgfs/share/wmq/src/server/message.h \
- /mnt/hgfs/share/wmq/src/common/util.h
+/home/linux/Desktop/wmq/obj/client_util.o: client_util.c \
+ /home/linux/Desktop/wmq/src/common/common_define.h client_util.h \
+ /home/linux/Desktop/wmq/src/server/socket_pkg.h \
+ /home/linux/Desktop/wmq/src/common/util.h

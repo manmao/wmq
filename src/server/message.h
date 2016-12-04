@@ -1,4 +1,4 @@
-#ifdef  __MESSAGE_H_
+#ifndef  __MESSAGE_H_
 #define __MESSAGE_H_
 
 #include <stdbool.h>  //C99 标准包含的头文件 包括bool
