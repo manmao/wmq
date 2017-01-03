@@ -71,7 +71,7 @@ int on_readable(int readable_fd)
 static
 int handle_listenmq()
 {
-   //开启县城组，监听对应的消息队列
+   //开启线程组，监听对应的消息队列
    pthread_t receiver_tid[10];
    int i;
    for(i = 0; i < master_server->queues; i++){
