@@ -11,6 +11,8 @@
 #include "sig_handler.h"
 #include "log.h"
 
+#define EXIT_FAILURE 1 
+
 /* 增加我们想要捕捉的异常信号，这里列举了6个 */
 sig_info_t sigCatch[] = {
     {1, "SIGHUP"}, {2, "SIGINT"}, {3, "SIGQUIT"},
@@ -64,7 +66,7 @@ void registe_sig_handler(){
         // 注册信号处理函数
         if(sigaction(sigCatch[i].signum, &sa, NULL) < 0)
         {
-            return EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
     }
 

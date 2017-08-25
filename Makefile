@@ -47,7 +47,7 @@ clean:
 
 distclean:
 	@$(call del_obj)
-	cd deps && make clean
+	#cd deps && make clean
 	-rm $(MAKEROOT)/obj/*.o  $(MAKEROOT)/bin/$(TARGET)
 depend:
 	@$(call build_dep)

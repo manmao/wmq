@@ -57,8 +57,9 @@ void* pop_msg_head(msg_queue_t *msg_queue)
 
 int count_queue(msg_queue_t *msg_queue){
      pthread_mutex_lock(&(msg_queue->msg_queue_mutex));
-        return llqueue_count(msg_queue->list_queue);
+        int count=llqueue_count(msg_queue->list_queue);
      pthread_mutex_unlock(&(msg_queue->msg_queue_mutex));
+     return count;
 }
 
 

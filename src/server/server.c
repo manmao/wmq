@@ -16,9 +16,7 @@
 #include "server.h"
 #include "service_dispatch.h"
 #include "mq_receiver.h"
-
 #include "msg_queue.h"
-
 
 
 server_t *master_server;
@@ -71,27 +69,27 @@ int on_readable(int readable_fd)
 static
 int handle_listenmq()
 {
-   //开启线程组，监听对应的消息队列
-   pthread_t receiver_tid[10];
+   //开启线程组，监听对应的消息队列,master_server->mq[i]每个消息队列建立一个线程监听
+   pthread_t receiver_tid[20];
    int i;
    for(i = 0; i < master_server->queues; i++){
       master_server->mq[i]->ht=master_server->ht;
-      pthread_create(&receiver_tid,NULL,&msg_queue_receiver,master_server->mq[i]);
+      pthread_create(&receiver_tid[i],NULL,(void *)&msg_queue_receiver,master_server->mq[i]);
    }
 
    return 0;
 }
 
 void handle_request(void *arg){
+
    struct conn_node *node=(struct conn_node *)arg;
-   socket_pkg_t *socket_pkt_ptr=NULL;  
+   socket_pkg_t *socket_pkt_ptr=NULL;
+   pkg_header_t *header=NULL;  
    while(1)
    {
-       socket_pkt_ptr=create_socket_pkg_instance();
-       
-       assert(socket_pkt_ptr != NULL);
-
-       int buflen=recv(node->conn_fd,(void *)socket_pkt_ptr,sizeof(socket_pkg_t),0);
+       header=create_pkg_header_instance(); //创建header实例
+       assert(header != NULL);
+       int buflen=recv(node->conn_fd,(void *)header,sizeof(header),0);
 
        if(buflen < 0)
        {
@@ -101,23 +99,35 @@ void handle_request(void *arg){
            }else{
                log_write(CONF.lf,LOG_INFO,"error:file:%s,line :%d\n",__FILE__,__LINE__);                            //error
            }
-           destroy_socket_pkg_instance(socket_pkt_ptr);
+           free(header);
+           header=NULL;
            return ;
-       }
-       else if(buflen==0)           
-       {
+       }else if(buflen==0){
+
           //删除连接节点
           conn_delete(&master_server->conn_root,node);
-          destroy_socket_pkg_instance(socket_pkt_ptr);
+          free(header);
+          header=NULL;
           return ;
+
+       }else if(buflen>0 ){
+
+          socket_pkt_ptr=create_socket_pkg_instance();
+          socket_pkt_ptr=add_header(socket_pkt_ptr,header);
+          socket_pkt_ptr->fd=node->conn_fd;
+
+          int res=recv(node->conn_fd,(void *)socket_pkt_ptr->msg,socket_pkt_ptr->data_len,0);
+          if(res<0)
+            log_write(CONF.lf,LOG_ERROR,"#####receive data body fail!!!###########");
+          handle_socket_pkg(master_server,socket_pkt_ptr);
+          log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d\n",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum);
+       
        }
-       else if(buflen>0)
-       {
-        //消息分发
-        socket_pkt_ptr->fd=node->conn_fd;
-        handle_socket_pkg(master_server,socket_pkt_ptr);
-        log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d\n",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum);
-       }
+
+       free(header);
+       header=NULL;
+
+
    }
 }
 

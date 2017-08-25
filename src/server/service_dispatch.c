@@ -6,7 +6,6 @@
 #include "msg_queue.h"
 #include "topic_fd_map.h"
 #include "mq_sender.h"
-#include "message.h"
 
 static int queue_idx=0;
 
@@ -42,22 +41,26 @@ int select_queue_round(server_t *master_server){
 		i=(i+1)%master_server->queues;
 	}while(i != queue_idx);
 	queue_idx=(i+1)%master_server->queues;
+	return queue_idx;
 }
 
 
 
 /**
  * 反序列化消息体，根据编码模式反序列化消息体
+ * 
+ * 暂时停用
+ * 
  * @param pkg [description]
  * 
  */
-static message_t* deserialize_message(socket_pkg_t *pkg){
-	message_t* msg=NULL;
+static uint8_t* deserialize_message(socket_pkg_t *pkg){
+	uint8_t* msg=NULL;
 	assert(pkg != NULL);
 
 	switch(pkg->code){
 		case CODE_NATIVE:{
-			msg=(message_t *)pkg->msg; //转化为结构体
+			msg=pkg->msg; //转化为结构体
 			break;
 		}
 		case CODE_JSON:{
@@ -96,8 +99,7 @@ static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
 		case MQ_PUBMSG:{	//发送消息到消息队列
 			int idx=select_qeueue_default(master_server);
 			msg_queue_t *mq=master_server->mq[idx]; //选择负载最小的队列
-			message_t *msg=deserialize_message(pkg);
-			send_msg_mq(mq,msg);
+			send_msg_mq(mq,pkg);
 			break;
 		}
 		default:

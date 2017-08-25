@@ -6,9 +6,16 @@
 #include <stdio.h>
 #include <sys/types.h>
 
+/*typedef signed char int8_t
+typedef unsigned char uint8_t
+typedef signed int int16_t
+typedef unsigned int uint16_t
+typedef signed long int int32_t
+typedef unsigned long int uint32_t
+typedef signed long long int int64_t
+typedef unsigned long long int uint64_t*/
 
-
-#define MESSAGE_BUFF_SIZE 1024*5   //pkt包数据的大小
+#define MESSAGE_BUFF_SIZE 1024*5   //pkt包数据的大小,5k
 
 //版本号
 #define VERSION    0x01
@@ -36,16 +43,29 @@
 #define MQ_PUBMSG 0x0004
 
 
+typedef struct pkg_header{
+	uint8_t            version;      //协议版本
+	uint8_t	           code;         //数据编码方式  gzip/json/protobuf(0x01/0x02/0x03)
+	int 			   fd;
+	char 			   topic[128];   //topic
+	uint16_t           cmd;          //数据包性质
+	uint32_t           data_len;     //数据长度
+	uint16_t           checksum;     //数据校验和
+	char 			   from[64];     //消息来源
+}pkg_header_t;
+
+
+//header size=142 字节
 typedef struct socket_pkg{
 	uint8_t            version;      //协议版本
 	uint8_t	           code;         //数据编码方式  gzip/json/protobuf(0x01/0x02/0x03)
 	int 			   fd;
-	char 			   topic[255];   //topic
+	char 			   topic[128];   //topic
 	uint16_t           cmd;          //数据包性质
 	uint32_t           data_len;     //数据长度
 	uint16_t           checksum;     //数据校验和
-
-    uint8_t     	   msg[MESSAGE_BUFF_SIZE];		 //消息体body
+	char 			   from[64];	 //消息来源
+    uint8_t     	   *msg;		 //消息体body
 }socket_pkg_t;
 
 
@@ -54,6 +74,16 @@ typedef struct socket_pkg{
  * @return [description]
  */
 extern struct socket_pkg* create_socket_pkg_instance();
+ 
+
+/**
+ * 创建一个包头部代码
+ * @return [description]
+ */
+extern struct pkg_header* create_pkg_header_instance();
+
+
+extern struct socket_pkg* add_header(struct socket_pkg* pkg,struct pkg_header*header);
 
 /**
  * 销毁一个实例

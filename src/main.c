@@ -5,6 +5,7 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/wait.h>
 
 #include "error_hdr.h"
 #include "init.h"
