@@ -17,10 +17,12 @@ static void send_message_to_list(struct hash_node *node,socket_pkg_t* pkg){
 	//delete fd
 	struct list_entry *current;
 	TGAP_LIST_TRAVERSE_SAFE_BEGIN( &(node->fd_list_head), current, field){
+		//如果客户端断开连接，则移除连接的文件描述符号
+		int len=write(current->fd,pkg->msg,pkg->data_len);
 
-		int len=write(current->fd,pkg->msg,pkg->data_len);	
 		if(pkg->data_len==len)
 			free(pkg); //清空内存
+
 	} 
 
 	TGAP_LIST_TRAVERSE_SAFE_END;
