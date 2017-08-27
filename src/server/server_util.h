@@ -100,4 +100,6 @@ extern void deletefd(int epollfd,int fd);
 
 extern void modfd(int epollfd,int fd,int ev);
 
+extern void set_nodelay(int fd);
+
 #endif

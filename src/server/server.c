@@ -45,6 +45,7 @@ int on_accept(int client_conn_fd,struct sockaddr clientaddr)
   type->node->conn_fd = client_conn_fd;
   type->node->epoll_fd = master_server->efd;
   type->node->clientaddr = clientaddr;
+  set_nodelay(client_conn_fd); //设置禁用Nagle
 
   pthread_mutex_lock(&(master_server->rb_root_lock));
   conn_insert(&(master_server->conn_root),type);

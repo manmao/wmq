@@ -76,6 +76,18 @@ void modfd(int epollfd,int fd,int ev)
 }
 
 
+void set_nodelay(int fd){
+
+	int optval; 	   //整形的选项值
+	socklen_t optlen;  //整形的选项值的长度
+	int err;		   //设置返回结果
+	
+	/*******禁用Nagle算法***********/
+	optval=1;
+	optlen=sizeof(optval);
+	err=setsockopt(sfd,IPPROTO_TCP,TCP_NODELAY,(char *)&optval,optlen);
+}
+
 /********************************
 *设置套接字属性
 *	主要作用是：
@@ -132,7 +144,7 @@ void  server_set_sock(int sfd){
     }
 
     /*******设置文件描述符非阻塞*********/
-	   setnonblock(sfd);
+	setnonblock(sfd);
 }
 
 
