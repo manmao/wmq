@@ -85,7 +85,7 @@ void set_nodelay(int fd){
 	/*******禁用Nagle算法***********/
 	optval=1;
 	optlen=sizeof(optval);
-	err=setsockopt(sfd,IPPROTO_TCP,TCP_NODELAY,(char *)&optval,optlen);
+	err=setsockopt(fd,IPPROTO_TCP,TCP_NODELAY,(char *)&optval,optlen);
 }
 
 /********************************
