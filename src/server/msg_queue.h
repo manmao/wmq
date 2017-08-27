@@ -12,23 +12,39 @@ typedef struct msg_queue{
 
 	//消息队列
 	linked_list_queue_t *list_queue;
-	
-	//全局hash表，topic到fd list的映射
-	HashTable *ht;
-	
-	//
-	struct rb_root *conn_root;  //
 
 	//互斥锁
     pthread_mutex_t msg_queue_mutex;
+    
     //条件变量
     pthread_cond_t  msg_queue_cond;
+
+
+	//全局hash表，topic到fd list的映射
+	HashTable *ht;
+
+	//
+	pthread_mutex_t *ht_lock;           //互斥锁
+
+
+	struct rb_root *conn_root;  //存放客户端和服务端的连接
+	
+	//
+    pthread_mutex_t *rb_root_lock;      //互斥锁
+
+
+	
+
+	
 
 }msg_queue_t;
 
 
 
-extern msg_queue_t* init_meesage_queue();
+extern msg_queue_t* init_meesage_queue(struct rb_root *conn_root, 
+                        HashTable *ht,
+                        pthread_mutex_t *ht_lock, 
+                        pthread_mutex_t *rb_root_lock)
 
 /**
  * 发送消息到消息队列中

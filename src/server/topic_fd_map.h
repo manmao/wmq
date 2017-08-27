@@ -36,16 +36,25 @@ extern HashTable *create_fdtopic_hashtable();
  * @param ht    [hashtable]
  * @param topic [主题]
  * @param fd    [文件描述符]
+ * 
+ * @param ht_lock  [hashtable 的互斥锁]
  */
-extern void add_topic(HashTable *ht,char *topic,int fd);
+extern void add_topic(HashTable *ht,
+			char *topic,
+			int fd,
+			pthread_mutex_t *ht_lock){;
 
 /**
  * 根据topic找到对应的fd list
  * @param  ht    [description]
  * @param  topic [description]
+ * @param rb_root_lock  [hashtable 的互斥锁]
  * @return       [description]
+ * 
  */
-extern struct hash_node *find_topic_fdlist(HashTable *ht,char *topic);
+extern hash_node *find_topic_fdlist(HashTable *ht,
+				char *topic,
+				pthread_mutex_t *rb_root_lock);
 
 /**
  * 删除topic中对应的fd

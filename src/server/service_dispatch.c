@@ -98,10 +98,10 @@ static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
 		}
 
 		case MQ_SUBTOPIC:{    // 注册topic
-			add_topic(master_server->ht,pkg->topic,pkg->fd);
+			add_topic(master_server->ht,pkg->topic,pkg->fd,&master_server->ht_lock);
 			break;
 		}
-
+		
 		case MQ_PUBMSG:{	//发送消息到消息队列
 			int idx=select_qeueue_default(master_server);
 			printf("queues number :%d\n",idx);

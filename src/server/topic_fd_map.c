@@ -6,15 +6,16 @@
 #include "topic_fd_map.h"
 
 
-//hash表互斥锁
-static pthread_mutex_t hash_mutext=PTHREAD_MUTEX_INITIALIZER;
 
 HashTable *create_fdtopic_hashtable(){
 	 HashTable *ht = create_hashtable(100,char*,long);
 	 return ht;
 }
 
-void add_topic(HashTable *ht,char *topic,int fd){
+void add_topic(HashTable *ht,
+	char *topic,
+	int fd,
+	pthread_mutex_t *ht_lock){
 
 	struct list_entry *entry=(struct list_entry*)malloc(sizeof(struct list_entry));
 	entry->fd=fd;
@@ -31,13 +32,13 @@ void add_topic(HashTable *ht,char *topic,int fd){
 		TGAP_LIST_HEAD_INIT(&(node->fd_list_head));
 
 		//在链表尾部插入节点
-		TGAP_LIST_LOCK(&(node->fd_list_head));
+		TGAP_LIST_LOCK(&(node->fd_list_head)); //加锁
 		TGAP_LIST_INSERT_TAIL(&(node->fd_list_head),entry,field);
-		TGAP_LIST_UNLOCK(&(node->fd_list_head));
+		TGAP_LIST_UNLOCK(&(node->fd_list_head)); //解锁
 
-		pthread_mutex_lock(&hash_mutext); //阻塞,全局加锁
+		pthread_mutex_lock(ht_lock); //阻塞,加锁
 		hash_add(ht,topic,node); //添加到hash
-		pthread_mutex_unlock(&hash_mutext);
+		pthread_mutex_unlock(ht_lock);
 
 	}else{//有注册fd得链表
 		TGAP_LIST_LOCK(&(node->fd_list_head));
@@ -46,9 +47,12 @@ void add_topic(HashTable *ht,char *topic,int fd){
 	}
 }
 
-struct hash_node *find_topic_fdlist(HashTable *ht,char *topic){
+struct hash_node *find_topic_fdlist(HashTable *ht,char *topic,pthread_mutex_t *ht_lock){
 	struct hash_node *node=NULL;
+	pthread_mutex_lock(ht_lock);              
 	hash_find(ht,topic,&node);//查询topic相关的fd列表
+	pthread_mutex_unlock(ht_lock);
+	
 	return node;
 }
 

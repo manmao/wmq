@@ -3,20 +3,22 @@
 
 
 
-msg_queue_t* init_meesage_queue(struct rb_root *conn_root){
+msg_queue_t* init_meesage_queue(struct rb_root *conn_root, 
+                        HashTable *ht,
+                        pthread_mutex_t *ht_lock, 
+                        pthread_mutex_t *rb_root_lock){
+
     msg_queue_t *mq_ptr;
     mq_ptr=(msg_queue_t *)malloc(sizeof(msg_queue_t)); 
     mq_ptr->list_queue=(linked_list_queue_t *)llqueue_new();
-
+    //初始化消息队列锁
     pthread_mutex_init(&(mq_ptr->msg_queue_mutex),NULL);
     pthread_cond_init(&(mq_ptr->msg_queue_cond),NULL);
-    //初始化互斥锁
-    //mq_ptr->msg_queue_mutex = PTHREAD_MUTEX_INITIALIZER;
-    //初始化条件变量
-    //mq_ptr->msg_queue_cond = PTHREAD_COND_INITIALIZER;
-    //mq_ptr->ht=create_fdtopic_hashtable();
-    mq_ptr->ht=NULL;
+    mq_ptr->ht=ht;
+    mq_ptr->ht_lock=ht_lock;
+
     mq_ptr->conn_root=conn_root;
+    mq_ptr->rb_root_lock=rb_root_lock;
 
     return mq_ptr;
 }

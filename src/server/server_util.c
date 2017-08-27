@@ -240,6 +240,7 @@ void op_server_listener(void *arg){
 
 ***************************/
 void  init_server(server_t *server,char *ip,int port,struct server_handler *handler){
+  	
   	int sfd=socket(AF_INET,SOCK_STREAM,0);
 	struct sockaddr_in addr;
 	addr.sin_family=AF_INET;
@@ -267,19 +268,27 @@ void  init_server(server_t *server,char *ip,int port,struct server_handler *hand
 	server->efd=efd;
 	server->conn_root=RB_ROOT;
 	server->handler=handler;
-	
+
+	//初始化hash表
+    server->ht=create_fdtopic_hashtable();
+
+    //初始化锁
+    pthread_mutex_init(&(server->ht_lock),NULL);
+    pthread_mutex_init(&(server->rb_root_lock),NULL);
+
 	//初始化MQ群组
 	int i=0;
     for(i=0;i<CONF.queue_num;i++){
-       (server->mq)[i]=init_meesage_queue(&server->conn_root);
+    	
+       (server->mq)[i]=init_meesage_queue(&server->conn_root,server->ht,
+       							&(server->ht_lock),
+       							&(server->rb_root_lock)); //
+
     }
     server->queues=CONF.queue_num;
 
-    //初始化hash表
-    server->ht=create_fdtopic_hashtable();
     
-    //初始化锁
-    pthread_mutex_init(&(server->lock),NULL);
+
 
     /** 注册监听信号进程 **/
     if(handler->handle_sig){

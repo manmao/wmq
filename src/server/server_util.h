@@ -35,18 +35,22 @@ typedef struct server{
 
     struct threadpool *tpool;		 //线程池
     
-	struct rb_root   conn_root; 	 //客户端连接节点
+
 
     struct server_handler *handler;  //连接处理函数回调
 
     int queues;                  //消息队列的个数
-    
+
     //mq群组 
     struct msg_queue *mq[DEFAULT_MESSAGE_QUEUE_NUM]; 
 
     HashTable *ht;                  //hash表，保存 topic-fd 列表的映射
 
-    pthread_mutex_t lock;           //互斥锁
+    pthread_mutex_t ht_lock;           //互斥锁
+
+    struct rb_root   conn_root;      //客户端连接节点
+
+    pthread_mutex_t rb_root_lock;      //互斥锁
 
 }server_t;
 

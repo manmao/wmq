@@ -73,15 +73,12 @@ int handle_listenmq()
    pthread_t receiver_tid[20];
    int i;
    for(i = 0; i < master_server->queues; i++){
-      master_server->mq[i]->ht=master_server->ht;
+      //master_server->mq[i]->ht=master_server->ht;
       pthread_create(&receiver_tid[i],NULL,(void *)&msg_queue_receiver,master_server->mq[i]);
    }
 
    return 0;
 }
-
-
-
 
 void handle_request(void *arg){
 
@@ -102,8 +99,12 @@ void handle_request(void *arg){
            }else{
               log_write(CONF.lf,LOG_INFO,"connect error  ---------file:%s,line :%d\n",__FILE__,__LINE__);                            //error
               printf("close socket fd:%d\n\n",node->conn_fd);
+              
               //删除连接节点
+              pthread_mutex_lock(&(master_server->rb_root_lock));
               conn_delete(&master_server->conn_root,node);
+              pthread_mutex_unlock(&(master_server->rb_root_lock));
+
            }
            free(header);
            header=NULL;
@@ -111,14 +112,17 @@ void handle_request(void *arg){
        }else if(buflen==0){ //断开连接
 
           //删除连接节点
+          pthread_mutex_lock(&(master_server->rb_root_lock));
           conn_delete(&master_server->conn_root,node);
-          close( node->conn_fd );  
+          pthread_mutex_unlock(&(master_server->rb_root_lock));
           free(header);
           header=NULL;
           return ;
 
        }else if(buflen>0){
-          printf("version:%d, header:%d\n",header->version,buflen);
+          
+          printf("version:%d, header size:%d\n",header->version,buflen);
+          
           socket_pkt_ptr=create_socket_pkg_instance();
           socket_pkt_ptr=add_header(socket_pkt_ptr,header); 
           socket_pkt_ptr->fd=node->conn_fd;
@@ -132,13 +136,11 @@ void handle_request(void *arg){
           //处理消息消息包
           handle_socket_pkg(master_server,socket_pkt_ptr);
           log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d;body:%s\n",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum,socket_pkt_ptr->msg);
-       
        }
-
-       free(header);
-       header=NULL;
    }
 }
+
+
 
 int server_init(int argc,char *argv[])
 {
