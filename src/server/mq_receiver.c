@@ -39,6 +39,7 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
 			printf("find client socket fd :%d sendmsg\n\n",current->fd);
 			int len=write(current->fd,pkg->msg,pkg->data_len);
 		}
+
 	} 
 
 	TGAP_LIST_TRAVERSE_SAFE_END;

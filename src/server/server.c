@@ -93,6 +93,7 @@ void handle_request(void *arg){
       header=create_pkg_header_instance(); //创建header实例
       assert(header != NULL);
       int buflen=recv(node->conn_fd,(void *)header,sizeof(struct pkg_header),0); //接收消息头部
+
       if(buflen < 0)
       {
            //读取完成
@@ -108,8 +109,10 @@ void handle_request(void *arg){
            header=NULL;
            return ;
        }else if(buflen==0){ //断开连接
+
           //删除连接节点
           conn_delete(&master_server->conn_root,node);
+          close( node->conn_fd );  
           free(header);
           header=NULL;
           return ;
@@ -126,7 +129,6 @@ void handle_request(void *arg){
               if(res<0)
                 log_write(CONF.lf,LOG_ERROR,"#####receive data body fail!!!###########\n");
           }
-
           //处理消息消息包
           handle_socket_pkg(master_server,socket_pkt_ptr);
           log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d;body:%s\n",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum,socket_pkt_ptr->msg);

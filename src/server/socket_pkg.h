@@ -42,6 +42,12 @@ typedef unsigned long long int uint64_t*/
 //发布消息
 #define MQ_PUBMSG 0x0004
 
+//主题字段大小
+#define TOPIC_BUFF_SIZE 128  
+
+//来源大小
+#define FROM_BUFF_SIZE 64
+
 
 
 #define TOPIC_BUFF_SIZE 128
