@@ -1,1 +1,2 @@
 /home/linux/Desktop/wmq/obj/threadpool.o: threadpool.c threadpool.h
+/home/linux/Desktop/wmq/obj/workqueue.o: workqueue.c workqueue.h

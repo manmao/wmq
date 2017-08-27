@@ -19,7 +19,7 @@ int select_qeueue_default(server_t *master_server){
 	int queue_no=0;
 	
 	for(i=0;i<master_server->queues;i++){
-		int count=count_queue(master_server->mq[i]->list_queue);
+		int count=count_queue(master_server->mq[i]);
 		if(count<=min_len){
 			queue_no=i;
 			min_len=count;
@@ -27,6 +27,7 @@ int select_qeueue_default(server_t *master_server){
 	}
 	return queue_no;
 }
+
 
 /**
  * 轮询消息队列
@@ -78,34 +79,42 @@ static uint8_t* deserialize_message(socket_pkg_t *pkg){
 	return msg;
 }
 
+
 /**
  * 处理消息包,根据处理操作
  * @param mq  [发送的消息队列通道]
  * @param pkg [消息包]
  */
 static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
+	
 	switch(pkg->cmd){
-		case MQ_OPEN:{
 
+		case MQ_OPEN:{
 			break;
 		}
+
 		case MQ_CLOSE:{
 			break;
 		}
+
 		case MQ_SUBTOPIC:{    // 注册topic
 			add_topic(master_server->ht,pkg->topic,pkg->fd);
 			break;
 		}
+
 		case MQ_PUBMSG:{	//发送消息到消息队列
 			int idx=select_qeueue_default(master_server);
+			printf("queues number :%d\n",idx);
 			msg_queue_t *mq=master_server->mq[idx]; //选择负载最小的队列
 			send_msg_mq(mq,pkg);
 			break;
 		}
+
 		default:
 			break;
 	}
 }
+
 
 void handle_socket_pkg(server_t *master_server,socket_pkg_t *pkg)
 {

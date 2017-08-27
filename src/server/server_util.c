@@ -154,7 +154,7 @@ void handle_accept_event(server_t *server)
     //读取客户端的连接
     while (1)
     {
-	     conn_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)); 
+	    conn_fd=accept(server->listenfd,(struct sockaddr *)&clientaddr,&(addrlen)); 
         if(conn_fd>0){
 	        //添加到epoll监听队列
 	        addfd(server->efd,conn_fd);
@@ -208,8 +208,8 @@ void op_server_listener(void *arg){
 	struct epoll_event events[MAXEVENTS]; //epoll最大事件数,容器
     
     while(true){
-      //被改变值时退出循环
-		  //等待内核通知，获取可读的fd
+      	//被改变值时退出循环
+		//等待内核通知，获取可读的fd
 		int number=epoll_wait(server->efd,events,MAXEVENTS,-1);
 		if(number < 0)
 		{
@@ -217,15 +217,15 @@ void op_server_listener(void *arg){
 			break;
 		}
 
-    int i;
+    	int i;
 		for(i=0;i<number;i++){                   //遍历epoll的所有事件
-      int sockfd=events[i].data.fd;          //获取fd
-      if(sockfd == server->listenfd){          //有客户端建立连接
+      		int sockfd=events[i].data.fd;          //获取fd
+      		if(sockfd == server->listenfd){          //有客户端建立连接
 				handle_accept_event(server);
 			}else if(events[i].events & EPOLLIN){       //efd中有fd可读,
 				handle_readable_event(server,events[i]);
 			}else{                                      //其他
-			    handle_unknown_event(server,events[i]);
+				handle_unknown_event(server,events[i]);
 			}
 		}
 	}
@@ -271,7 +271,7 @@ void  init_server(server_t *server,char *ip,int port,struct server_handler *hand
 	//初始化MQ群组
 	int i=0;
     for(i=0;i<CONF.queue_num;i++){
-       (server->mq)[i]=init_meesage_queue();
+       (server->mq)[i]=init_meesage_queue(&server->conn_root);
     }
     server->queues=CONF.queue_num;
 

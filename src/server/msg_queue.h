@@ -5,12 +5,20 @@
 
 #include "linked_list_queue.h"
 #include "topic_fd_map.h"
+#include "connect.h"
+
 
 typedef struct msg_queue{
+
 	//消息队列
 	linked_list_queue_t *list_queue;
+	
 	//全局hash表，topic到fd list的映射
 	HashTable *ht;
+	
+	//
+	struct rb_root *conn_root;  //
+
 	//互斥锁
     pthread_mutex_t msg_queue_mutex;
     //条件变量

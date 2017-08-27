@@ -75,8 +75,9 @@ void delete_fd(HashTable *ht,char *topic,int fd){
 
 
 void destroy_fdtopic_hashtable(HashTable *ht){
-	assert(ht!=NULL);
 	
+	assert(ht!=NULL);
+
 	for(reset(ht);isnotend(ht);next(ht)){
         char *t_key = skey(ht);
         long v_tmp = *(long *)value(ht);

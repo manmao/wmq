@@ -6,21 +6,39 @@
 #include "msg_queue.h"
 #include "socket_pkg.h"
 #include "lists.h"
+#include "connect.h"
+
+
+static 
+int validate_conn(int fd,msg_queue_t *msgq){
+	struct conn_node conn;
+	conn.conn_fd=fd;
+	struct conn_type * type=conn_search(msgq->conn_root,&conn);
+	return type!=NULL?1:0;
+}
 
 
 /**
  * 发送消息给对应的客户端
+ *
  * @param node [hash值指向地址]
  * @param msg  [消息]
  */
-static void send_message_to_list(struct hash_node *node,socket_pkg_t* pkg){
+static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket_pkg_t* pkg){
 	//delete fd
 	struct list_entry *current;
 	TGAP_LIST_TRAVERSE_SAFE_BEGIN( &(node->fd_list_head), current, field){
-
-		int len=write(current->fd,pkg->msg,pkg->data_len);	
-		if(pkg->data_len==len)
-			free(pkg); //清空内存
+		
+		//如果客户端断开连接，则移除连接的文件描述符号
+		if(validate_conn(current->fd,msgq) == 0){
+			printf("find client socket fd :%d deleted\n\n",current->fd);
+			TGAP_LIST_LOCK(&(node->fd_list_head));
+			TGAP_LIST_REMOVE_CURRENT(field);
+			TGAP_LIST_UNLOCK(&(node->fd_list_head));
+		}else{
+			printf("find client socket fd :%d sendmsg\n\n",current->fd);
+			int len=write(current->fd,pkg->msg,pkg->data_len);
+		}
 	} 
 
 	TGAP_LIST_TRAVERSE_SAFE_END;
@@ -41,8 +59,8 @@ void  msg_queue_receiver(void *arg){
 			printf("topic :%s ,reciver message:%s\n",pkg->topic,pkg->msg);
 			struct hash_node *node=find_topic_fdlist(msgq->ht,pkg->topic);
 			if(node!=NULL){
-				printf("send message\n");
-				send_message_to_list(node,pkg);
+				printf("send message......\n");
+				send_message_to_list(msgq,node,pkg);
 			}
 		}
    	}

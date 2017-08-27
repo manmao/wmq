@@ -109,6 +109,7 @@ struct rb_node
 struct rb_root
 {
 	struct rb_node *rb_node;
+	
 };
 
 #define rb_parent(r)   ((struct rb_node *)((r)->rb_parent_color & ~3))

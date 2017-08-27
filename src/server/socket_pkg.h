@@ -8,8 +8,8 @@
 
 /*typedef signed char int8_t
 typedef unsigned char uint8_t
-typedef signed int int16_t
-typedef unsigned int uint16_t
+typedef signed short int16_t
+typedef unsigned short uint16_t
 typedef signed long int int32_t
 typedef unsigned long int uint32_t
 typedef signed long long int int64_t
@@ -43,28 +43,35 @@ typedef unsigned long long int uint64_t*/
 #define MQ_PUBMSG 0x0004
 
 
+
+#define TOPIC_BUFF_SIZE 128
+
+#define FROM_BUFF_SIZE 64
+
+
 typedef struct pkg_header{
-	uint8_t            version;      //协议版本
-	uint8_t	           code;         //数据编码方式  gzip/json/protobuf(0x01/0x02/0x03)
-	int 			   fd;
-	char 			   topic[128];   //topic
-	uint16_t           cmd;          //数据包性质
+	uint32_t            version;      //协议版本
+	uint32_t	        code;         //数据编码方式  gzip/json/protobuf(0x01/0x02/0x03)
+	uint32_t           cmd;          //数据包性质i
+	int 		   		fd;
 	uint32_t           data_len;     //数据长度
-	uint16_t           checksum;     //数据校验和
-	char 			   from[64];     //消息来源
+	uint32_t           checksum;     //数据校验和
+	uint8_t 		   topic[TOPIC_BUFF_SIZE];   //topic
+	uint8_t 		   from[FROM_BUFF_SIZE];     //消息来源
+	
 }pkg_header_t;
 
 
 //header size=142 字节
 typedef struct socket_pkg{
-	uint8_t            version;      //协议版本
-	uint8_t	           code;         //数据编码方式  gzip/json/protobuf(0x01/0x02/0x03)
-	int 			   fd;
-	char 			   topic[128];   //topic
-	uint16_t           cmd;          //数据包性质
+	uint32_t            version;      //协议版本
+	uint32_t	        code;         //数据编码方式  gzip/json/protobuf(0x01/0x02/0x03)
+	uint32_t           cmd;          //数据包性质i
+	int 		   		fd;
 	uint32_t           data_len;     //数据长度
-	uint16_t           checksum;     //数据校验和
-	char 			   from[64];	 //消息来源
+	uint32_t           checksum;     //数据校验和
+	uint8_t 		   from[64];     //消息来源
+	uint8_t 		   topic[128];   //topic
     uint8_t     	   *msg;		 //消息体body
 }socket_pkg_t;
 

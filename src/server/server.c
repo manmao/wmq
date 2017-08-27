@@ -80,6 +80,9 @@ int handle_listenmq()
    return 0;
 }
 
+
+
+
 void handle_request(void *arg){
 
    struct conn_node *node=(struct conn_node *)arg;
@@ -87,47 +90,51 @@ void handle_request(void *arg){
    pkg_header_t *header=NULL;  
    while(1)
    {
-       header=create_pkg_header_instance(); //创建header实例
-       assert(header != NULL);
-       int buflen=recv(node->conn_fd,(void *)header,sizeof(header),0);
-
-       if(buflen < 0)
-       {
+      header=create_pkg_header_instance(); //创建header实例
+      assert(header != NULL);
+      int buflen=recv(node->conn_fd,(void *)header,sizeof(struct pkg_header),0); //接收消息头部
+      if(buflen < 0)
+      {
            //读取完成
            if(errno== EAGAIN || errno == EINTR){ 
-               log_write(CONF.lf,LOG_INFO,"no data:file:%s,line :%d\n",__FILE__,__LINE__);
+               log_write(CONF.lf,LOG_INFO,"recive data over -----file:%s,line :%d\n",__FILE__,__LINE__);
            }else{
-               log_write(CONF.lf,LOG_INFO,"error:file:%s,line :%d\n",__FILE__,__LINE__);                            //error
+              log_write(CONF.lf,LOG_INFO,"connect error  ---------file:%s,line :%d\n",__FILE__,__LINE__);                            //error
+              printf("close socket fd:%d\n\n",node->conn_fd);
+              //删除连接节点
+              conn_delete(&master_server->conn_root,node);
            }
            free(header);
            header=NULL;
            return ;
-       }else if(buflen==0){
-
+       }else if(buflen==0){ //断开连接
           //删除连接节点
           conn_delete(&master_server->conn_root,node);
           free(header);
           header=NULL;
           return ;
 
-       }else if(buflen>0 ){
-
+       }else if(buflen>0){
+          printf("version:%d, header:%d\n",header->version,buflen);
           socket_pkt_ptr=create_socket_pkg_instance();
-          socket_pkt_ptr=add_header(socket_pkt_ptr,header);
+          socket_pkt_ptr=add_header(socket_pkt_ptr,header); 
           socket_pkt_ptr->fd=node->conn_fd;
 
-          int res=recv(node->conn_fd,(void *)socket_pkt_ptr->msg,socket_pkt_ptr->data_len,0);
-          if(res<0)
-            log_write(CONF.lf,LOG_ERROR,"#####receive data body fail!!!###########");
+          if(socket_pkt_ptr->data_len > 0){ //
+              //接收消息体
+              int res=recv(node->conn_fd,(void *)socket_pkt_ptr->msg,socket_pkt_ptr->data_len,0);
+              if(res<0)
+                log_write(CONF.lf,LOG_ERROR,"#####receive data body fail!!!###########\n");
+          }
+
+          //处理消息消息包
           handle_socket_pkg(master_server,socket_pkt_ptr);
-          log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d\n",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum);
+          log_write(CONF.lf,LOG_INFO,"data len:%d ,data checksum:%d;body:%s\n",socket_pkt_ptr->data_len, socket_pkt_ptr->checksum,socket_pkt_ptr->msg);
        
        }
 
        free(header);
        header=NULL;
-
-
    }
 }
 
@@ -150,3 +157,4 @@ int server_init(int argc,char *argv[])
 
     return 0;
 }
+

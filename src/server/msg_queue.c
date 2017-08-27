@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include "msg_queue.h"
 
-msg_queue_t* init_meesage_queue(){
+
+
+msg_queue_t* init_meesage_queue(struct rb_root *conn_root){
     msg_queue_t *mq_ptr;
     mq_ptr=(msg_queue_t *)malloc(sizeof(msg_queue_t)); 
     mq_ptr->list_queue=(linked_list_queue_t *)llqueue_new();
@@ -14,9 +16,11 @@ msg_queue_t* init_meesage_queue(){
     //mq_ptr->msg_queue_cond = PTHREAD_COND_INITIALIZER;
     //mq_ptr->ht=create_fdtopic_hashtable();
     mq_ptr->ht=NULL;
+    mq_ptr->conn_root=conn_root;
 
     return mq_ptr;
 }
+
 
 
 void push_msg_tail(msg_queue_t *msg_queue,void *item)
@@ -35,6 +39,7 @@ void push_msg_tail(msg_queue_t *msg_queue,void *item)
 
 }
 
+
 void* pop_msg_head(msg_queue_t *msg_queue)
 {
 	void *item=NULL;
@@ -44,7 +49,6 @@ void* pop_msg_head(msg_queue_t *msg_queue)
 
     pthread_mutex_lock(&(msg_queue->msg_queue_mutex));
 
-    
     while(llqueue_count(msg_queue->list_queue)<=0){ //如果队列为空
 		 pthread_cond_wait(&(msg_queue->msg_queue_cond),&(msg_queue->msg_queue_mutex));  //等待
 	}
@@ -54,6 +58,7 @@ void* pop_msg_head(msg_queue_t *msg_queue)
 
     return item;
 }
+
 
 int count_queue(msg_queue_t *msg_queue){
      pthread_mutex_lock(&(msg_queue->msg_queue_mutex));
