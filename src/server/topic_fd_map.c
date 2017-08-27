@@ -23,7 +23,11 @@ void add_topic(HashTable *ht,
 	strcpy(entry->topic,topic);
 
 	struct hash_node *node=NULL;
+	
+	pthread_mutex_lock(ht_lock); //阻塞,加锁
 	hash_find(ht,topic,&node);//查询topic相关的fd列表
+	pthread_mutex_unlock(ht_lock);
+
 	if(node == NULL){//没有注册fd链表
 		
 		node=(struct hash_node *)malloc(sizeof(struct hash_node));

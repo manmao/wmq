@@ -18,7 +18,7 @@ int select_qeueue_default(server_t *master_server){
 	int min_len=100000000;
 	int queue_no=0;
 	
-	for(i=0;i<master_server->queues;i++){
+	for(i=0; i<master_server->queues; i++){
 		int count=count_queue(master_server->mq[i]);
 		if(count<=min_len){
 			queue_no=i;

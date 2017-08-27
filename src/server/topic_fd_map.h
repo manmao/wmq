@@ -1,6 +1,7 @@
 #ifndef __TOP_FD_MAP_H_
 #define __TOP_FD_MAP_H_
 
+#include <pthread.h>
 
 #include "hashtable.h"
 #include "lists.h"
@@ -42,7 +43,7 @@ extern HashTable *create_fdtopic_hashtable();
 extern void add_topic(HashTable *ht,
 			char *topic,
 			int fd,
-			pthread_mutex_t *ht_lock){;
+			pthread_mutex_t *ht_lock);
 
 /**
  * 根据topic找到对应的fd list
@@ -52,7 +53,7 @@ extern void add_topic(HashTable *ht,
  * @return       [description]
  * 
  */
-extern hash_node *find_topic_fdlist(HashTable *ht,
+extern struct hash_node *find_topic_fdlist(HashTable *ht,
 				char *topic,
 				pthread_mutex_t *rb_root_lock);
 

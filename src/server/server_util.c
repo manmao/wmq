@@ -279,11 +279,10 @@ void  init_server(server_t *server,char *ip,int port,struct server_handler *hand
 	//初始化MQ群组
 	int i=0;
     for(i=0;i<CONF.queue_num;i++){
-    	
+
        (server->mq)[i]=init_meesage_queue(&server->conn_root,server->ht,
        							&(server->ht_lock),
        							&(server->rb_root_lock)); //
-
     }
     server->queues=CONF.queue_num;
 
@@ -403,7 +402,6 @@ void destroy_server(server_t *server){
 
 	close(server->listenfd);
 	close(server->efd);
-    pthread_mutex_destroy(&(server->lock));
 
 	threadpool_destroy(server->tpool);
 

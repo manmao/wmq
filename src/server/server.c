@@ -45,7 +45,11 @@ int on_accept(int client_conn_fd,struct sockaddr clientaddr)
   type->node->conn_fd = client_conn_fd;
   type->node->epoll_fd = master_server->efd;
   type->node->clientaddr = clientaddr;
+
+  pthread_mutex_lock(&(master_server->rb_root_lock));
   conn_insert(&(master_server->conn_root),type);
+  pthread_mutex_unlock(&(master_server->rb_root_lock));
+  
   return 0;
 }
 
@@ -98,7 +102,7 @@ void handle_request(void *arg){
                log_write(CONF.lf,LOG_INFO,"recive data over -----file:%s,line :%d\n",__FILE__,__LINE__);
            }else{
               log_write(CONF.lf,LOG_INFO,"connect error  ---------file:%s,line :%d\n",__FILE__,__LINE__);                            //error
-              printf("close socket fd:%d\n\n",node->conn_fd);
+              printf("delete socket fd:%d\n\n",node->conn_fd);
               
               //删除连接节点
               pthread_mutex_lock(&(master_server->rb_root_lock));
