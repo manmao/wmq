@@ -41,6 +41,9 @@ public class TcpClient {
                 ChannelPipeline pipeline = ch.pipeline();  
                 //pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));  
                 //pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));  
+				   // 设置特殊分隔符  
+                //ByteBuf buf = Unpooled.copiedBuffer("$_".getBytes());  
+                //pipeline.addLast(new DelimiterBasedFrameDecoder(1024*100, buf));  
                 pipeline.addLast("decoder", new SocketDataDecoder());  
                 pipeline.addLast("encoder", new SocketDataEncoder());  
                 pipeline.addLast("handler", new TcpClientHandler());
