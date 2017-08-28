@@ -51,6 +51,8 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
 			printf("send msg to client socket fd :%d \n\n",current->fd);
 			int len=write(current->fd,pkg->msg,pkg->data_len);
 			write(current->fd,delimiter,sizeof(delimiter)/sizeof(delimiter[0]));
+			free(pkg);
+			pkg=NULL;
 		}
 
 	} 

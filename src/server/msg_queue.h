@@ -24,7 +24,7 @@ typedef struct msg_queue{
 	HashTable *ht;
 
 	//
-	pthread_mutex_t *ht_lock;           //互斥锁
+	pthread_rwlock_t *ht_lock;           //互斥锁
 
 
 	struct rb_root *conn_root;  //存放客户端和服务端的连接
@@ -44,8 +44,8 @@ typedef struct msg_queue{
 
 extern msg_queue_t* init_meesage_queue(struct rb_root *conn_root, 
                         HashTable *ht,
-                        pthread_mutex_t *ht_lock, 
-                        pthread_mutex_t *rb_root_lock);
+                        pthread_rwlock_t *ht_lock, 
+                        pthread_rwlock_t *rb_root_lock);
 
 /**
  * 发送消息到消息队列中
