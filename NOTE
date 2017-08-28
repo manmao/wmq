@@ -3,3 +3,12 @@ server_util.c line 271 mq数据初始化
 service_dispatch.c line 74 添加主题topic
 
 
+加锁地方
+    客户端连接存放红黑树，访问加锁
+    全局hashtable粗放 topic-客户端连接列表，访问加锁
+    队列数据结构，访问加锁    
+
+
+
+
+
