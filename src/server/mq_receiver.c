@@ -9,6 +9,8 @@
 #include "connect.h"
 
 
+static char delimiter[]="$_";
+
 /**
  *判断保存的和客户端的连接是否可用，如果客户端已经断开，则返回0，没断开则返回1
  * 
@@ -48,6 +50,7 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
 		}else{
 			printf("send msg to client socket fd :%d \n\n",current->fd);
 			int len=write(current->fd,pkg->msg,pkg->data_len);
+			write(current->fd,delimiter,sizeof(delimiter)/sizeof(delimiter[0]));
 		}
 
 	} 

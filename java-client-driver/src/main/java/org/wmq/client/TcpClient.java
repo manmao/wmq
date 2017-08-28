@@ -3,8 +3,11 @@ package org.wmq.client;
 import org.wmq.message.SocketData;
 import org.wmq.message.SocketDataDecoder;
 import org.wmq.message.SocketDataEncoder;
+import org.wmq.vo.Constants;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -12,14 +15,13 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 
 
 public class TcpClient {
 	
-	
     public static String HOST = "192.16.137.53";  
     public static int PORT = 9090;  
-    
     
     public static Bootstrap bootstrap = getBootstrap();  
     public static Channel channel = getChannel(HOST,PORT);  
@@ -39,11 +41,9 @@ public class TcpClient {
             @Override  
             protected void initChannel(Channel ch) throws Exception {  
                 ChannelPipeline pipeline = ch.pipeline();  
-                //pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));  
-                //pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));  
-				   // 设置特殊分隔符  
-                //ByteBuf buf = Unpooled.copiedBuffer("$_".getBytes());  
-                //pipeline.addLast(new DelimiterBasedFrameDecoder(1024*100, buf));  
+				// 设置特殊分隔符  
+                ByteBuf buf = Unpooled.copiedBuffer(Constants.delimiter.getBytes());  
+                pipeline.addLast(new DelimiterBasedFrameDecoder(1024*1024*10, buf));  
                 pipeline.addLast("decoder", new SocketDataDecoder());  
                 pipeline.addLast("encoder", new SocketDataEncoder());  
                 pipeline.addLast("handler", new TcpClientHandler());
