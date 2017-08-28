@@ -20,7 +20,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 
 public class TcpClient {
 	
-    public static String HOST = "192.16.137.53";  
+    public static String HOST = "192.16.137.243";  
     public static int PORT = 9090;  
     
     public static Bootstrap bootstrap = getBootstrap();  
@@ -93,13 +93,13 @@ public class TcpClient {
     	
         try {  
             long t0 = System.nanoTime();  
-          /*  TcpClient.sendMsg(createSubTopicPkg("manmao123"));*/
-            for (int i = 0; i < 10; i++) {
+           /* TcpClient.sendMsg(createSubTopicPkg("manmao","windows"));*/
+            for (int i = 0; i < 10000; i++) {
             	Thread.sleep(10);
-            	String msgString="manmao last time test";
-            	//String msgString="可以按需创建集群，即离线作业运行结束就可以释放集群。可以动态的在需要的时候增加节点。 也可以选择包年包月长期运行";
+            	//String msgString="manmao last time test";
+            	String msgString="可以按需创建集群，即离线作业运行结束就可以释放集群。可以动态的在需要的时候增加节点。 也可以选择包年包月长期运行";
 
-            	TcpClient.sendMsg(creatMsgPkg("windows",msgString,"manmao123"));
+            	TcpClient.sendMsg(creatMsgPkg(msgString,"manmao","windows"));
             }  
             long t1 = System.nanoTime();  
             System.out.println((t1-t0)/1000000.0);  
@@ -110,7 +110,7 @@ public class TcpClient {
     }
     
     
-    public static SocketData creatMsgPkg(String from,String message,String topic){
+    public static SocketData creatMsgPkg(String message,String topic,String from){
     	SocketData data=new SocketData();
     	data.setVersion(1);
     	data.setCode(0x0004);
