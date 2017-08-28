@@ -42,7 +42,7 @@ INCLUDE_DIR := \
 LIB_DIR := -L$(MAKEROOT)/lib \
 		   -L$(MAKEROOT)/thirdlib 
 #lib库
-LIB =-lz -lpthread   
+LIB =-lpthread   
 
 #gcc编译时定义宏
 DEFINE := -D_7ZIP_ST
