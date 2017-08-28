@@ -43,7 +43,7 @@ extern HashTable *create_fdtopic_hashtable();
 extern void add_topic(HashTable *ht,
 			char *topic,
 			int fd,
-			pthread_mutex_t *ht_lock);
+			pthread_rwlock_t *ht_lock);
 
 /**
  * 根据topic找到对应的fd list
@@ -55,7 +55,7 @@ extern void add_topic(HashTable *ht,
  */
 extern struct hash_node *find_topic_fdlist(HashTable *ht,
 				char *topic,
-				pthread_mutex_t *rb_root_lock);
+				pthread_rwlock_t *rb_root_lock);
 
 /**
  * 删除topic中对应的fd

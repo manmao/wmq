@@ -47,9 +47,9 @@ int on_accept(int client_conn_fd,struct sockaddr clientaddr)
   type->node->clientaddr = clientaddr;
   set_nodelay(client_conn_fd); //设置禁用Nagle
 
-  pthread_mutex_lock(&(master_server->rb_root_lock));
+  pthread_rwlock_wrlock(&(master_server->rb_root_lock));
   conn_insert(&(master_server->conn_root),type);
-  pthread_mutex_unlock(&(master_server->rb_root_lock));
+  pthread_rwlock_unlock(&(master_server->rb_root_lock));
   
   return 0;
 }
@@ -61,10 +61,10 @@ int on_readable(int readable_fd)
 
     struct conn_node node;
     node.conn_fd=readable_fd;
+    pthread_rwlock_rdlock(&(master_server->rb_root_lock));
     type=conn_search(&(master_server->conn_root),&node);
-
+    pthread_rwlock_unlock(&(master_server->rb_root_lock));
     //将数据包加入任务队列
-    //放入线程池
     threadpool_add_job(master_server->tpool,(void *)&handle_request,type->node);
     return 0;
 }
@@ -106,9 +106,9 @@ void handle_request(void *arg){
               printf("delete socket fd:%d\n\n",node->conn_fd);
               
               //删除连接节点
-              pthread_mutex_lock(&(master_server->rb_root_lock));
+              pthread_rwlock_wrlock(&(master_server->rb_root_lock));
               conn_delete(&master_server->conn_root,node);
-              pthread_mutex_unlock(&(master_server->rb_root_lock));
+              pthread_rwlock_unlock(&(master_server->rb_root_lock));
 
            }
            free(header);
@@ -117,9 +117,9 @@ void handle_request(void *arg){
        }else if(buflen==0){ //断开连接
 
           //删除连接节点
-          pthread_mutex_lock(&(master_server->rb_root_lock));
+          pthread_rwlock_wrlock(&(master_server->rb_root_lock));
           conn_delete(&master_server->conn_root,node);
-          pthread_mutex_unlock(&(master_server->rb_root_lock));
+          pthread_rwlock_unlock(&(master_server->rb_root_lock));
           free(header);
           header=NULL;
           return ;

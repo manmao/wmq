@@ -15,7 +15,7 @@ HashTable *create_fdtopic_hashtable(){
 void add_topic(HashTable *ht,
 	char *topic,
 	int fd,
-	pthread_mutex_t *ht_lock){
+	pthread_rwlock_t *ht_lock){
 
 	struct list_entry *entry=(struct list_entry*)malloc(sizeof(struct list_entry));
 	entry->fd=fd;
@@ -24,9 +24,9 @@ void add_topic(HashTable *ht,
 
 	struct hash_node *node=NULL;
 	
-	pthread_mutex_lock(ht_lock); //阻塞,加锁
+	pthread_rwlock_rdlock(ht_lock); //阻塞,加锁
 	hash_find(ht,topic,&node);//查询topic相关的fd列表
-	pthread_mutex_unlock(ht_lock);
+	pthread_rwlock_unlock(ht_lock);
 
 	if(node == NULL){//没有注册fd链表
 		
@@ -40,9 +40,9 @@ void add_topic(HashTable *ht,
 		TGAP_LIST_INSERT_TAIL(&(node->fd_list_head),entry,field);
 		TGAP_LIST_UNLOCK(&(node->fd_list_head)); //解锁
 
-		pthread_mutex_lock(ht_lock); //阻塞,加锁
+		pthread_rwlock_wrlock(ht_lock); //阻塞,加锁
 		hash_add(ht,topic,node); //添加到hash
-		pthread_mutex_unlock(ht_lock);
+		pthread_rwlock_unlock(ht_lock);
 
 	}else{//有注册fd得链表
 		TGAP_LIST_LOCK(&(node->fd_list_head));
@@ -51,11 +51,12 @@ void add_topic(HashTable *ht,
 	}
 }
 
-struct hash_node *find_topic_fdlist(HashTable *ht,char *topic,pthread_mutex_t *ht_lock){
+
+struct hash_node *find_topic_fdlist(HashTable *ht,char *topic,pthread_rwlock_t *ht_lock){
 	struct hash_node *node=NULL;
-	pthread_mutex_lock(ht_lock);              
+	pthread_rwlock_rdlock(ht_lock);              
 	hash_find(ht,topic,&node);//查询topic相关的fd列表
-	pthread_mutex_unlock(ht_lock);
+	pthread_rwlock_unlock(ht_lock);
 	
 	return node;
 }

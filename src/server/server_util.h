@@ -46,11 +46,11 @@ typedef struct server{
 
     HashTable *ht;                  //hash表，保存 topic-fd 列表的映射
 
-    pthread_mutex_t ht_lock;           //互斥锁
+    pthread_rwlock_t ht_lock;           //互斥锁
 
     struct rb_root   conn_root;      //客户端连接节点
 
-    pthread_mutex_t rb_root_lock;      //互斥锁
+    pthread_rwlock_t  rb_root_lock;      //读写锁
 
 }server_t;
 

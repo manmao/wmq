@@ -285,8 +285,8 @@ void  init_server(server_t *server,char *ip,int port,struct server_handler *hand
     server->ht=create_fdtopic_hashtable();
 
     //初始化锁
-    pthread_mutex_init(&(server->ht_lock),NULL);
-    pthread_mutex_init(&(server->rb_root_lock),NULL);
+    pthread_rwlock_init(&(server->ht_lock),NULL);
+    pthread_rwlock_init(&(server->rb_root_lock),NULL);
 
 	//初始化MQ群组
 	int i=0;

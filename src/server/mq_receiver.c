@@ -19,9 +19,9 @@ int validate_conn(int fd,msg_queue_t *msgq){
 	struct conn_node conn;
 	conn.conn_fd=fd;
 
-	pthread_mutex_lock(msgq->rb_root_lock);              
+	pthread_rwlock_rdlock(msgq->rb_root_lock);              
 	struct conn_type * type=conn_search(msgq->conn_root,&conn);
-	pthread_mutex_unlock(msgq->rb_root_lock);
+	pthread_rwlock_unlock(msgq->rb_root_lock);
 
 	return type!=NULL?1:0;
 }
