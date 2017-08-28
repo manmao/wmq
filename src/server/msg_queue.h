@@ -24,14 +24,14 @@ typedef struct msg_queue{
 	HashTable *ht;
 
 	//
-	pthread_rwlock_t *ht_lock;           //互斥锁
+	pthread_rwlock_t *ht_lock;           //读写锁
 
 
 	struct rb_root *conn_root;  //存放客户端和服务端的连接
 
 	
 	//
-    pthread_rwlock_t *rb_root_lock;      //互斥锁
+    pthread_rwlock_t *rb_root_lock;      //读写锁
 
 
 	
