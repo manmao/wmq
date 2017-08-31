@@ -73,8 +73,11 @@ void  msg_queue_receiver(void *arg){
 	msg_queue_t *msgq=(msg_queue_t*)arg;
 
 	while(1){
+
 		socket_pkg_t *pkg=(socket_pkg_t *)pop_msg_head(msgq);
+		
 		if(pkg == NULL || pkg->msg == NULL) continue;
+
 		//pkg->topic查找到对应的消费者列表，遍历列表，依次发送数据;
 		if(pkg->topic != NULL){
 			printf("topic :%s ,reciver message:%s\n",pkg->topic,pkg->msg);

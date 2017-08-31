@@ -1,3 +1,4 @@
+
 package org.wmq.client;
 
 import org.wmq.message.SocketData;
@@ -20,7 +21,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 
 public class TcpClient {
 	
-    public static String HOST = "192.168.21.203";  
+    public static String HOST = "192.168.21.207";  
     public static int PORT = 9090;  
     
     public static Bootstrap bootstrap = getBootstrap();  
@@ -79,20 +80,19 @@ public class TcpClient {
     
     
     
-    
-    
-    
     public static void main(String[] args) throws Exception {  
     	
         try {  
+        	String topicString="manmao";
+        	/*TcpClient.sendMsg(createSubTopicPkg(topicString,"windows"));*/
             long t0 = System.nanoTime();  
-           /* TcpClient.sendMsg(createSubTopicPkg("manmao","windows"));*/
-            for (int i = 0; i < 100; i++) {
+            
+            for (int i = 0; i < 10000; i++) {
             	Thread.sleep(10);
   
-            	String msgString="可以按需创建集群，即离线作业运行结束就可以释放集群。可以动态的在需要的时候增加节点。 也可以选择包年包月长期运行";
+            	String msgString=topicString+"\t可";
 
-            	TcpClient.sendMsg(creatMsgPkg(msgString,"manmao1","windows"));
+            	TcpClient.sendMsg(creatMsgPkg(msgString,topicString,"windows"));
             }  
             long t1 = System.nanoTime();  
             System.out.println((t1-t0)/1000000.0);  
@@ -113,7 +113,7 @@ public class TcpClient {
     	data.setChecksum(128);
     	data.setTopic(topic.getBytes());
     	data.setFrom(from.getBytes());
-    	data.setMsg((message+Constants.delimiter).getBytes());
+    	data.setMsg(message.getBytes());
     	return data;
     }
     
