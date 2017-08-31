@@ -1,4 +1,4 @@
-/home/linux/Desktop/wmq/obj/client_util.o: client_util.c \
- /home/linux/Desktop/wmq/src/common/common_define.h client_util.h \
- /home/linux/Desktop/wmq/src/server/socket_pkg.h \
- /home/linux/Desktop/wmq/src/common/util.h
+/home/linux/wmq/obj/client_util.o: client_util.c \
+ /home/linux/wmq/src/common/common_define.h client_util.h \
+ /home/linux/wmq/src/server/socket_pkg.h \
+ /home/linux/wmq/src/common/util.h

@@ -1,6 +1,5 @@
-/home/linux/Desktop/wmq/obj/config_util.o: config_util.c config_util.h
-/home/linux/Desktop/wmq/obj/config.o: config.cpp config.h file_utils.h
-/home/linux/Desktop/wmq/obj/file_utils.o: file_utils.cpp file_utils.h \
- log_utils.h
-/home/linux/Desktop/wmq/obj/log_utils.o: log_utils.cpp log_utils.h
-/home/linux/Desktop/wmq/obj/opt_map.o: opt_map.cpp opt_map.h
+/home/linux/wmq/obj/config_util.o: config_util.c config_util.h
+/home/linux/wmq/obj/file_utils.o: file_utils.cpp file_utils.h log_utils.h
+/home/linux/wmq/obj/log_utils.o: log_utils.cpp log_utils.h
+/home/linux/wmq/obj/config.o: config.cpp config.h file_utils.h
+/home/linux/wmq/obj/opt_map.o: opt_map.cpp opt_map.h

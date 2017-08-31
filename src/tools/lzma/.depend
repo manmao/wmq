@@ -1,12 +1,11 @@
-/home/linux/Desktop/wmq/obj/7zFile.o: 7zFile.c 7zFile.h Types.h
-/home/linux/Desktop/wmq/obj/7zStream.o: 7zStream.c Types.h
-/home/linux/Desktop/wmq/obj/Alloc.o: Alloc.c Alloc.h
-/home/linux/Desktop/wmq/obj/LzFind.o: LzFind.c LzFind.h Types.h LzHash.h
-/home/linux/Desktop/wmq/obj/LzmaDec.o: LzmaDec.c LzmaDec.h Types.h
-/home/linux/Desktop/wmq/obj/LzmaEnc.o: LzmaEnc.c LzmaEnc.h Types.h \
- LzFind.h
-/home/linux/Desktop/wmq/obj/LzmaLib.o: LzmaLib.c LzmaEnc.h Types.h \
- LzmaDec.h Alloc.h LzmaLib.h
-/home/linux/Desktop/wmq/obj/LzmaUtil.o: LzmaUtil.c Alloc.h 7zFile.h \
- Types.h 7zVersion.h LzmaDec.h LzmaEnc.h
-/home/linux/Desktop/wmq/obj/test_main.o: test_main.c
+/home/linux/wmq/obj/LzmaDec.o: LzmaDec.c LzmaDec.h Types.h
+/home/linux/wmq/obj/7zFile.o: 7zFile.c 7zFile.h Types.h
+/home/linux/wmq/obj/LzmaLib.o: LzmaLib.c LzmaEnc.h Types.h LzmaDec.h \
+ Alloc.h LzmaLib.h
+/home/linux/wmq/obj/Alloc.o: Alloc.c Alloc.h
+/home/linux/wmq/obj/LzmaEnc.o: LzmaEnc.c LzmaEnc.h Types.h LzFind.h
+/home/linux/wmq/obj/LzFind.o: LzFind.c LzFind.h Types.h LzHash.h
+/home/linux/wmq/obj/7zStream.o: 7zStream.c Types.h
+/home/linux/wmq/obj/LzmaUtil.o: LzmaUtil.c Alloc.h 7zFile.h Types.h \
+ 7zVersion.h LzmaDec.h LzmaEnc.h
+/home/linux/wmq/obj/test_main.o: test_main.c
