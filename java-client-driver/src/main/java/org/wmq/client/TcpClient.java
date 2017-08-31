@@ -1,3 +1,4 @@
+
 package org.wmq.client;
 
 import org.wmq.message.SocketData;
@@ -82,11 +83,11 @@ public class TcpClient {
     public static void main(String[] args) throws Exception {  
     	
         try {  
-        	String topicString="manmao1";
-        	TcpClient.sendMsg(createSubTopicPkg(topicString,"windows"));
+        	String topicString="manmao";
+        	/*TcpClient.sendMsg(createSubTopicPkg(topicString,"windows"));*/
             long t0 = System.nanoTime();  
             
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 10000; i++) {
             	Thread.sleep(10);
   
             	String msgString=topicString+"\t可";

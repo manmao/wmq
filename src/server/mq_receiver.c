@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <assert.h>
 
 #include "mq_receiver.h"
 #include "msg_queue.h"
@@ -9,6 +10,8 @@
 #include "lists.h"
 #include "connect.h"
 
+
+static  char delimiter[]="$$";
 
 /**
  *判断保存的和客户端的连接是否可用，如果客户端已经断开，则返回0，没断开则返回1
@@ -48,7 +51,8 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
 			TGAP_LIST_UNLOCK(&(node->fd_list_head)); //解锁
 		}else{
 			printf("send msg to client socket fd :%d \n\n",current->fd);
-			int len=send(current->fd,pkg->msg,pkg->data_len,0);
+			send(current->fd,pkg->msg,pkg->data_len,0);
+			send(current->fd,delimiter,sizeof(delimiter)/sizeof(delimiter[0]),0);
 			free(pkg);
 			pkg=NULL;
 		}
@@ -66,10 +70,14 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
  */
 void  msg_queue_receiver(void *arg){
 
-	msg_queue_t *msgq=(msg_queue_t*)arg;
+	msg_queue_t *msgq=(msg_queue_t*)arg;s
 
 	while(1){
+
 		socket_pkg_t *pkg=(socket_pkg_t *)pop_msg_head(msgq);
+		
+		if(pkg == NULL || pkg->msg == NULL) continue;
+
 		//pkg->topic查找到对应的消费者列表，遍历列表，依次发送数据;
 		if(pkg->topic != NULL){
 			printf("topic :%s ,reciver message:%s\n",pkg->topic,pkg->msg);

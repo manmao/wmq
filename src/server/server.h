@@ -17,11 +17,6 @@ extern server_t *master_server;
 extern int server_init(int argc,char *argv[]);
 
 
-/**
- * 获取客户端请求包
- * @param arg struct conn_node连接节点
- */
-extern void handle_request(void *arg);
 
 
 
