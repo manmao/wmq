@@ -1,5 +1,5 @@
 
-package org.wmq.client;
+package demo;
 
 import org.wmq.message.SocketData;
 import org.wmq.message.SocketDataDecoder;
@@ -23,6 +23,7 @@ public class TcpClient {
 	
     public static String HOST = "192.168.21.207";  
     public static int PORT = 9090;  
+    
     
     public static Bootstrap bootstrap = getBootstrap();  
     public static Channel channel = getChannel(HOST,PORT);  
@@ -84,10 +85,10 @@ public class TcpClient {
     	
         try {  
         	String topicString="manmao";
-        	/*TcpClient.sendMsg(createSubTopicPkg(topicString,"windows"));*/
+        	//TcpClient.sendMsg(createSubTopicPkg(topicString,"windows"));
             long t0 = System.nanoTime();  
             
-            for (int i = 0; i < 10000; i++) {
+            for (int i = 0; i < 100; i++) {
             	Thread.sleep(10);
   
             	String msgString=topicString+"\t可";

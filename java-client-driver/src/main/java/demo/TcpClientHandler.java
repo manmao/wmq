@@ -1,4 +1,4 @@
-package org.wmq.client;
+package demo;
   
 import io.netty.channel.ChannelHandlerContext;  
 import io.netty.channel.SimpleChannelInboundHandler;  
