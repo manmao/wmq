@@ -70,7 +70,7 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
  */
 void  msg_queue_receiver(void *arg){
 
-	msg_queue_t *msgq=(msg_queue_t*)arg;s
+	msg_queue_t *msgq=(msg_queue_t*)arg;
 
 	while(1){
 
