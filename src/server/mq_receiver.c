@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "mq_receiver.h"
 #include "msg_queue.h"
@@ -8,8 +9,6 @@
 #include "lists.h"
 #include "connect.h"
 
-
-static char delimiter[]="$_";
 
 /**
  *判断保存的和客户端的连接是否可用，如果客户端已经断开，则返回0，没断开则返回1
@@ -49,8 +48,7 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
 			TGAP_LIST_UNLOCK(&(node->fd_list_head)); //解锁
 		}else{
 			printf("send msg to client socket fd :%d \n\n",current->fd);
-			int len=write(current->fd,pkg->msg,pkg->data_len);
-			write(current->fd,delimiter,sizeof(delimiter)/sizeof(delimiter[0]));
+			int len=send(current->fd,pkg->msg,pkg->data_len,0);
 			free(pkg);
 			pkg=NULL;
 		}

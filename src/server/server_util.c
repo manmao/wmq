@@ -291,15 +291,11 @@ void  init_server(server_t *server,char *ip,int port,struct server_handler *hand
 	//初始化MQ群组
 	int i=0;
     for(i=0;i<CONF.queue_num;i++){
-
        (server->mq)[i]=init_meesage_queue(&server->conn_root,server->ht,
        							&(server->ht_lock),
        							&(server->rb_root_lock)); //
     }
     server->queues=CONF.queue_num;
-
-    
-
 
     /** 注册监听信号进程 **/
     if(handler->handle_sig){
@@ -314,31 +310,19 @@ void  init_server(server_t *server,char *ip,int port,struct server_handler *hand
 
 //
 static void child_process(server_t *server,int thread_num,int thread_queue_num){
+   
+   server->workqueue=(struct workqueue_t *)malloc(sizeof(struct workqueue_t ));
+
    //初始化线程池
    if(thread_num ==0 || thread_queue_num == 0){
-     server->tpool=threadpool_init(DEFAULT_THREAD_NUM,DEFAULT_TASK_QUEUE_NUM); //初始化线程池,默认配置
+   	  workqueue_init(server->workqueue, DEFAULT_THREAD_NUM);//初始化线程池,默认配置
    }else{
-     server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
+   	  workqueue_init(server->workqueue, thread_num);//初始化线程池，用户配置
    }
    //开始监听
    op_server_listener(server);
 }
 
-//线程监听
-static void child_thread(server_t *server,int thread_num,int thread_queue_num)
-{
-    //初始化线程池
-    if(thread_num ==0 || thread_queue_num == 0){
-      server->tpool=threadpool_init(DEFAULT_THREAD_NUM,DEFAULT_TASK_QUEUE_NUM); //初始化线程池,默认配置
-    }else{
-      server->tpool=threadpool_init(thread_num,thread_queue_num); //初始化线程池，用户配置
-    }
-    //开启线程监听
-    pthread_t pt;
-	  pthread_create(&pt,NULL,(void *)&op_server_listener,(void *)server);
-	  pthread_detach(pt);
-	//pthread_join(pt,NULL);
-}
 
 
 /**
@@ -361,13 +345,11 @@ void start_listen(server_t *server,int thread_num,int thread_queue_num){
          errExit("fork失败,file:%s,line:%d",__FILE__,__LINE__);
     }
     if(server_pid == 0) //子进程
-	  {
+	 {
         server->handler->handle_listenmq();
         child_process(server,thread_num,thread_queue_num);
         
-	  }
-    else if(server_pid > 0) //父进程
-	  {
+	 }else if(server_pid > 0){ //父进程
         int status;
 	      pid_t ret;
         ret = wait(&status);   //wait
@@ -415,7 +397,7 @@ void destroy_server(server_t *server){
 	close(server->listenfd);
 	close(server->efd);
 
-	threadpool_destroy(server->tpool);
+	workqueue_shutdown(server->workqueue);
 
 	free(server);
 	log_write(CONF.lf,LOG_INFO,"服务器关闭\n");

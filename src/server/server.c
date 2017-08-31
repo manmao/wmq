@@ -17,6 +17,7 @@
 #include "service_dispatch.h"
 #include "mq_receiver.h"
 #include "msg_queue.h"
+#include "workqueue.h"
 
 
 server_t *master_server;
@@ -27,6 +28,7 @@ static
 void handle_sig(int sig)
 {
     printf("catch sig %d\n",sig);
+    destroy_server(master_server);
     exit(-1);
 }
 
@@ -64,8 +66,18 @@ int on_readable(int readable_fd)
     pthread_rwlock_rdlock(&(master_server->rb_root_lock));
     type=conn_search(&(master_server->conn_root),&node);
     pthread_rwlock_unlock(&(master_server->rb_root_lock));
+
+
     //将数据包加入任务队列
-    threadpool_add_job(master_server->tpool,(void *)&handle_request,type->node);
+    ///* Create a job object and add it to the work queue. */
+    job_t *job;
+    if ((job = malloc(sizeof(*job))) == NULL) {
+      warn("failed to allocate memory for job state");
+      return;
+    }
+    job->job_function = handle_request;
+    job->user_data = type->node;
+    workqueue_add_job(master_server->workqueue,handle_request);
     return 0;
 }
 
@@ -78,7 +90,6 @@ int handle_listenmq()
    pthread_t receiver_tid[20];
    int i;
    for(i = 0; i < master_server->queues; i++){
-      //master_server->mq[i]->ht=master_server->ht;
       pthread_create(&receiver_tid[i],NULL,(void *)&msg_queue_receiver,master_server->mq[i]);
    }
 
