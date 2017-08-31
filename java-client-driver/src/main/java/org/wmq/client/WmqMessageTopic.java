@@ -1,5 +1,6 @@
 package org.wmq.client;
 
+import org.wmq.message.SocketData;
 import org.wmq.message.SocketDataDecoder;
 import org.wmq.message.SocketDataEncoder;
 import org.wmq.vo.Constants;
@@ -24,14 +25,24 @@ public class WmqMessageTopic {
 	
 	private String topic;
 	
-	private  WmqMessageListener listener; 
+	private WmqMessageListener listener; 
 	
 	public WmqMessageTopic(NetConnection netConnection,WmqMessageListener listener){
 		this.netConnection=netConnection;
 		channel = getChannel(this.netConnection.getIp(),this.netConnection.getPort());  
+		subTopic("client",topic);
 	}
 	
-	public  void sendMsg(Object msg) throws Exception {
+	private void subTopic(String fromUser,String topic) {
+		try {
+			sendMsg(createSubTopicPkg(fromUser,topic));
+		} catch (Exception e) {
+			System.out.println("注册topic失败！！");
+			e.printStackTrace();
+		}
+	}
+	
+	private  void sendMsg(Object msg) throws Exception {
 		if (this.channel!= null) {
 			this.channel.writeAndFlush(msg).sync();
 		} else {
@@ -39,7 +50,7 @@ public class WmqMessageTopic {
 		}
 	}
 	
-	public  final Channel getChannel(String host,int port){  
+	private  final Channel getChannel(String host,int port){  
 	       Channel channel = null;  
 	       try {  
 	           channel = getBootstrap().connect(host, port).sync().channel();  
@@ -47,6 +58,7 @@ public class WmqMessageTopic {
 	           System.out.printf(String.format("连接Server(IP[%s],PORT[%s])失败", host,port),e);  
 	           return null;  
 	       }  
+
 	       return channel;  
 	}
 	
@@ -70,7 +82,21 @@ public class WmqMessageTopic {
        b.option(ChannelOption.SO_KEEPALIVE, true); 
        b.option(ChannelOption.TCP_NODELAY, true);
        return b;  
-   }  
+   }
+   
+   private static SocketData createSubTopicPkg(String fromUser,String topic){
+   		SocketData data=new SocketData();
+   		data.setVersion(1);
+   		data.setCode(0x0004); //编码方式
+   		data.setFd(0);
+   		data.setCmd(0x0003); //注册topic
+   		data.setDataLen(0);
+   		data.setChecksum(0);
+   		data.setTopic(topic.getBytes());
+   		data.setFrom(fromUser.getBytes());
+   		data.setMsg("".getBytes());
+   		return data;
+   }
 	
    
 }
