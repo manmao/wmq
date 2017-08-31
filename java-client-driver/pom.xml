@@ -21,12 +21,5 @@
 		<artifactId>netty-all</artifactId>
 		<version>4.1.9.Final</version>
 	</dependency>
-	<dependency>
-		<groupId>org.struct</groupId>
-		<artifactId>struct</artifactId>
-		<version>1.0</version>
-		<scope>system</scope>
-		<systemPath>${project.basedir}/libs/javastruct-0.1.jar</systemPath>
-	</dependency>
 </dependencies>
 </project>

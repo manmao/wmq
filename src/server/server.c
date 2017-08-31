@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <pthread.h>
+#include <assert.h>
 
 #include "socket_pkg.h"
 #include "config.h"
@@ -22,7 +23,7 @@
 
 server_t *master_server;
 
-void handle_request(void *arg);
+static void handle_request(struct job *job);
 
 static
 void handle_sig(int sig)
@@ -77,7 +78,7 @@ int on_readable(int readable_fd)
     }
     job->job_function = handle_request;
     job->user_data = type->node;
-    workqueue_add_job(master_server->workqueue,handle_request);
+    workqueue_add_job(master_server->workqueue,job);
     return 0;
 }
 
@@ -96,9 +97,9 @@ int handle_listenmq()
    return 0;
 }
 
-void handle_request(void *arg){
+static void handle_request(struct job *job){
 
-   struct conn_node *node=(struct conn_node *)arg;
+   struct conn_node *node=(struct conn_node *)job->user_data;
    socket_pkg_t *socket_pkt_ptr=NULL;
    pkg_header_t *header=NULL;  
    while(1)

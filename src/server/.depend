@@ -8,7 +8,7 @@
  /home/linux/Desktop/wmq/src/common/util.h \
  /home/linux/Desktop/wmq/src/server/server_util.h \
  /home/linux/Desktop/wmq/src/common/common_define.h \
- /home/linux/Desktop/wmq/src/thread/threadpool.h \
+ /home/linux/Desktop/wmq/src/thread/workqueue.h \
  /home/linux/Desktop/wmq/src/server/msg_queue.h \
  /home/linux/Desktop/wmq/src/server/topic_fd_map.h socket_pkg.h
 /home/linux/Desktop/wmq/obj/msg_queue.o: msg_queue.c msg_queue.h \
@@ -20,7 +20,7 @@
  /home/linux/Desktop/wmq/src/common/util.h \
  /home/linux/Desktop/wmq/src/server/server_util.h \
  /home/linux/Desktop/wmq/src/common/common_define.h \
- /home/linux/Desktop/wmq/src/thread/threadpool.h \
+ /home/linux/Desktop/wmq/src/thread/workqueue.h \
  /home/linux/Desktop/wmq/src/server/msg_queue.h \
  /home/linux/Desktop/wmq/src/server/topic_fd_map.h
 /home/linux/Desktop/wmq/obj/server.o: server.c socket_pkg.h \
@@ -28,7 +28,7 @@
  /home/linux/Desktop/wmq/src/common/log.h server.h server_util.h \
  /home/linux/Desktop/wmq/src/common/common_define.h \
  /home/linux/Desktop/wmq/lib/rbtree.h \
- /home/linux/Desktop/wmq/src/thread/threadpool.h \
+ /home/linux/Desktop/wmq/src/thread/workqueue.h \
  /home/linux/Desktop/wmq/src/common/connect.h \
  /home/linux/Desktop/wmq/src/common/util.h \
  /home/linux/Desktop/wmq/src/server/server_util.h msg_queue.h \
@@ -39,7 +39,7 @@
  /home/linux/Desktop/wmq/src/common/log.h server_util.h \
  /home/linux/Desktop/wmq/src/common/common_define.h \
  /home/linux/Desktop/wmq/lib/rbtree.h \
- /home/linux/Desktop/wmq/src/thread/threadpool.h \
+ /home/linux/Desktop/wmq/src/thread/workqueue.h \
  /home/linux/Desktop/wmq/src/common/connect.h \
  /home/linux/Desktop/wmq/src/common/util.h \
  /home/linux/Desktop/wmq/src/server/server_util.h msg_queue.h \
@@ -55,7 +55,7 @@
  service_dispatch.h server_util.h \
  /home/linux/Desktop/wmq/src/common/common_define.h \
  /home/linux/Desktop/wmq/lib/rbtree.h \
- /home/linux/Desktop/wmq/src/thread/threadpool.h \
+ /home/linux/Desktop/wmq/src/thread/workqueue.h \
  /home/linux/Desktop/wmq/src/common/connect.h \
  /home/linux/Desktop/wmq/src/common/util.h \
  /home/linux/Desktop/wmq/src/server/server_util.h msg_queue.h \

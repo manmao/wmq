@@ -33,7 +33,7 @@ typedef struct server{
 
 	int efd;						 //epoll文件描述符
 
-    struct workqueue_t *workqueue;		 //线程池
+    struct workqueue *workqueue;		 //线程池
     
     
     struct server_handler *handler;  //连接处理函数回调

@@ -80,12 +80,11 @@ void set_nodelay(int fd){
 
 	int optval; 	   //整形的选项值
 	socklen_t optlen;  //整形的选项值的长度
-	int err;		   //设置返回结果
 	
 	/*******禁用Nagle算法***********/
 	optval=1;
 	optlen=sizeof(optval);
-	err=setsockopt(fd,IPPROTO_TCP,TCP_NODELAY,(char *)&optval,optlen);
+	setsockopt(fd,IPPROTO_TCP,TCP_NODELAY,(char *)&optval,optlen);
 }
 
 /********************************
@@ -311,7 +310,7 @@ void  init_server(server_t *server,char *ip,int port,struct server_handler *hand
 //
 static void child_process(server_t *server,int thread_num,int thread_queue_num){
    
-   server->workqueue=(struct workqueue_t *)malloc(sizeof(struct workqueue_t ));
+   server->workqueue=(struct workqueue *)malloc(sizeof(struct workqueue));
 
    //初始化线程池
    if(thread_num ==0 || thread_queue_num == 0){
