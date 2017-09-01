@@ -86,7 +86,8 @@ void  msg_queue_receiver(void *arg){
 				send_message_to_list(msgq,node,pkg);
 			}
 		}
-		
+
+		sleep(50);
 		free(pkg);
 		pkg=NULL;
    	}
