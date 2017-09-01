@@ -48,7 +48,7 @@ int on_accept(int client_conn_fd,struct sockaddr clientaddr)
   type->node->conn_fd = client_conn_fd;
   type->node->epoll_fd = master_server->efd;
   type->node->clientaddr = clientaddr;
-  set_nodelay(client_conn_fd); //设置禁用Nagle
+  //set_nodelay(client_conn_fd); //设置禁用Nagle
 
   pthread_rwlock_wrlock(&(master_server->rb_root_lock));
   conn_insert(&(master_server->conn_root),type);
@@ -121,7 +121,7 @@ static void handle_request(struct job *job){
               pthread_rwlock_wrlock(&(master_server->rb_root_lock));
               conn_delete(&master_server->conn_root,node);
               pthread_rwlock_unlock(&(master_server->rb_root_lock));
-
+              
            }
            free(header);
            header=NULL;

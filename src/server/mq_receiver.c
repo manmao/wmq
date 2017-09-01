@@ -82,10 +82,10 @@ void  msg_queue_receiver(void *arg){
 			printf("topic :%s ,reciver message:%s\n",pkg->topic,pkg->msg);
 			//查找topic对应的列表
 			struct hash_node *node=find_topic_fdlist(msgq->ht,pkg->topic,msgq->ht_lock);
-			if(node!=NULL){
+			/*if(node!=NULL){
 				printf("send message......\n");
 				send_message_to_list(msgq,node,pkg);
-			}
+			}*/
 		}
    	}
    	
