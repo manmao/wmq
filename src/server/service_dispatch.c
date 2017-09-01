@@ -79,6 +79,7 @@ static uint8_t* deserialize_message(socket_pkg_t *pkg){
  */
 static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
 	
+
 	switch(pkg->cmd){
 
 		case MQ_OPEN:{
@@ -101,7 +102,7 @@ static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
 			send_msg_mq(mq,pkg);
 			break;
 		}
-
+		
 		default:
 			break;
 	}
@@ -110,6 +111,12 @@ static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
 
 void handle_socket_pkg(server_t *master_server,socket_pkg_t *pkg)
 {
+	if(pkg==NULL) return; 
+	if(pkg->msg == NULL){ 
+		free(pkg);
+		pkg=NULL;
+		return;
+	}
 	dispatch_service(master_server,pkg);	
 }
 
