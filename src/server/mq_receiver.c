@@ -23,7 +23,7 @@ int validate_conn(int fd,msg_queue_t *msgq){
 
 	struct conn_node conn;
 	conn.conn_fd=fd;
-
+	
 	pthread_rwlock_rdlock(msgq->rb_root_lock);              
 	struct conn_type * type=conn_search(msgq->conn_root,&conn);
 	pthread_rwlock_unlock(msgq->rb_root_lock);
@@ -87,7 +87,7 @@ void  msg_queue_receiver(void *arg){
 			}
 		}
 
-		sleep(50);
+		usleep(50*1000);		
 		free(pkg);
 		pkg=NULL;
    	}
