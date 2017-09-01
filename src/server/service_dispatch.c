@@ -16,7 +16,7 @@ static int queue_idx=0;
  */
 static
 int select_qeueue_default(server_t *master_server){
-
+	int queue_no=0;
 	return queue_no;
 }
 
