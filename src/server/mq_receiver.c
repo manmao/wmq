@@ -23,7 +23,7 @@ int validate_conn(int fd,msg_queue_t *msgq){
 
 	struct conn_node conn;
 	conn.conn_fd=fd;
-	
+
 	pthread_rwlock_rdlock(msgq->rb_root_lock);              
 	struct conn_type * type=conn_search(msgq->conn_root,&conn);
 	pthread_rwlock_unlock(msgq->rb_root_lock);
@@ -54,12 +54,12 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
 			printf("send msg to client socket fd :%d \n\n",current->fd);
 			send(current->fd,pkg->msg,pkg->data_len,0);
 			send(current->fd,delimiter,sizeof(delimiter)/sizeof(delimiter[0]),0);
-			free(pkg);
-			pkg=NULL;
 		}
 	} 
-
 	TGAP_LIST_TRAVERSE_SAFE_END;
+	
+	free(pkg);
+	pkg=NULL;
 }
 
 
