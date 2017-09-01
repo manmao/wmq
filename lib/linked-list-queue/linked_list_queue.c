@@ -78,7 +78,12 @@ void *llqueue_poll(
     if (qu->tail == qu->head)
         qu->tail = NULL;
     qu->head = node->next;
-    free(node);
+    
+    if( node!=NULL ){
+         free(node);
+        node=NULL;
+    }
+   
     qu->count--;
 
     return item;
