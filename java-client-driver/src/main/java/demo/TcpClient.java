@@ -1,6 +1,9 @@
 
 package demo;
 
+import org.wmq.client.NetConnection;
+import org.wmq.client.WmqMessageListener;
+import org.wmq.client.WmqMessageTopic;
 import org.wmq.message.SocketData;
 import org.wmq.message.SocketDataDecoder;
 import org.wmq.message.SocketDataEncoder;
@@ -82,13 +85,13 @@ public class TcpClient {
     
     
     public static void main(String[] args) throws Exception {  
-    	
+    /*	
         try {  
         	String topicString="manmao";
         	//TcpClient.sendMsg(createSubTopicPkg(topicString,"windows"));
             long t0 = System.nanoTime();  
             
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 1000; i++) {
             	Thread.sleep(10);
   
             	String msgString=topicString+"\t可";
@@ -100,7 +103,16 @@ public class TcpClient {
             System.exit(0);
         } catch (Exception e) {  
             e.printStackTrace();  
-        }  
+        }  */
+    	
+    	WmqMessageTopic topic=new WmqMessageTopic(new NetConnection("192.168.21.207",9090),"manmao",new WmqMessageListener() {
+			
+			@Override
+			public void onMessage(Object msg) {
+				System.out.println(msg);
+			}
+		});
+    	
     }
     
     

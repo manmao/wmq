@@ -116,7 +116,7 @@ static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
 			
 	
 
-			int idx=select_qeueue_default(master_server);
+			int idx=select_queue_round(master_server);
 			printf("queues number :%d\n",idx);
 			msg_queue_t *mq=master_server->mq[idx]; //选择负载最小的队列
 			send_msg_mq(mq,pkg);

@@ -74,10 +74,8 @@ public class WmqMessageTopic {
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipeline = ch.pipeline();
 				// 设置特殊分隔符
-				ByteBuf buf = Unpooled.copiedBuffer(Constants.delimiter
-						.getBytes());
-				pipeline.addLast(new DelimiterBasedFrameDecoder(
-						1024 * 1024 * 10, buf));
+				ByteBuf buf = Unpooled.copiedBuffer(Constants.delimiter.getBytes());
+				pipeline.addLast(new DelimiterBasedFrameDecoder(1024 * 1024 * 10, buf));
 				pipeline.addLast("decoder", new SocketDataDecoder());
 				pipeline.addLast("encoder", new SocketDataEncoder());
 				pipeline.addLast("handler", listener);
