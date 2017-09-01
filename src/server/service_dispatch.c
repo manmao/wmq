@@ -10,31 +10,13 @@
 
 static int queue_idx=0;
 
-/*static int validate_pkg(server_t *master_server,socket_pkg_t *pkg){
-	if(find_topic_fdlist(&(master_server->ht),pkg->topic,&(master_server->rb_root_lock))==NULL){
-		return 0;
-	}else{
-		return 1;
-	}
-		
-}*/
 
 /**
- * 根据消息队列的负载，选在消息队列
+ * hash负载均衡，选在消息队列
  */
 static
 int select_qeueue_default(server_t *master_server){
-	int i;
-	int min_len=100000000;
-	int queue_no=0;
-	
-	for(i=0; i<master_server->queues; i++){
-		int count=count_queue(master_server->mq[i]);
-		if(count<=min_len){
-			queue_no=i;
-			min_len=count;
-		}
-	}
+
 	return queue_no;
 }
 
@@ -113,9 +95,6 @@ static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
 		}
 		
 		case MQ_PUBMSG:{	//发送消息到消息队列
-			
-	
-
 			int idx=select_queue_round(master_server);
 			printf("queues number :%d\n",idx);
 			msg_queue_t *mq=master_server->mq[idx]; //选择负载最小的队列

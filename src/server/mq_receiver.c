@@ -46,9 +46,9 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
 		//如果客户端断开连接，则移除连接的文件描述符号
 		if(validate_conn(current->fd,msgq) == 0){
 			printf("delete socket fd :%d \n\n",current->fd);
-			TGAP_LIST_LOCK(&(node->fd_list_head)); //加锁
+			TGAP_RWLIST_WRLOCK(&(node->fd_list_head)); //加锁
 			TGAP_LIST_REMOVE_CURRENT(field);
-			TGAP_LIST_UNLOCK(&(node->fd_list_head)); //解锁
+			TGAP_RWLIST_UNLOCK(&(node->fd_list_head)); //解锁
 		}else{
 			printf("send msg to client socket fd :%d \n\n",current->fd);
 			send(current->fd,pkg->msg,pkg->data_len,0);
@@ -56,7 +56,6 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
 			free(pkg);
 			pkg=NULL;
 		}
-
 	} 
 
 	TGAP_LIST_TRAVERSE_SAFE_END;
@@ -81,7 +80,7 @@ void  msg_queue_receiver(void *arg){
 		//pkg->topic查找到对应的消费者列表，遍历列表，依次发送数据;
 		if(pkg->topic != NULL){
 			printf("topic :%s ,reciver message:%s\n",pkg->topic,pkg->msg);
-			//find topic fd_list
+			//查找topic对应的列表
 			struct hash_node *node=find_topic_fdlist(msgq->ht,pkg->topic,msgq->ht_lock);
 			if(node!=NULL){
 				printf("send message......\n");

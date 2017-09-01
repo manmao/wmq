@@ -48,9 +48,6 @@ typedef unsigned long long int uint64_t*/
 //来源大小
 #define FROM_BUFF_SIZE 64
 
-#define TOPIC_BUFF_SIZE 128
-
-#define FROM_BUFF_SIZE 64
 
 typedef struct pkg_header{
 	uint32_t            version;      //协议版本

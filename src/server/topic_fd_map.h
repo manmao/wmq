@@ -19,7 +19,7 @@ struct list_entry{  //entry / elem
 // TGAP_LIST_HEAD_INIT(&fd_list);	 		   //初始化头结点
 struct hash_node{ 
 	//head 
-	TGAP_LIST_HEAD(FD_LIST,list_entry) fd_list_head; //声明一个头结点
+	TGAP_RWLIST_HEAD(FD_LIST,list_entry) fd_list_head; //声明一个头结点
 	
 };
 

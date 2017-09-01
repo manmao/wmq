@@ -6,7 +6,6 @@
 #include "topic_fd_map.h"
 
 
-
 HashTable *create_fdtopic_hashtable(){
 	 HashTable *ht = create_hashtable(100,char*,long);
 	 return ht;
@@ -20,7 +19,7 @@ void add_topic(HashTable *ht,
 	struct list_entry *entry=(struct list_entry*)malloc(sizeof(struct list_entry));
 	entry->fd=fd;
 	entry->topic=(char *)malloc(sizeof(strlen(topic)));
-	strcpy(entry->topic,topic);
+	memcpy(entry->topic,topic,128);
 
 	struct hash_node *node=NULL;
 	
@@ -33,21 +32,20 @@ void add_topic(HashTable *ht,
 		node=(struct hash_node *)malloc(sizeof(struct hash_node));
 
 		//初始链表
-		TGAP_LIST_HEAD_INIT(&(node->fd_list_head));
-
+		TGAP_RWLIST_HEAD_INIT(&(node->fd_list_head));
 		//在链表尾部插入节点
-		TGAP_LIST_LOCK(&(node->fd_list_head)); //加锁
+		TGAP_RWLIST_WRLOCK(&(node->fd_list_head)); //加锁
 		TGAP_LIST_INSERT_TAIL(&(node->fd_list_head),entry,field);
-		TGAP_LIST_UNLOCK(&(node->fd_list_head)); //解锁
+		TGAP_RWLIST_UNLOCK(&(node->fd_list_head)); //解锁
 
 		pthread_rwlock_wrlock(ht_lock); //阻塞,加锁
 		hash_add(ht,topic,node); //添加到hash
 		pthread_rwlock_unlock(ht_lock);
 
 	}else{//有注册fd得链表
-		TGAP_LIST_LOCK(&(node->fd_list_head));
+		TGAP_RWLIST_WRLOCK(&(node->fd_list_head));
 		TGAP_LIST_INSERT_TAIL(&(node->fd_list_head),entry,field);
-		TGAP_LIST_UNLOCK(&(node->fd_list_head));
+		TGAP_RWLIST_UNLOCK(&(node->fd_list_head));
 	}
 }
 
@@ -74,7 +72,7 @@ void delete_fd(HashTable *ht,char *topic,int fd){
 
 	TGAP_LIST_TRAVERSE_SAFE_BEGIN( &(node->fd_list_head), current, field){
 		if(current->fd == fd){
-			TGAP_LIST_LOCK(&(node->fd_list_head));
+			TGAP_RWLIST_WRLOCK(&(node->fd_list_head));
 			TGAP_LIST_REMOVE_CURRENT(field);
 			TGAP_LIST_UNLOCK(&(node->fd_list_head));
 		}
