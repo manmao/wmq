@@ -58,8 +58,6 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
 	} 
 	TGAP_LIST_TRAVERSE_SAFE_END;
 
-	free(pkg);
-	pkg=NULL;
 }
 
 
@@ -88,6 +86,9 @@ void  msg_queue_receiver(void *arg){
 				send_message_to_list(msgq,node,pkg);
 			}
 		}
+		
+		free(pkg);
+		pkg=NULL;
    	}
    	
 }

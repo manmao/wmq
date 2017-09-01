@@ -55,6 +55,7 @@ struct hash_node *find_topic_fdlist(HashTable *ht,char *topic,pthread_rwlock_t *
 	pthread_rwlock_rdlock(ht_lock);              
 	hash_find(ht,topic,&node);//查询topic相关的fd列表
 	pthread_rwlock_unlock(ht_lock);
+	
 	return node;
 }
 

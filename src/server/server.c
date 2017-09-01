@@ -121,7 +121,6 @@ static void handle_request(struct job *job){
               pthread_rwlock_wrlock(&(master_server->rb_root_lock));
               conn_delete(&master_server->conn_root,node);
               pthread_rwlock_unlock(&(master_server->rb_root_lock));
-              
            }
            free(header);
            header=NULL;
