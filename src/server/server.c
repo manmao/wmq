@@ -147,8 +147,10 @@ static void handle_request(struct job *job){
           if(socket_pkt_ptr->data_len > 0){ //
               //接收消息体
               int res=recv(node->conn_fd,(void *)socket_pkt_ptr->msg,socket_pkt_ptr->data_len,0);
-              if(res<0)
-                log_write(CONF.lf,LOG_ERROR,"#####receive data body fail!!!###########\n");
+              if(res<0){ //接收消息体失败，丢包
+                  log_write(CONF.lf,LOG_ERROR,"#####receive data body fail!!!###########\n");
+                  continue;
+              }
           }
           //处理消息消息包
           handle_socket_pkg(master_server,socket_pkt_ptr);

@@ -105,7 +105,7 @@ public class TcpClient {
             e.printStackTrace();  
         }  */
     	
-    	WmqMessageTopic topic=new WmqMessageTopic(new NetConnection("192.168.21.207",9090),"manmao2",new WmqMessageListener() {
+    	WmqMessageTopic topic=new WmqMessageTopic(new NetConnection("192.168.21.207",9090),"manmao3",new WmqMessageListener() {
 			
 			@Override
 			public void onMessage(Object msg) {
