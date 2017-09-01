@@ -76,7 +76,7 @@ void  msg_queue_receiver(void *arg){
 		
 		if(pkg == NULL) continue;
 		if(pkg->msg == NULL) continue;
-		
+
 		//pkg->topic查找到对应的消费者列表，遍历列表，依次发送数据;
 		if(pkg->topic != NULL){
 			printf("topic :%s ,reciver message:%s\n",pkg->topic,pkg->msg);
@@ -88,9 +88,12 @@ void  msg_queue_receiver(void *arg){
 			}
 		}
 
-		usleep(50*1000);		
-		free(pkg);
-		pkg=NULL;
+
+		usleep(100*1000);
+		if(pkg != NULL){
+			free(pkg);
+			pkg=NULL;
+		}		
    	}
    	
 }

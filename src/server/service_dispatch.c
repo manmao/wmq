@@ -97,8 +97,9 @@ static void dispatch_service(server_t *master_server,socket_pkg_t *pkg){
 		
 		case MQ_PUBMSG:{	//发送消息到消息队列
 
-			struct hash_node *node=find_topic_fdlist(&master_server->ht,pkg->topic,&master_server->ht_lock);
+			struct hash_node *node=find_topic_fdlist(master_server->ht,pkg->topic,&master_server->ht_lock);
 			if(node==NULL) return;
+
 			int idx=select_queue_round(master_server);
 			printf("queues number :%d\n",idx);
 			msg_queue_t *mq=master_server->mq[idx]; //选择负载最小的队列
