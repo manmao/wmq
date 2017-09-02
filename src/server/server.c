@@ -70,8 +70,7 @@ int on_readable(int readable_fd)
     pthread_rwlock_unlock(&(master_server->rb_root_lock));
 
 
-    //将数据包加入任务队列
-    ///* Create a job object and add it to the work queue. */
+    //新建任务加入队列
     job_t *job;
     if ((job = malloc(sizeof(*job))) == NULL) {
       printf("%s\n","failed to allocate memory for job state");
@@ -138,12 +137,12 @@ static void handle_request(struct job *job){
 
        }else if(buflen>0){
           
-          printf("version:%d, header size:%d\n",header->version,buflen);
+          printf("producer------ version:%d, header size:%d\n",header->version,buflen);
           
           socket_pkt_ptr=create_socket_pkg_instance();
           socket_pkt_ptr=add_header(socket_pkt_ptr,header); 
           socket_pkt_ptr->fd=node->conn_fd;
-
+          
           if(socket_pkt_ptr->data_len > 0){ //
               //接收消息体
               int res=recv(node->conn_fd,(void *)socket_pkt_ptr->msg,socket_pkt_ptr->data_len,0);
@@ -176,7 +175,7 @@ int server_init(int argc,char *argv[])
     init_server(master_server,NET_CONF.ip,NET_CONF.port,handler);
     
     //开始监听
-    start_listen(master_server,8,10000); //启动服务器监听子进程
+    start_listen(master_server,8,10000); //启动服务器监听子进程,8个线程
 
     return 0;
 }
