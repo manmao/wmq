@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <sys/types.h>
 
 #include "topic_fd_map.h"
 

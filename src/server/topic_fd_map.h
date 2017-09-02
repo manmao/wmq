@@ -2,6 +2,7 @@
 #define __TOP_FD_MAP_H_
 
 #include <pthread.h>
+#include <sys/types.h>
 
 #include "hashtable.h"
 #include "lists.h"
