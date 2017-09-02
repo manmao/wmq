@@ -83,7 +83,6 @@ public class TcpClient {
     } 
     
     
-    
     public static void main(String[] args) throws Exception {  
     /*	
         try {  
@@ -105,7 +104,7 @@ public class TcpClient {
             e.printStackTrace();  
         }  */
     	
-    	WmqMessageTopic topic=new WmqMessageTopic(new NetConnection("192.168.21.207",9090),"message",new WmqMessageListener() {
+    	WmqMessageTopic topic=new WmqMessageTopic(new NetConnection("192.168.21.207",9090),"manmao2",new WmqMessageListener() {
 			
 			@Override
 			public void onMessage(Object msg) {

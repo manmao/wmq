@@ -88,7 +88,6 @@ void  msg_queue_receiver(void *arg){
 			}
 		}
 		
-		usleep(100*1000);
 		if(pkg != NULL){
 			free(pkg);
 			pkg=NULL;

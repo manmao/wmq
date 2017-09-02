@@ -8,7 +8,7 @@ msg_queue_t* init_meesage_queue(struct rb_root *conn_root,
                         HashTable *ht,
                         pthread_rwlock_t *ht_lock, 
                         pthread_rwlock_t *rb_root_lock){
-
+    
     msg_queue_t *mq_ptr;
     mq_ptr=(msg_queue_t *)malloc(sizeof(msg_queue_t)); 
     mq_ptr->list_queue=(linked_list_queue_t *)llqueue_new();
