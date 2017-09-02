@@ -12,7 +12,7 @@ HashTable *create_fdtopic_hashtable(){
 }
 
 void add_topic(HashTable *ht,
-	char *topic,
+	uint8_t *topic,
 	int fd,
 	pthread_rwlock_t *ht_lock){
 

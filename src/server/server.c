@@ -42,6 +42,7 @@ int handle_unknown(int event_fd)
 static
 int on_accept(int client_conn_fd,struct sockaddr clientaddr)
 {
+
   //往红黑树中插入节点
   struct conn_type *type=(struct conn_type *)malloc(sizeof(struct conn_type));
   type->node=(struct conn_node *)malloc(sizeof(struct conn_node));
@@ -73,7 +74,7 @@ int on_readable(int readable_fd)
     ///* Create a job object and add it to the work queue. */
     job_t *job;
     if ((job = malloc(sizeof(*job))) == NULL) {
-      warn("failed to allocate memory for job state");
+      printf("%s\n","failed to allocate memory for job state");
       return;
     }
     job->job_function = handle_request;
