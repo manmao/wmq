@@ -15,7 +15,7 @@ public class PublishMessageClient {
     	
     	WmqTemplate wmqTemplate=new WmqTemplate(new NetConnection(HOST, PORT));
     	for(int i=0;i<1000;i++){
-    		wmqTemplate.pulishMessage("manmao", "####################");
+    		wmqTemplate.pulishMessage("manmao", "39428759832498345");
     	}
     	System.exit(0);
     }
