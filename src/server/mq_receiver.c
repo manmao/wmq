@@ -12,8 +12,6 @@
 #include "connect.h"
 
 
-static  char delimiter[]="$$";
-
 /**
  *判断保存的和客户端的连接是否可用，如果客户端已经断开，则返回0，没断开则返回1
  * 
@@ -53,9 +51,8 @@ static void send_message_to_list(msg_queue_t *msgq,struct hash_node *node,socket
 		}else{
 			printf("consumer------send msg to client socket fd :%d \n\n",current->fd);
 			send(current->fd,pkg->msg,pkg->data_len,0);
-			send(current->fd,delimiter,sizeof(delimiter)/sizeof(delimiter[0]),0);
 		}
-	} 
+	}
 	TGAP_LIST_TRAVERSE_SAFE_END;
 
 }
@@ -87,7 +84,7 @@ void  msg_queue_receiver(void *arg){
 				send_message_to_list(msgq,node,pkg);
 			}
 		}
-		
+
 		if(pkg != NULL){
 			free(pkg);
 			pkg=NULL;

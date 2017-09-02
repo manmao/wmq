@@ -14,10 +14,10 @@ public class PublishMessageClient {
     public static void main(String[] args) throws Exception {  
     	
     	WmqTemplate wmqTemplate=new WmqTemplate(new NetConnection(HOST, PORT));
-    	for(int i=0;i<10000;i++){
-    		wmqTemplate.pulishMessage("manmao2", "xxxxxxxxxxxxxxxxxxxxxx");
+    	for(int i=0;i<5000;i++){
+    		wmqTemplate.pulishMessage("manmao", "########################");
     	}
-    	
+    	System.exit(0);
     }
     
     
