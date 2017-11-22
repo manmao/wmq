@@ -343,21 +343,19 @@ void start_listen(server_t *server,int thread_num,int thread_queue_num){
          log_write(CONF.lf,LOG_ERROR,"监听失败,file:%s,line:%d",__FILE__,__LINE__);
          errExit("fork失败,file:%s,line:%d",__FILE__,__LINE__);
     }
-    if(server_pid == 0) //子进程
-	 {
-        server->handler->handle_listenmq();
-        child_process(server,thread_num,thread_queue_num);
-        
-	 }else if(server_pid > 0){ //父进程
-        int status;
-	      pid_t ret;
-        ret = wait(&status);   //wait
-        if(ret <0){
+    if(server_pid == 0){ //子进程
+         server->handler->handle_listenmq();  //针对每个队列启动线程
+         child_process(server,thread_num,thread_queue_num);
+    }else if(server_pid > 0){ //父进程
+          int status;
+	  pid_t ret;
+          ret = wait(&status);   //wait
+          if(ret <0){
 		    perror("wait error");
 		    exit(EXIT_FAILURE);
-	    }
+	  }
 
-        //exit normal
+          //exit normal
 	    if (WIFEXITED(status)){
 		    log_write(CONF.lf,LOG_INFO,"child exited normal exit status=%d\n",WEXITSTATUS(status));
 	    }
