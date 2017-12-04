@@ -7,7 +7,7 @@ import org.wmq.client.WmqTemplate;
 
 public class PublishMessageClient {
 	
-    public static String HOST = "192.168.21.207";  
+    public static String HOST = "192.168.1.4";  
     public static int PORT = 9090;  
     
     

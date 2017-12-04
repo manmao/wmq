@@ -6,6 +6,7 @@
 
 #include "topic_fd_map.h"
 
+#define TOPIC_BUFF_SIZE 128  
 
 HashTable *create_fdtopic_hashtable(){
 	 HashTable *ht = create_hashtable(100,char*,long);
@@ -13,15 +14,18 @@ HashTable *create_fdtopic_hashtable(){
 }
 
 void add_topic(HashTable *ht,
-	char *topic,
+	uint8_t *topic,
 	int fd,
 	pthread_rwlock_t *ht_lock){
 
 	struct list_entry *entry=(struct list_entry*)malloc(sizeof(struct list_entry));
+	
 	entry->fd=fd;
-	entry->topic=(char *)malloc(sizeof(strlen(topic)));
-	memcpy(entry->topic,topic,128);
 
+	//复制大小
+	entry->topic=(char *)malloc(strlen(topic)*sizeof(uint8_t));
+    memcpy(entry->topic,topic,strlen(topic)*sizeof(uint8_t));
+	
 	struct hash_node *node=NULL;
 	
 	pthread_rwlock_rdlock(ht_lock); //阻塞,加锁

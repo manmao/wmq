@@ -3,6 +3,8 @@
 
 #include <pthread.h>
 #include <sys/types.h>
+#include <stdlib.h>
+#include <stdint.h>
 
 #include "hashtable.h"
 #include "lists.h"
@@ -42,7 +44,7 @@ extern HashTable *create_fdtopic_hashtable();
  * @param ht_lock  [hashtable 的互斥锁]
  */
 extern void add_topic(HashTable *ht,
-			char *topic,
+			uint8_t *topic,
 			int fd,
 			pthread_rwlock_t *ht_lock);
 

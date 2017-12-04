@@ -24,7 +24,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 
 public class TcpClient {
 	
-    public static String HOST = "192.168.21.207";  
+    public static String HOST = "192.168.1.4";  
     public static int PORT = 9090;  
     
     
@@ -104,7 +104,7 @@ public class TcpClient {
             e.printStackTrace();  
         }  */
     	
-    	WmqMessageTopic topic=new WmqMessageTopic(new NetConnection("192.168.21.207",9090),"manmao",new WmqMessageListener() {
+    	WmqMessageTopic topic=new WmqMessageTopic(new NetConnection("192.168.1.4",9090),"manmao",new WmqMessageListener() {
 			
 			@Override
 			public void onMessage(Object msg) {
