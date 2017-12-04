@@ -19,10 +19,10 @@ void add_topic(HashTable *ht,
 	pthread_rwlock_t *ht_lock){
 
 	struct list_entry *entry=(struct list_entry*)malloc(sizeof(struct list_entry));
-	
+
 	entry->fd=fd;
 
-	//复制大小
+	//复制topic,注意开辟字节数据计算方法，容易出问题
 	entry->topic=(char *)malloc(strlen(topic)*sizeof(uint8_t));
     memcpy(entry->topic,topic,strlen(topic)*sizeof(uint8_t));
 	
