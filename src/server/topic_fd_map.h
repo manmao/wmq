@@ -42,7 +42,7 @@ extern HashTable *create_fdtopic_hashtable();
  * @param ht_lock  [hashtable 的互斥锁]
  */
 extern void add_topic(HashTable *ht,
-			uint8_t *topic,
+			char *topic,
 			int fd,
 			pthread_rwlock_t *ht_lock);
 

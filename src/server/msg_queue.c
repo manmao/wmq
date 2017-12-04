@@ -17,11 +17,11 @@ msg_queue_t* init_meesage_queue(struct rb_root *conn_root,
     mq_ptr=(msg_queue_t *)malloc(sizeof(msg_queue_t)); 
     mq_ptr->list_queue=(linked_list_queue_t *)llqueue_new();
     
-    //初始化消息队列 读取 锁和条件变量
+    //初始化消息队列 读取锁 和 等待读取条件变量
     pthread_mutex_init(&(mq_ptr->msg_queue_take_mutex),NULL);
     pthread_cond_init(&(mq_ptr->not_empty_cond),NULL);
 
-    //初始化 消息队列锁 写入 锁和条件变量
+    //初始化 消息队列锁 写入锁 和 等待写入条件变量
     pthread_mutex_init(&(mq_ptr->msg_queue_put_mutex),NULL);
     pthread_cond_init(&(mq_ptr->not_full_cond),NULL);
     
