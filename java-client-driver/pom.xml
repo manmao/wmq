@@ -16,11 +16,48 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<dependencies>
+  <dependencies>
 	<dependency>
 		<groupId>io.netty</groupId>
 		<artifactId>netty-all</artifactId>
 		<version>4.1.9.Final</version>
 	</dependency>
-</dependencies>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <finalName>wmq-client-jar-with-dependencies</finalName>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+	  <plugin>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<configuration>
+		<source>1.6</source>
+		<target>1.6</target>
+		<encoding>UTF-8</encoding>
+		<compilerArguments>
+			<extdirs>libs</extdirs>
+		</compilerArguments>
+		</configuration>
+	</plugin>
+   </plugins>
+  </build>
+
+
+
 </project>
