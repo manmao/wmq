@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/56/trunk/javastruct/minalibs
+END
+mina-core-1.1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/56/trunk/javastruct/minalibs/mina-core-1.1.0.jar
+END
+slf4j-api-1.4.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/56/trunk/javastruct/minalibs/slf4j-api-1.4.3.jar
+END
+slf4j-nop-1.4.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/56/trunk/javastruct/minalibs/slf4j-nop-1.4.3.jar
+END

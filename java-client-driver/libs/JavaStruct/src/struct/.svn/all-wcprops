@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/57/trunk/javastruct/src/struct
+END
+StructException.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/6/trunk/javastruct/src/struct/StructException.java
+END
+StructInput.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/55/trunk/javastruct/src/struct/StructInput.java
+END
+StructUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/52/trunk/javastruct/src/struct/StructUtils.java
+END
+StructOutput.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/51/trunk/javastruct/src/struct/StructOutput.java
+END
+CString.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/6/trunk/javastruct/src/struct/CString.java
+END
+StructClass.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/6/trunk/javastruct/src/struct/StructClass.java
+END
+StructPacker.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/51/trunk/javastruct/src/struct/StructPacker.java
+END
+Constants.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/12/trunk/javastruct/src/struct/Constants.java
+END
+StructUnpacker.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/57/trunk/javastruct/src/struct/StructUnpacker.java
+END
+StructData.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/50/trunk/javastruct/src/struct/StructData.java
+END
+ArrayLengthMarker.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/8/trunk/javastruct/src/struct/ArrayLengthMarker.java
+END
+StructFieldData.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/50/trunk/javastruct/src/struct/StructFieldData.java
+END
+JavaStruct.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/27/trunk/javastruct/src/struct/JavaStruct.java
+END
+LEDataInputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/6/trunk/javastruct/src/struct/LEDataInputStream.java
+END
+LEDataOutputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/27/trunk/javastruct/src/struct/LEDataOutputStream.java
+END
+StructField.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/6/trunk/javastruct/src/struct/StructField.java
+END

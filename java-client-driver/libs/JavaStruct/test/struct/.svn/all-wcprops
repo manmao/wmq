@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/54/trunk/javastruct/test/struct
+END
+TestLengthMarker.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/40/trunk/javastruct/test/struct/TestLengthMarker.java
+END
+TestSimpleNestedStructs.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/40/trunk/javastruct/test/struct/TestSimpleNestedStructs.java
+END
+PrivatePrimitiveArrays.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/40/trunk/javastruct/test/struct/PrivatePrimitiveArrays.java
+END
+PrivatePrimitives.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/40/trunk/javastruct/test/struct/PrivatePrimitives.java
+END
+PublicPrimitiveArrays.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/40/trunk/javastruct/test/struct/PublicPrimitiveArrays.java
+END
+PublicPrimitives.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/40/trunk/javastruct/test/struct/PublicPrimitives.java
+END
+TestPrimitiveArrays.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/40/trunk/javastruct/test/struct/TestPrimitiveArrays.java
+END
+AllTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/40/trunk/javastruct/test/struct/AllTests.java
+END
+TestPrimitives.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/40/trunk/javastruct/test/struct/TestPrimitives.java
+END
+SimpleNested.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/40/trunk/javastruct/test/struct/SimpleNested.java
+END
+LengthMarkers.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/44/trunk/javastruct/test/struct/LengthMarkers.java
+END
+TimeTracker.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/44/trunk/javastruct/test/struct/TimeTracker.java
+END
+Util.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/54/trunk/javastruct/test/struct/Util.java
+END
+TestPrimitives2.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/54/trunk/javastruct/test/struct/TestPrimitives2.java
+END
+PerfTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/47/trunk/javastruct/test/struct/PerfTests.java
+END
